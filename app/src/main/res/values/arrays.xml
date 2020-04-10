@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string-array name="function">
+        <item>connect pressure test</item>
+        <item>HttpConnect test</item>
+        <item>Wifi test</item>
+        <item>Ping test</item>
+        <item>Beep test</item>
+        <item>TestWifiManager</item>
+        <item>TestListView</item>
+        <item>TimePickerTest</item>
+    </string-array>
+</resources>

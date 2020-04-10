@@ -1,0 +1,17 @@
+{
+  "enabled": 1,
+  "err_code": 0,
+  "message": "",
+  "list": [
+    {
+      "mac": "001122334457",
+      "ip": "192.168.1.5",
+      "description": "miphone"
+    },
+    {
+      "mac": "001122334458",
+      "ip": "192.168.1.6",
+      "description": "ophone"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": " ",
+    "mesh_clients": [
+      {
+        "mac": "00:AA:AA:AA:00:11",
+        "ip": "192.168.58.101",
+        "qlink": 1,
+        "sta_info": []
+      }
+    ],
+    "err_code": 0
+  },
+  "id": 1
+}

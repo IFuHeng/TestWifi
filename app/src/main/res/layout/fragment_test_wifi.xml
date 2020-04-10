@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.TestWifiFragment">
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Wifi Test"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
+
+    <ScrollView
+        android:id="@+id/scrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="10000"
+        android:layout_below="@id/textView_title">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btn_choose_ssid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="选择SSID" />
+
+            <FrameLayout
+                android:id="@+id/pannel_ssids"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/btn_choose_ssid"
+                android:background="@drawable/shape_bg_white_rect">
+
+                <ListView
+                    android:id="@+id/list_ssids"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_no_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:minHeight="37dp"
+                    android:text="no ssid"
+                    android:textSize="18sp" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/pannel_ssids"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <CheckBox
+                android:id="@+id/cb_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_alignParentEnd="true"
+                android:text="All" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/cb_select_all"
+                android:layout_alignParentStart="true"
+                android:text="Select module(at lease one) "
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:id="@+id/pannel_module"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cb_select_all"
+                android:background="@drawable/shape_bg_white_rect"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:id="@+id/cb_connect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:enabled="false"
+                    android:text="connect" />
+
+                <CheckBox
+                    android:id="@+id/cb_get_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cb_connect"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:enabled="false"
+                    android:text="Get ip" />
+
+                <CheckBox
+                    android:id="@+id/cb_ping_gateway"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cb_get_ip"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="Ping gateway." />
+
+                <CheckBox
+                    android:id="@+id/cb_ping"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cb_ping_gateway"
+                    android:layout_marginTop="10dp"
+                    android:text="Get ping " />
+
+
+                <EditText
+                    android:id="@+id/et_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/cb_ping"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/cb_ping"
+                    android:background="@drawable/shape_bg_white_rect_red_stroke"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="www.baidu.com" />
+
+                <CheckBox
+                    android:id="@+id/cb_test_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cb_ping"
+                    android:layout_marginTop="10dp"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:text="Test speed(wait for develop.)" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/pannel_module"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_alignParentStart="true"
+                android:text="Test result"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView2"
+                android:background="@drawable/shape_bg_white_rect"
+                android:padding="10dp"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:visibility="visible" />
+</RelativeLayout>

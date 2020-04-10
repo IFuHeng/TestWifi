@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.setting.WifiBaseSettingFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_bar_bg"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:src="@drawable/ic_chevron_left_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/wifi_setting"
+            android:textColor="@color/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:clickable="true"
+            android:text="@string/save"
+            android:textColor="@android:color/holo_blue_dark" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/panel_double_frequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:orientation="horizontal"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/double_frequency" />
+
+        <Switch
+            android:id="@+id/switch_double_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_notice_double_frequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:text="@string/notice_double_frequency" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="?android:attr/listPreferredItemPaddingEnd"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_title1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:minHeight="40dp"
+                    android:text="2.4GHz WiFi" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_name" />
+
+                    <EditText
+                        android:id="@+id/et_wifi_ssid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_password" />
+
+                    <EditText
+                        android:id="@+id/et_wifi_password"
+                        style="@style/password_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:maxLength="64" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_hide_psw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_pwd_visible" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/panel_encrypt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/encrypt" />
+
+                    <TextView
+                        android:id="@+id/textView_encrypt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                        android:gravity="right|center_vertical"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/panel_tx_power"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_power_pattern" />
+
+                    <TextView
+                        android:id="@+id/textView_tx_power"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                        android:gravity="right|center_vertical"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TextView
+                    android:id="@+id/textView_advance_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:text="@string/advance_setting" />
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/panel_5g"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_title1_5G"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:minHeight="40dp"
+                    android:text="5GHz WiFi" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_name" />
+
+                    <EditText
+                        android:id="@+id/et_wifi_ssid_5G"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_password" />
+
+                    <EditText
+                        android:id="@+id/et_wifi_password_5G"
+                        style="@style/password_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:maxLength="64" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_hide_psw_5G"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_pwd_visible" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/panel_encrypt_5G"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/encrypt" />
+
+                    <TextView
+                        android:id="@+id/textView_encrypt_5G"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                        android:gravity="right|center_vertical"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/panel_tx_power_5G"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_power_pattern" />
+
+                    <TextView
+                        android:id="@+id/textView_tx_power_5G"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                        android:gravity="right|center_vertical"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TextView
+                    android:id="@+id/textView_advance_setting_5G"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_bg_white_rect_grey_stroke"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:text="@string/advance_setting" />
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

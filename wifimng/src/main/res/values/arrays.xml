@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string-array name="networkType">
+        <item>DHCP</item>
+        <item>PPPOE</item>
+        <item>STATIC</item>
+    </string-array>
+    <string-array name="networkTypePLCipv6">
+        <item>STATIC</item>
+        <item>DHCPv6</item>
+        <item>SLAAC</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="networkType_bwr">
+        <item>DHCP</item>
+        <item>PPPOE</item>
+    </string-array>
+    <string-array name="encryption">
+        <item>none</item>
+        <item>wpa2-psk</item>
+        <item>wpa2_mixed_psk</item>
+    </string-array>
+
+    <string-array name="setting_common">
+        <item>Device name and room</item>
+        <item>Administor Password</item>
+        <item>Reboot</item>
+        <item>Recovery</item>
+        <item>Delete Device</item>
+    </string-array>
+    <string-array name="setting_function">
+        <item>Network Settings</item>
+        <item>Group Settings</item>
+        <item>Guest Network</item>
+        <item>DDNS</item>
+        <item>Access Controls</item>
+        <item>LAN Setting</item>
+    </string-array>
+    <string-array name="setting_function_mesh">
+        <item>Network Settings</item>
+        <item>Group Settings</item>
+        <item>DDNS</item>
+        <item>Access Controls</item>
+        <item>LAN Setting</item>
+        <item>Speed Limit Setting</item>
+        <item>Internet time Limit Setting</item>
+    </string-array>
+    <string-array name="setting_function_plc">
+        <item>Network Settings</item>
+        <item>Group Settings</item>
+        <item>Guest Network</item>
+        <item>Access Controls</item>
+        <item>LAN Setting</item>
+    </string-array>
+
+    <string-array name="tx_power">
+        <item>Through Wall Mode</item>
+        <item>Normal Mode</item>
+        <item>Sleep Mode</item>
+    </string-array>
+    <string-array name="channel_width_2_4g">
+        <item>20Mhz</item>
+        <item>40Mhz</item>
+        <item>20/40Mhz</item>
+    </string-array>
+
+    <string-array name="channel_width_5g">
+        <item>20Mhz</item>
+        <item>40Mhz</item>
+        <item>80Mhz</item>
+    </string-array>
+
+    <string-array name="white_black_choices">
+        <item>Whitelist</item>
+        <item>Blacklist</item>
+    </string-array>
+
+    <string-array name="time_limit_choices">
+        <item>1Hour</item>
+        <item>2Hours</item>
+        <item>3Hours</item>
+        <item>4Hours</item>
+        <item>5Hours</item>
+        <item>6Hours</item>
+        <item>7Hours</item>
+        <item>8Hours</item>
+        <item>9Hours</item>
+        <item>10Hours</item>
+        <item>11Hours</item>
+        <item>12Hours</item>
+        <item>13Hours</item>
+        <item>14Hours</item>
+        <item>15Hours</item>
+        <item>16Hours</item>
+        <item>17Hours</item>
+        <item>18Hours</item>
+        <item>19Hours</item>
+        <item>20Hours</item>
+        <item>21Hours</item>
+        <item>22Hours</item>
+        <item>23Hours</item>
+        <item>24Hours</item>
+    </string-array>
+
+    <string-array name="ddns_type">
+        <item>DynDNS</item>
+        <item>TZO</item>
+    </string-array>
+    <string-array name="remain_time_plc">
+        <item>1 minite</item>
+        <item>1 hour</item>
+        <item>1 day</item>
+        <item>1 week</item>
+    </string-array>
+
+    <string-array name="week_days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+</resources>

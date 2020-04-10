@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.DeviceDetailOptionFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_bar_bg"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_vertical|left"
+            android:src="@drawable/ic_chevron_left_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/device_info"
+            android:textColor="@color/textColorPrimary" />
+
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="130dp"
+            android:minHeight="120dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_dualband_router" />
+
+        <TextView
+            android:id="@+id/tv_ssid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon"
+            android:layout_alignStart="@id/icon"
+            android:layout_alignLeft="@id/icon"
+            android:layout_alignEnd="@id/icon"
+            android:layout_alignRight="@id/icon"
+            android:gravity="center_horizontal"
+            android:text="@string/device_info" />
+
+        <View
+            android:id="@+id/view_center_verhical_line"
+            android:layout_width="1dp"
+            android:layout_height="140dp"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/icon"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_tab_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/icon"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/view_center_verhical_line"
+            android:text="IP: " />
+
+        <TextView
+            android:id="@+id/tv_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_tab_ip"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tv_tab_ip"
+            android:text="0.0.0.0" />
+
+        <TextView
+            android:id="@+id/tv_tab_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_ip"
+            android:layout_alignStart="@id/tv_tab_ip"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/icon"
+            android:text="MAC: " />
+
+        <TextView
+            android:id="@+id/tv_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_tab_mac"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tv_tab_mac" />
+
+        <TextView
+            android:id="@+id/tv_tab_networktype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tab_mac"
+            android:layout_alignStart="@id/tv_tab_ip"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/icon"
+            android:text="@string/tab_wan_type" />
+
+        <TextView
+            android:id="@+id/tv_networktype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_tab_networktype"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tv_tab_networktype" />
+
+        <TextView
+            android:id="@+id/tv_tab_pre_node"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tab_networktype"
+            android:layout_alignStart="@id/tv_tab_ip"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/icon"
+            android:text="@string/device_type" />
+
+        <TextView
+            android:id="@+id/tv_device_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_tab_pre_node"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tv_tab_pre_node" />
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tab_pre_node"
+            android:layout_alignStart="@id/tv_tab_ip"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/icon"
+            android:drawableLeft="@drawable/shape_bg_number_round_green"
+            android:drawablePadding="10dp"
+            android:text="@string/regular" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:drawablePadding="10dp"
+        android:text="@string/tab_online_client" />
+
+    <ListView
+        android:id="@+id/list_device"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:divider="@android:color/black"
+        android:dividerHeight="1px" />
+</LinearLayout>

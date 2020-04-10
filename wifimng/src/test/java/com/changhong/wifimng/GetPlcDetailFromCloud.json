@@ -1,0 +1,85 @@
+{
+  "msg": "ok",
+  "code": 1000,
+  "data": {
+    "object": {
+      "uuid": "20191230_1511_9506823362135498",
+      "createTime": "2019-12-30T07:11:48.000+0000",
+      "updateTime": "2020-01-02T11:10:50.000+0000",
+      "additional": {},
+      "name": null,
+      "sn": "C0132B5D77C6",
+      "mac": "C0132B5D77C6",
+      "hardwareVersion": "1.0.1",
+      "softwareVersion": "V2.0.9.1",
+      "deviceCategory": 3,
+      "deviceCategoryName": null,
+      "deviceType": 4,
+      "deviceTypeName": null,
+      "deviceModel": 4,
+      "deviceModelId": null,
+      "deviceModelName": null,
+      "countryCode": "CN",
+      "cityCode": "CTU",
+      "bindingUserId": "20191219_1013_7214906498457723",
+      "groupId": null,
+      "iconUrl": null,
+      "iconId": null,
+      "sharingStatus": 0,
+      "iotPlatformType": 0,
+      "platformDeviceId": "20191230_1511_9506823362135498",
+      "parentId": null,
+      "isRegister": 1,
+      "modules": null,
+      "state": {
+        "changeTime": 0,
+        "heartbeatFreq": "60",
+        "stateValue": {
+          "cpe_list": [
+            {
+              "cpe_ip_addr": "192.168.10.239",
+              "cpe_name": "BTPX",
+              "access_node": "C0:13:2B:5D:77:C6",
+              "cpe_mac": "68:F7:28:D2:48:B7",
+              "attached_time": 4440,
+              "attached_method": 1
+            },
+            {
+              "cpe_ip_addr": "192.168.10.50",
+              "cpe_name": "android-85920d63077d68b3",
+              "access_node": "C0:13:2B:5D:78:0E",
+              "cpe_mac": "B4:F7:A1:8E:34:97",
+              "attached_time": 4410,
+              "attached_method": 1
+            }
+          ],
+          "dev_mac": "C0132B5D77C6",
+          "down_speed": 0,
+          "slave_list": [
+            {
+              "slave_ip_addr": "",
+              "slave_name": "",
+              "slave_mac": "C0:13:2B:5D:78:0E",
+              "slave_status": 0,
+              "slave_location": ""
+            }
+          ],
+          "ipv4_addr": "172.18.55.20",
+          "running_time": 4636,
+          "up_speed": 0,
+          "ipv6_addr": "",
+          "attached_dev_num": 2,
+          "ssid": "CH-PN200-ran"
+        },
+        "firmwareVersion": "V2.0.9.1",
+        "userId": "C0132B5D77C6",
+        "mac": "C0132B5D77C6",
+        "reportTime": 1578021114832
+      }
+    }
+  },
+  "client": "ANDROID",
+  "user": "20191219_1013_7214906498457723",
+  "version": "1.0.1",
+  "key": "15802115810328"
+}

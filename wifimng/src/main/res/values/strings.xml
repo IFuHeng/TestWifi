@@ -1,0 +1,414 @@
+<resources>
+    <!--XML的转义符
+        &lt; <
+        &gt; >
+        &amp; &
+        &apos; '
+        &quot; "
+        &nbsp; 空格
+        &#160; 空格
+    -->
+    <string name="app_name">WifiManager</string>
+    <string name="factory_name">CHANGHONG </string>
+
+    <string name="cancel">Cancel</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="delete">Delete</string>
+    <string name="update">UPDATE</string>
+    <string name="confirm">Confirm</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="no_save">Do not save</string>
+    <string name="commit">Commit</string>
+    <string name="auto">AUTO</string>
+    <string name="_exit">Exit</string>
+    <string name="reboot">Reboot</string>
+    <string name="unbind">unbind</string>
+    <string name="recovery">Recovery</string>
+    <string name="_continue">Continue</string>
+    <string name="retry">Retry</string>
+
+    <string name="_plc" translatable="false">PLC</string>
+
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="known_device">Known device</string>
+    <string name="login_failed">Login failed</string>
+    <string name="password_wrong">Password incorrect.</string>
+    <string name="old_password_wrong">Old password incorrect.</string>
+    <string name="login_succeed">Login succeed.</string>
+    <string name="login_notice">Please enter the router admin password</string>
+    <string name="login_notice_plc">Please enter the PLC admin password</string>
+    <string name="notice_admin_password_error">Admin passwrod error.</string>
+    <string name="notice_reboot_completed">The reboot is completed, and the device interface will exit. Please wait patiently for the device to restart.</string>
+    <string name="notice_reset_completed">The restore factory settings is completed, and the device interface will exit. Please wait patiently for the device to restart.。</string>
+
+    <string name="mainNode">Master node</string>
+    <string name="childNode">Child node </string>
+    <string name="unavailable">Unavailable</string>
+    <string name="none_selected">none selected</string>
+
+    <string name="bwr510">Mesh router</string>
+    <string name="R2s">Gigabit dual band router</string>
+    <string name="plc">Power Line Communication</string>
+
+    <string name="tab_wan_type">WAN type：</string>
+    <string name="device_type">Device type: </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="next">Next</string>
+
+    <!-- wizard -->
+    <string name="notice_error_format">Input format error.</string>
+    <string name="notice_name_empty">Account cannot be empty.</string>
+    <string name="notice_ssid_empty">SSID cannot be empty.</string>
+    <string name="notice_pwd_empty">Password cannot be empty.</string>
+    <string name="notice_device_name_empty">Device name cannot be empty.</string>
+    <string name="tab_input_pppoe_account_password">Please enter the account and password provided by the network server</string>
+    <string name="notice_check_router_pwd_by_admin">Please check the label below the router for administrator password ...</string>
+    <string name="notice_con_ch_router">Please connect to the WiFi corresponding to Changhong router.</string>
+    <string name="notice_con_ch_plc">Please connect to the WiFi corresponding to Changhong Power Line Communication.</string>
+    <string name="notice_connect_introduce"><![CDATA[1、Enter the mobile phone system - > Wireless Settings  \n2、Find and connect the corresponding WiFi name on the SSID .]]></string>
+
+    <string name="goto_wlan_setting">Connected to Wi Fi, next</string>
+    <string name="note_mesh_info_request">Query mesh information, please wait a moment……</string>
+
+    <string name="notice_wait_for_wizard">Wait for commit wizard setting……</string>
+    <string name="notice_search_mesh">Searching new mesh equipment, please wait for a little while.....</string>
+    <string name="notice_search_plc">Searching new plc equipment, please wait for a little while.....</string>
+    <string name="notice_add_mesh_1">Please power on the new router to be added and place it near the configured router ...</string>
+    <string name="notice_add_mesh_2">When the indicator light of newly added networking router blinks blue, click Next...</string>
+    <string name="notice_add_plc_1">Please power on the new Power Line Communication to be added and place it near the configured Power Line Communication ...</string>
+    <string name="notice_add_plc_2">When the indicator light of newly added Power Line Communication blinks blue, click Next...</string>
+    <string name="complete_mesh">Completion of meshing.</string>
+    <string name="device_info">Device info</string>
+    <string name="client_info">Terminal details</string>
+    <string name="device_name">Device name</string>
+    <string name="device_mac_addr">Device MAC address</string>
+    <string name="tab_online_client">Online terminal</string>
+
+    <!--    如1表示有线； 2表示2.4G；4表示5G；8表示访客网络-->
+    <string name="connecttype_wire">Wired</string>
+    <string name="connecttype_24G" translatable="false">2.4G</string>
+    <string name="connecttype_5G" translatable="false">5G</string>
+    <string name="connecttype_2_5G" translatable="false">WIFI</string>
+    <string name="connecttype_guest">Guest Network</string>
+    <string name="connecttype_no">No Connection</string>
+
+    <string name="format_link_time_hhmm" formatted="false">Connected for %d hours and %d minutes</string>
+    <string name="format_link_time_mm">Connected for %d minutes</string>
+
+    <string name="main">\n(Main)</string>
+    <string name="child">\n(Child)</string>
+
+    <string name="week">Week</string>
+    <string name="day">Day</string>
+    <string name="days">Days</string>
+    <string name="hour">Hour</string>
+    <string name="hours">Hours</string>
+    <string name="minute">Minute</string>
+    <string name="minutes">Minutes</string>
+    <string name="secound">Secound</string>
+    <string name="secounds">Secounds</string>
+
+    <string name="internet">Internet</string>
+    <string name="device_manager">Device management</string>
+    <string name="broadband_limit">Broadband restriction</string>
+    <string name="group">Grouping</string>
+    <string name="online_notice">On-line reminder</string>
+    <string name="network_forbid">No internet access </string>
+    <string name="no_limit">Unlimited</string>
+    <string name="tab_upload_limit">Maximum upload speed (Kb/s)</string>
+    <string name="tab_download_limit">Maximum download speed (Kb/s)</string>
+    <string name="tab_upload_limit_PLC">Maximum upload speed (Mb/s)</string>
+    <string name="tab_download_limit_PLC">Maximum download speed (Mb/s)</string>
+    <string name="speed_limit">Broadband speed limit</string>
+    <string name="commiting">Commiting……</string>
+    <string name="downloading">Loading……</string>
+    <string name="opening">Opening……</string>
+    <string name="closing">Closing……</string>
+    <string name="commit_completed">Commit completed.</string>
+    <string name="commit_failed">Commit failed.</string>
+    <string name="notice_mac_empty">MAC can not be empty.</string>
+
+    <string name="common_setting">Common Settings</string>
+    <string name="function_setting">Function Settings</string>
+    <string name="rebooting">Rebooting……</string>
+    <string name="recovering">Restoring factory settings……</string>
+    <string name="channel">Channel</string>
+    <string name="auto_dfs">Auto(DFS)</string>
+    <string name="wifi_advance_setting">Wi-Fi Advance Settings</string>
+    <string name="wifi_setting">Wi-Fi Settings</string>
+    <string name="double_frequency">5G Priority</string>
+    <string name="notice_double_frequency">2.4g and 5G Wi-Fi dual frequency integration, the router automatically for you to choose faster wi-fi band, turn off this switch, can be set separately.</string>
+    <string name="notice_double_frequency_plc">2.4g and 5G Wi-Fi dual frequency integration, the PLC automatically for you to choose faster wi-fi band, turn off this switch, can be set separately.</string>
+    <string name="base_setting">Base Settings</string>
+    <string name="group_setting">Group Settings</string>
+    <string name="title_2_4G" translatable="false">2.4GHz WiFi</string>
+    <string name="title_5G" translatable="false">5GHz WiFi</string>
+    <string name="wifi_name">SSID</string>
+    <string name="wifi_name_2G">SSID2.4G</string>
+    <string name="wifi_name_5G">SSID5G</string>
+    <string name="wifi_password">Wi-fi password</string>
+    <string name="wifi_password2G">Wi-fi 2.4G password</string>
+    <string name="wifi_password5G">Wi-fi 5G password</string>
+    <string name="encrypt">Encryption</string>
+    <string name="authentication_mode">Authentication mode</string>
+    <string name="hide_ssid">Hide SSID</string>
+    <string name="wifi_power_pattern">WIFI power mode</string>
+    <string name="advance_setting">Advance Settings</string>
+    <string name="router_setting">Router setting</string>
+    <string name="plc_setting">PLC setting</string>
+    <string name="search_router">Device add or reset</string>
+    <string name="logining">Logging……</string>
+    <string name="checking_wizard_setting">Verify device configuration status……</string>
+    <string name="network_setting">Internet settings</string>
+    <string name="device_name_and_room">Device name and room</string>
+    <string name="checking_pppoe_state">Getting PPPoE status ……</string>
+
+    <string name="pppoe_state_disconnect">Unconnected</string>
+    <string name="pppoe_state_connecting">Connecting……</string>
+    <string name="pppoe_state_connected">Connected</string>
+    <string name="pppoe_state_account_or_passord_error">Wrong user name or password</string>
+    <string name="pppoe_state_unknown_error">Unknown error</string>
+    <string name="admin_password">Administrator password </string>
+    <string name="edit_password">Edit password</string>
+    <string name="password_rule">Passwords can be 8-32 numbers, letters, and special characters (_ or @ only) </string>
+    <string name="password_wifi_rule">Passwords can be 8-64 numbers, letters, and special characters (_ or @ only) </string>
+    <string name="wizard_password_wifi_rule">Passwords can be empty, or 8-64 numbers, letters, and special characters (_ or @ only) </string>
+    <string name="password_not_same">The two passwords are different, please re-enter </string>
+    <string name="bind_router">Bind router</string>
+    <string name="bind_plc">Bind PLC</string>
+    <string name="interaction_failed">Interaction failure</string>
+    <string name="connection_refused">Connection to %s refused.</string>
+    <string name="timeout">Timeout</string>
+    <string name="connection_timeout">connect to %s isConnected failed.(Connection time out)</string>
+    <string name="known_host">Unable to resolve host "%s": No address associated with hostname</string>
+    <string name="notice_not_match_ipv4">Non IPv4 format</string>
+    <string name="notice_cannot_more_than_max">Value cannot be greater than the maximum value</string>
+    <string name="notice_max_gt_254">Max value cannot grater than 254.</string>
+    <string name="notice_min_lt_2">Min value cannot less than 2.</string>
+    <string name="notice_not_be_empty">Not to be empty</string>
+    <string name="notice_cannot_less_than_min">Value cannot be less than the minimum value </string>
+    <string name="channel_width">Channel bandwidth</string>
+    <string name="guest_wifi">Guest Network</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
+    <string name="visit_control">Access control</string>
+    <string name="control_model">Aontrol model</string>
+    <string name="manual_addition">Manual addition</string>
+    <string name="notice_white_black_list">Note: \n1. Blacklist mode - device access in the list is not allowed\n2. Whitelist mode - only device access in the list is allowed</string>
+    <string name="notice_white_black_list_plc">Note: \n1. Blacklist mode - device access in the list is not allowed\n2. Whitelist mode - only device access in the list is allowed\n3. Opening blacklist will clear the control list</string>
+    <string name="notice_ask_execute_immediately">Do you want to execute it immediately after submission? Execution will restart the route.</string>
+    <string name="notice_clear_blist_after_execute">The blacklist will be cleared after execution. Do you want to continue?</string>
+    <string name="notice_clear_wlist_after_execute">The whitelist will be cleared after execution. Do you want to continue?</string>
+    <string name="notice_device_in_list">The list already contains the MAC of this device, which cannot be added repeatedly.</string>
+    <string name="notice_ask_execute">WiFi may be disconnected after submission. Do you want to submit the modification?</string>
+    <string name="save_and_execute">Save and execute</string>
+    <string name="ask_save">Save?</string>
+    <string name="save_only">Save only</string>
+    <string name="work_enable_mac" translatable="false">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890:</string>
+    <string name="notice_main_note">This is the main mesh device.</string>
+    <string name="opening_mesh_quick_link">Opening networking fast connection ……</string>
+    <string name="closing_mesh_quick_link">Closing networking fast connection ……</string>
+    <string name="notice_make_sure_reboot">Restart the router now?</string>
+    <string name="notice_make_sure_reboot_plc">Restart the PLC now?</string>
+    <string name="notice_make_sure_recovery">Reset the router now?</string>
+    <string name="notice_make_sure_recovery_plc">Reset the PLC now?</string>
+    <string name="notice_make_sure_unbind">Unbind the device now？</string>
+    <string name="click_add_node">Click add child node</string>
+    <string name="tab_broadband_name">Broadband user name</string>
+    <string name="tab_broadband_account">Broadband account</string>
+    <string name="tab_broadband_password">Broadband password</string>
+    <string name="hint_input_account">Please enter broadband account of the ISP</string>
+    <string name="hint_input_pppoe_password">Please enter broadband password of the ISP</string>
+    <string name="contral_model">Control model</string>
+    <string name="check_list">View list</string>
+    <string name="device_black_list">Current device blacklist</string>
+    <string name="device_white_list">Current device whitelist</string>
+    <string name="notice_data_changed_and_save">Data has been modified, do you want to save?</string>
+    <string name="dns1" translatable="false">DNS1</string>
+    <string name="dns2" translatable="false">DNS2</string>
+    <string name="wanType">Wan Type</string>
+    <string name="ip_address">IP address</string>
+    <string name="mask">Mask</string>
+    <string name="gateway">Gateway</string>
+    <string name="no_device_type_receive">Unable to get Changhong routing device type</string>
+    <string name="not_ch_router">Non Changhong router equipment</string>
+    <string name="ddns_service_list">DDNS service list</string>
+    <string name="ddns_service">DDNS service</string>
+    <string name="user_name">User name</string>
+    <string name="password">Password</string>
+    <string name="domain_name">Domain name</string>
+    <string name="notice_ddns_support_1_item_only">Currently, only one DDNS function is supported.</string>
+    <string name="notice_input_not_correct">The input is wrong. Please check the input before submitting ……</string>
+    <string name="binding">Binding device, please wait……</string>
+    <string name="cancel_bind">Bing canceled</string>
+    <string name="cannot_close_dhcp_server">Unable to shut down DHCP service.</string>
+    <string name="notice_devcie_offline">Device is offline, about to exit</string>
+    <string name="title_input_router_admin_pwd">Set the router administrator password</string>
+    <string name="title_input_plc_admin_pwd">Set the PLC administrator password</string>
+    <string name="hint_input_router_admin_pwd">Please enter the router administrator password</string>
+    <string name="hint_input_plc_user_pwd">Please enter the PLC administer password</string>
+    <string name="notice_delete_ddns_service">Do you want to delete the DDNS service?</string>
+
+    <string name="abnormal">Abnormal</string>
+    <string name="regular">Regular</string>
+
+    <string name="unknown">Unknown</string>
+    <string name="notice_plc_guest_cannot_open">PLC visitor network must have a password </string>
+
+    <string name="data_error">Data error.</string>
+    <string name="bing_complete">Binding succeed and the device uuid is </string>
+    <string name="notice_commit_succeed">The configuration of the network device is about to be completed. It is expected to wait a few seconds to tens of seconds after submission. Please wait patiently……</string>
+    <string name="token_expired">The login password has expired and is about to exit.</string>
+    <string name="wait_for_develop">To be developed.</string>
+
+    <string name="switchTo5g">Switch to 5G</string>
+    <string name="switchTo2g">Switch to 2.4G</string>
+
+    <string name="bing_device">Bind the device</string>
+    <string name="found_device">Found device</string>
+    <string name="notice_wifi_disconnect_and_exit">WiFi disconnected, exit settings.</string>
+    <string name="authorization_failed">The device authorization has failed. You are about to exit. Please log in again before retrying.</string>
+
+    <string name="add_new_mesh">Add mesh router</string>
+    <string name="add_new_plc">Add Power Line Communication</string>
+
+    <string name="open_add_new_plc_complete">The main terminal of the PLC initiatively initiates the code request, which can add more devices without domain name.</string>
+    <string name="open_plc_add_mode">Turn on the PLC networking mode</string>
+
+    <string name="binding_success">Binding success.</string>
+    <string name="add_success">Add success.</string>
+    <string name="rent_time">Rent time</string>
+    <string name="unit_rent_time_1_10080">Minute（1~10080）</string>
+    <string name="dhcp_service">DHCP server</string>
+    <string name="lan_settings">LAN Settings</string>
+    <string name="ip_addr_range">IP address range</string>
+
+    <string name="signal_intensity">Signal intensity:</string>
+    <string name="unbind_completed">Complete unbinding, click OK to exit.</string>
+    <string name="notice_data_error">Data error, device type is empty, please contact administrator.</string>
+    <string name="notice_device_not_supported">Data error, device of this type is not supported.</string>
+    <string name="notice_group_and_name">Select a simple memory name and select room group.</string>
+    <string name="customize_name_groupping">Customized name and grouping</string>
+    <string name="share_device">Device sharing</string>
+    <string name="share_device_add">Device sharing +</string>
+    <string name="start_play">Start using</string>
+    <string name="failed_to_add_device">Failed to add device</string>
+    <string name="device_add_failed">Device add failed</string>
+    <string name="device_search_failed">Device search failed</string>
+    <string name="device_add_successfully">Device added successfully</string>
+
+    <string name="notice_whitelist_2_blacklist">It is currently whitelist mode and cannot be switched to blacklist mode directly. Please turn off the access control function before setting it to blacklist.</string>
+    <string name="notice_blacklist_2_whitelist">It is currently blacklist mode and cannot be switched to whitelist mode directly. Please turn off the access control function before setting it to whitelist.</string>
+
+    <string name="notice_add_my_device_2_blacklist">Currently in blacklist mode, you are trying to add the current terminal to the blacklist, which will cause your device to be unable to connect with this router. Do you want to continue?</string>
+    <string name="notice_del_my_device_from_whitelist">It is currently a whitelist mode. You are trying to remove the current terminal from the white list. This will cause your device to be unable to connect with this route. Do you want to continue?</string>
+
+    <string name="notice_open_whitelist">You are trying to switch to whitelist mode. Please add the current terminal to the list first.</string>
+    <string name="notice_open_blacklist">You are trying to switch to blacklist mode. Please remove the current terminal from the list first.</string>
+    <string name="notice_complete_add_2_black_list">You have successfully added the device to the blacklist.</string>
+    <string name="notice_complete_add_2_white_list">You have successfully added the device to the whitelist.</string>
+    <string name="notice_complete_add_2_list">You have successfully added the device to the restriction list。</string>
+    <string name="notice_ask_add_access_list_then_execute_immediately">The device will be added to the control list, and the operation here will not affect the change of access control status. \nDo you want to execute it immediately after submission? Execution will likely restart the route.</string>
+
+    <string name="notice_need_open_access">You have not set network restrictions (blacklist or whitelist). Do you want to go to settings?</string>
+    <string name="notice_0_is_unlimited">Enter 0 for unlimited</string>
+
+    <string name="notice_connect_wifi_first">PPlease turn on WiFi first and connect to routing device </string>
+
+    <string name="notice_device_type_not_same"><![CDATA[The current WiFi type is %s, not %s. please connect to the correct WiFi and try again.]]></string>
+    <string name="notice_mac_not_same"><![CDATA[The current WiFi MAC is %s, not %s. please connect to the correct WiFi and try again.]]></string>
+
+    <string name="strong">strong</string>
+    <string name="medium">medium</string>
+    <string name="weak">weak</string>
+
+    <string name="connected_wrong_device">Cannot connect to Chonghong router/PLC device.</string>
+
+    <string name="not_changed">Not changed.</string>
+    <string name="configuation_not_completed">Network device configuration is not complete, cannot add sub device.</string>
+    <string name="illegal_address">IP address is broadcast address or network address, please re-enter. </string>
+    <string name="illegal_device">Unable to connect to Changhong network device.</string>
+
+    <string name="reconnect_aim_wifi_timeout">Connect WiFi %s timeout, please go to settings manually and add again。</string>
+
+    <string name="new_group">New group</string>
+    <string name="notice_new_group_name">Please enter the new group name.</string>
+    <string name="notice_enter_new_name">Please enter a new name.</string>
+    <string name="notice_enter_new_group">Please enter a new location.</string>
+    <string name="notice_edit_group_name">Please enter a new group name.</string>
+    <string name="notice_choose_group">Please choose the group……</string>
+    <string name="notice_device_join_group">Add device to %s?</string>
+    <string name="downloading_group">downloading group info……</string>
+    <string name="default_group">Default group</string>
+    <string name="group_introduce">By adding different groups, setting group health time, asking for instructions to realize the management of terminal online time.</string>
+    <string name="ask_delete_group">Are you sure you want to delete %s?</string>
+    <string name="client_include">Include client</string>
+    <string name="health_time">Health time</string>
+    <string name="group_name">Group name</string>
+    <string name="_to">&#160;to&#160;</string>
+    <string name="notice_create_group_introduce"><![CDATA[Enter the group name, such as Tom&apos;s equipment, children&apos;s group, living room.]]></string>
+    <string name="notice_add_client_to_group">Add client to the group</string>
+    <string name="tab_current_sta">List of current online client.</string>
+    <string name="notice_group_name_empty">Please enter a group name.</string>
+    <string name="notice_sta_empty">No attached device has been selected.</string>
+    <string name="notice_group_name_used">This group name is already in use.</string>
+    <string name="repeat">Repeat</string>
+    <string name="brief_name_monday">Mon.</string>
+    <string name="brief_name_tuesday">Tue.</string>
+    <string name="brief_name_wednesday">Wed.</string>
+    <string name="brief_name_thursday">Thu.</string>
+    <string name="brief_name_friday">Fri.</string>
+    <string name="brief_name_saturday">Sat.</string>
+    <string name="brief_name_sunday">Sun.</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="notice_introduce_health_time">In the health time interval, the network connection of terminal devices in the group will be disconnected.</string>
+    <string name="add_group">Add group</string>
+    <string name="group_list">Group list</string>
+    <string name="notice_other_group_empty">This operation will clear the following groups, which will cause the groups to be deleted. continue?</string>
+    <string name="everyday">Every day</string>
+    <string name="weekdays">Weekdays</string>
+    <string name="weekends">Weekends</string>
+    <string name="no_other_group">No new group created</string>
+    <string name="default_time_start" translatable="false">08:00</string>
+    <string name="default_time_end" translatable="false">19:00</string>
+
+    <string name="no_more">No more data.</string>
+    <string name="share_history">Sharing History:</string>
+    <string name="share_to">Share to：</string>
+    <string name="notice_enter_the_account_of_user_share">Please enter the mobile number or email address of the user you will share.</string>
+    <string name="to_be_accept">To be accept</string>
+    <string name="accepted">Accepted</string>
+    <string name="other">Other……</string>
+    <string name="_I">I</string>
+    <string name="me">Me</string>
+    <string name="notice_delete_share_ask">Do you want to delete this share?</string>
+    <string name="notice_withdraw_share_ask">Whether to withdraw the share?</string>
+    <string name="english_only">You can only enter numbers or letters.</string>
+
+    <string name="input_rule_char_plc_child_name" translatable="false"><![CDATA[abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ,.:;?/&gt;&lt;~`!@#$%^&amp;*()-_=+{}[]|\/~&apos;&quot;&nbsp;]]></string>
+    <string name="input_rule_pppoe" translatable="false"><![CDATA[abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ,.;:?/&gt;&lt;~`!@#$%^&amp;*()-_=+{}[]|/~]]></string>
+    <string name="origin_password">Original password</string>
+    <string name="new_password_hint">New password</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="index">SN</string>
+    <string name="client_name">Terminal name</string>
+    <string name="mac_address">MAC</string>
+    <string name="operation">Operation</string>
+    <string name="last_version">last version</string>
+    <string name="switch_wifi">Switch WiFi</string>
+    <string name="whether_open">state</string>
+    <string name="host_name">host</string>
+    <string name="guest_ssid_name">Guest SSID name</string>
+    <string name="guest_encryption">Guest network encryption</string>
+    <string name="guest_pwd">Guest password</string>
+    <string name="max_guest_num">Maximum number of guest network connections</string>
+    <string name="guest_lint_limit_time">Guest network time limit</string>
+    <string name="remain_time_of_guest_network">Guest network time limit remaining：</string>
+    <string name="service">Service</string>
+    <string name="master_node">Master node:</string>
+    <string name="current_link_dev_list">List of currently connected devices</string>
+</resources>

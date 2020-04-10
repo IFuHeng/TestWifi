@@ -1,0 +1,198 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/et_port"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/shape_bg_white_rect_red_stroke"
+                android:ems="4"
+                android:inputType="numberSigned"
+                android:maxLength="5"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/et_port"
+                android:layout_alignBottom="@id/et_port"
+                android:layout_alignParentStart="true"
+                android:gravity="center_vertical"
+                android:text="IP"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/et_port"
+                android:layout_alignBottom="@id/et_port"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/et_port"
+                android:gravity="center_vertical"
+                android:text="Port"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/et_port"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@id/textView2"
+                android:layout_toEndOf="@id/textView1"
+                android:background="@drawable/shape_bg_white_rect_red_stroke"
+                android:digits="1234567890."
+                android:hint="ipv4"
+                android:maxLength="17"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+
+            <ImageButton
+                android:id="@+id/btn_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_port"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:src="@android:drawable/ic_popup_sync" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/btn_refresh"
+                android:layout_alignBottom="@id/btn_refresh"
+                android:layout_alignParentStart="true"
+                android:gravity="center_vertical"
+                android:text="Method"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/btn_refresh"
+                android:layout_alignBottom="@+id/btn_refresh"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/btn_refresh"
+                android:layout_toEndOf="@id/textView5" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_refresh"
+                android:layout_marginTop="10dp"
+                android:text="SSID:"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_ssid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_refresh"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/textView8"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_ssid"
+                android:layout_marginTop="20dp"
+                android:text="PATH:"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/textView6"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/textView6"
+                android:background="@drawable/shape_bg_white_rect_red_stroke"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView6"
+                android:layout_marginTop="20dp"
+                android:text="REQUEST"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView9"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/shape_bg_white_rect_red_stroke"
+                android:maxLines="10" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_request"
+                android:layout_marginTop="10dp"
+                android:text="RESPONSE"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/et_response"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView7"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/shape_bg_white_rect_red_stroke"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_response"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="40dp"
+                android:textColor="#ff0000"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_send" />
+</FrameLayout>

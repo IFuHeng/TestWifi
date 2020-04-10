@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string-array name="networkType">
+        <item>DHCP</item>
+        <item>PPPOE</item>
+        <item>STATIC</item>
+    </string-array>
+    <string-array name="networkTypePLCipv6">
+        <item>STATIC</item>
+        <item>DHCPv6</item>
+        <item>SLAAC</item>
+        <item>自动</item>
+    </string-array>
+    <string-array name="networkType_bwr">
+        <item>DHCP</item>
+        <item>PPPOE</item>
+    </string-array>
+
+    <string-array name="setting_common">
+        <item>设备名称和房间</item>
+        <item>管理员密码</item>
+        <item>重启设备</item>
+        <item>恢复出厂设置</item>
+        <item>删除设备</item>
+    </string-array>
+    <string-array name="setting_function">
+        <item>网络设置</item>
+        <item>分组设置</item>
+        <item>访客网络</item>
+        <item>DDNS</item>
+        <item>访问控制</item>
+        <item>局域网设置</item>
+    </string-array>
+    <string-array name="setting_function_mesh">
+        <item>网络设置</item>
+        <item>分组设置</item>
+        <item>DDNS</item>
+        <item>访问控制</item>
+        <item>局域网设置</item>
+        <item>限速列表</item>
+        <item>上网时间限制列表</item>
+    </string-array>
+    <string-array name="setting_function_plc">
+        <item>网络设置</item>
+        <item>分组设置</item>
+        <item>访客网络</item>
+        <item>访问控制</item>
+        <item>局域网设置</item>
+    </string-array>
+
+    <string-array name="tx_power">
+        <item>穿墙</item>
+        <item>标准</item>
+        <item>睡眠</item>
+    </string-array>
+    <string-array name="channel_width_2_4g">
+        <item>20Mhz</item>
+        <item>40Mhz</item>
+        <item>20/40Mhz</item>
+    </string-array>
+
+    <string-array name="channel_width_5g">
+        <item>20Mhz</item>
+        <item>40Mhz</item>
+        <item>80Mhz</item>
+    </string-array>
+
+    <string-array name="white_black_choices">
+        <item>白名单</item>
+        <item>黑名单</item>
+    </string-array>
+
+    <string-array name="time_limit_choices">
+        <item>1小时</item>
+        <item>2小时</item>
+        <item>3小时</item>
+        <item>4小时</item>
+        <item>5小时</item>
+        <item>6小时</item>
+        <item>7小时</item>
+        <item>8小时</item>
+        <item>9小时</item>
+        <item>10小时</item>
+        <item>11小时</item>
+        <item>12小时</item>
+        <item>13小时</item>
+        <item>14小时</item>
+        <item>15小时</item>
+        <item>16小时</item>
+        <item>17小时</item>
+        <item>18小时</item>
+        <item>19小时</item>
+        <item>20小时</item>
+        <item>21小时</item>
+        <item>22小时</item>
+        <item>23小时</item>
+        <item>24小时</item>
+    </string-array>
+
+    <string-array name="ddns_type">
+        <item>DynDNS</item>
+        <item>TZO</item>
+    </string-array>
+    <string-array name="remain_time_plc">
+        <item>1分钟</item>
+        <item>1小时</item>
+        <item>1天</item>
+        <item>1星期</item>
+    </string-array>
+
+    <string-array name="week_days">
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
+</resources>

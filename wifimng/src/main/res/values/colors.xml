@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#70c9f9</color>
+    <color name="colorPrimaryDark">#329fc9</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="textColorPrimary">#f7f7f7</color>
+    <color name="textColorSecondary">#3e4040</color>
+    <color name="textColorClickable">#295999</color>
+    <color name="textColorHint">@android:color/darker_gray</color>
+
+    <color name="colorLine">#52FF21</color>
+    <color name="colorCellTitle">#dbdcde</color>
+    <color name="colorCellEdge">#9e9f9f</color>
+    <color name="setting_group_bg">#ebebeb</color>
+    <color name="colorBackground">#ebebeb</color>
+
+    <color name="deviceColorPrimery">#2B5A97</color>
+
+</resources>

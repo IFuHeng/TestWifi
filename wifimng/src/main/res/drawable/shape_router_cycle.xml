@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="translucent">
+    <item android:drawable="@drawable/shape_cycle_alpha_white" />
+    <item android:gravity="center">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_dualband_router"
+            android:tileMode="disabled" />
+    </item>
+    <item
+        android:width="20dp"
+        android:height="20dp"
+        android:left="85dp"
+        android:top="80dp"
+        android:right="25dp"
+        android:bottom="25dp">
+        <selector>
+            <item
+                android:drawable="@drawable/ic_round_correct"
+                android:state_checked="true" />
+            <item
+                android:drawable="@drawable/ic_round_warning"
+                android:state_checked="false" />
+        </selector>
+    </item>
+</layer-list>

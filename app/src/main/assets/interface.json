@@ -1,0 +1,112 @@
+[
+  {
+    "name": "设备类型",
+    "path": "rpcsupper",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"device_type_get\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "登录",
+    "path": "login.html",
+    "params": "password=00000000"
+  },
+  {
+    "name": "获取STA信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"sta_info_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "获取WAN信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"wan_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "获取LAN信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"lan_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "获取限速信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"mac_rate_limit_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "显示限速的mac及其详细信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"internet_time_limit_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "设置mac地址限速",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"internet_time_limit_setting\",\"params\":{{\"src_type\": 1,\"action_flag\": 0,\"mac\":\"AABBCCDDEEFF\",\"start_time_h\":3,\"start_time_m\":30,\"start_time_w\":\"5,6,7\",\"end_time_h\":6,\"end_time_m\":59,\"end_time_w\":\"3,4\",\"mode\": 1,\"action_flag \":1}}}"
+  },
+  {
+    "name": "显示无线信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"wlan_quick_setting\",\"params\":{\"src_type\":1,\"flag\":1}}"
+  },
+  {
+    "name": "显示无线高级信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"wlan_ advanced_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "显示访客网络",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"guest_network_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "显示周围无线AP",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"scan_wireless_network\",\"params\":{\"src_type\":1,\"wlan_index\":0}}"
+  },
+  {
+    "name": "获取STA分组信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"sta_group_show\",\"params\":{\"src_type\":1,\"wlan_index\":0}}"
+  },
+  {
+    "name": "显示访问控制",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"wlan_access_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "显示限速的mac及其详细信息",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"wlan_quick_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "获取组网设备列表",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"network_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "mac绑定添加",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"static_dhcp_add\",\"params\":{\"src_type\":1,\"mac\":\"AABBCCDDEEFF\",\"ip\":\"192.168.58.201\",\"action_flag\":0,\"description\":\"aabbccddeeff\"}}"
+  },
+  {
+    "name": "mac绑定显示",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"static_dhcp_show\",\"params\":{\"src_type\":1}}"
+  },
+  {
+    "name": "mac绑定设置",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"static_dhcp_show\",\"params\":{\"src_type\":1,\"enabled\":1,\"action_flag\":0}}"
+  },
+  {
+    "name": "mac绑定删除",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"static_dhcp_show\",\"params\":{{\"src_type\": 1,\"action_flag\": 0,\"list\": [{\"mac\": \"aa-bb-cc-dd-ee-ff\",\"ip\": \"192.168.58.201\",\"description\": \"aabbccddeeff\"}]}}}"
+  },
+  {
+    "name": "设置向导状态",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"wizard_set_guid\",\"params\":{\"src_type\":1,\"guid_flag\":1}}"
+  },
+  {
+    "name": "组网",
+    "path": "rpc",
+    "params": "{\"jsonrpc\":\"2.0\",\"method\":\"mesh_quick_show\",\"params\":{\"src_type\":1},\"id\":1}"
+  }
+]

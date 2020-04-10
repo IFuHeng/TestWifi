@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TestWifi</string>
+
+    <string name="cancel">CANCEL</string>
+    <string name="update">UPDATE</string>
+
+</resources>
