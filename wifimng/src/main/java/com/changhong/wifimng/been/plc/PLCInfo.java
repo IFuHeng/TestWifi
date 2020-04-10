@@ -488,7 +488,7 @@ public class PLCInfo extends BaseResponseBeen {
         private String ip_addr;// String  required  ip 地址
         private Integer access_port;// Integer  required  接入端口（LAN口，2.4G wifi 或 5G）
         private Integer online_time;// 设备介入时间，单位s
-        private Integer power_lever;// 设备信号强度，单位db
+        private Integer power_level;// 设备信号强度，单位db
         private String plc_node;//  String  required  接入 plc 节点
         private Integer rx_speed;// Integer  required  下行速率，单位kbps
         private Integer tx_speed;// Integer  required  上行速率，单位kbps
@@ -534,7 +534,7 @@ public class PLCInfo extends BaseResponseBeen {
             result.setLink_time(online_time);
             result.setDownload(rx_speed);
             result.setUpload(tx_speed);
-            result.setRssi(power_lever);
+            result.setRssi(power_level);
             return result;
         }
 
@@ -582,8 +582,8 @@ public class PLCInfo extends BaseResponseBeen {
             return tx_speed_limited;
         }
 
-        public Integer getPower_lever() {
-            return power_lever;
+        public Integer getPower_level() {
+            return power_level;
         }
 
         public Integer getOnline_time() {

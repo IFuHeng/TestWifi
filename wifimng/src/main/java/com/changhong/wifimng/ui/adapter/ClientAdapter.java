@@ -20,7 +20,7 @@ public class ClientAdapter extends BaseAdapter {
 
     protected Context mContext;
 
-    protected List<StaInfo> mData;
+    List<StaInfo> mData;
 
     public ClientAdapter(Context context, List<StaInfo> data) {
         this.mContext = context;
@@ -95,7 +95,7 @@ public class ClientAdapter extends BaseAdapter {
             tv_time.setText(item.getIp());
         }
         //速度
-        tv_down_speed.setText(FileSizeUtils.FormetFileSize(item.getDownload()) + "/s");
+        tv_down_speed.setText(FileSizeUtils.FormatFileSize(item.getDownload()) + "/s");
 
         return convertView;
     }

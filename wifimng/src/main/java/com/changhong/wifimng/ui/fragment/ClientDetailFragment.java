@@ -66,7 +66,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
     private TextView mTvup_speed;
     private TextView mTvdown_speed;
 
-    private StaInfo mStaInfo;
+    protected StaInfo mStaInfo;
     //    private CountDownTimer mCountTimer;
     private DeviceType mDevictType;
     /**
@@ -842,9 +842,9 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                                     mUploadSpeed = dev_info.getTx_speed() * 1024;
                                     mDownloadSpeed = dev_info.getRx_speed() * 1024;
                                     refreshUI();
-                                    if (dev_info.getPower_lever() != null) {
+                                    if (dev_info.getPower_level() != null) {
                                         mTvStengthForce.setVisibility(View.VISIBLE);
-                                        refreshRssi(dev_info.getPower_lever());
+                                        refreshRssi(dev_info.getPower_level());
                                     }
                                     return;
                                 }
