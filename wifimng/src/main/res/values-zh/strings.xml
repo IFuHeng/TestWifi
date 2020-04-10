@@ -146,7 +146,8 @@
     <string name="search_router">设备添加/重置</string>
     <string name="logining">登录中……</string>
     <string name="checking_wizard_setting">校验设备配置状态……</string>
-    <string name="network_setting">上网设置</string>
+    <string name="internet_setting">上网设置</string>
+    <string name="network_setting">网络设置</string>
     <string name="device_name_and_room">设备名称和房间</string>
     <string name="checking_pppoe_state">获取pppoe状态中……</string>
 
@@ -388,4 +389,6 @@
     <string name="service">服务</string>
     <string name="master_node">主节点:</string>
     <string name="current_link_dev_list">当前连接设备列表</string>
+
+    <string name="back_to_previous_step">返回上一步</string>
 </resources>

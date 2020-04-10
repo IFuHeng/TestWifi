@@ -66,7 +66,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
     private TextView mTvup_speed;
     private TextView mTvdown_speed;
 
-    StaInfo mStaInfo;
+    private StaInfo mStaInfo;
     //    private CountDownTimer mCountTimer;
     private DeviceType mDevictType;
     /**
@@ -305,12 +305,8 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
         } else if (v.getId() == R.id.btn_speed_limite) {
             onFragmentLifeListener.onChanged(new BaseBeen3(EnumPage.SPEED_LIMIT, mStaInfo.getMac(), mCurrentDeviceType));
         } else if (v.getId() == R.id.panel_group) {
-            showGroup(v);
+            showToast(R.string.wait_for_develop);
         }
-    }
-
-    protected void showGroup(View v) {
-        showToast(R.string.wait_for_develop);
     }
 
     /**

@@ -8,10 +8,10 @@ import java.util.HashMap;
  */
 public class TaskParams {
 
-    private HashMap<String, Object> params = null;
+    private HashMap<String, Object> params;
 
     public TaskParams() {
-        params = new HashMap<String, Object>();
+        params = new HashMap<>();
     }
 
     public TaskParams(String key, Object value) {

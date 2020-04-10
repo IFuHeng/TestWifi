@@ -17,7 +17,8 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|left"
+            android:layout_gravity="center_vertical|start"
+            android:contentDescription="@string/back_to_previous_step"
             android:src="@drawable/ic_chevron_left_black_24dp" />
 
         <TextView
@@ -28,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="@string/network_setting"
+            android:text="@string/internet_setting"
             android:textColor="@color/textColorPrimary" />
     </FrameLayout>
 

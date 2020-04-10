@@ -199,7 +199,7 @@ public class AdminPasswordFragment extends BaseFragment<Boolean> implements View
     /**
      * 登录路由器，校验密码
      *
-     * @param password
+     * @param password 密码
      */
     private void doLoginRouter(String password) {
 
@@ -252,7 +252,7 @@ public class AdminPasswordFragment extends BaseFragment<Boolean> implements View
 
         private View btn;
 
-        public MyTextWatcher(View btn) {
+        MyTextWatcher(View btn) {
             this.btn = btn;
         }
 

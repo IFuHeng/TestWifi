@@ -18,10 +18,10 @@ import javax.crypto.spec.IvParameterSpec;
  */
 public class CHAndroidDesUtils {
 
-    public static final String ALGORITHM_MODE = "DES";
-    public static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
-    public static final String ivString = "12345678";
-    public static final String codeType = "UTF-8";
+    private static final String ALGORITHM_MODE = "DES";
+    private static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
+    private static final String ivString = "12345678";
+    private static final String codeType = "UTF-8";
 
 //    public static void main(String[] args) throws Exception {
 //        JSONObject o = new JSONObject();
@@ -68,8 +68,6 @@ public class CHAndroidDesUtils {
 
     /**
      * DES解密
-     *
-     * @return
      */
     public static String decrypt(String data, String key) throws Exception {
         if (data == null) return null;
@@ -98,7 +96,7 @@ public class CHAndroidDesUtils {
     public static String getRandomString(int length) {
         String base = "0123456789";
         Random random = new Random();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
             int number = random.nextInt(base.length());
             sb.append(base.charAt(number));

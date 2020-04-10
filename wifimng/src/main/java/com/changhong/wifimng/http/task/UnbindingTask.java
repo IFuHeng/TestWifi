@@ -26,10 +26,10 @@ import java.util.ArrayList;
  */
 public class UnbindingTask extends BaseTask {
     /**
-     * @param isClean
-     * @param userInfo
+     * @param isClean  是否清除
+     * @param userInfo 用户信息对象
      * @param listener 回调参数内容是 被绑定设备的uuid
-     * @return
+     * @return 返回task对象
      */
     public final UnbindingTask execute(boolean isClean, Whole2LocalBeen userInfo, TaskListener<String> listener) {
         TaskParams params = new TaskParams();

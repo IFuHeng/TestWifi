@@ -162,7 +162,8 @@
     <string name="search_router">Device add or reset</string>
     <string name="logining">Logging……</string>
     <string name="checking_wizard_setting">Verify device configuration status……</string>
-    <string name="network_setting">Internet settings</string>
+    <string name="internet_setting">Internet settings</string>
+    <string name="network_setting">Network settings</string>
     <string name="device_name_and_room">Device name and room</string>
     <string name="checking_pppoe_state">Getting PPPoE status ……</string>
 
@@ -411,4 +412,5 @@
     <string name="service">Service</string>
     <string name="master_node">Master node:</string>
     <string name="current_link_dev_list">List of currently connected devices</string>
+    <string name="back_to_previous_step">Back to previous step.</string>
 </resources>

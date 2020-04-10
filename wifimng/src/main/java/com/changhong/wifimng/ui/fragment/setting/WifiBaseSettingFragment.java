@@ -211,8 +211,7 @@ public class WifiBaseSettingFragment extends BaseFragment implements View.OnClic
 
         if (!isShown)
             view.setVisibility(View.GONE);
-        else if (isShown)
-            view.setVisibility(View.VISIBLE);
+        else view.setVisibility(View.VISIBLE);
     }
 
     private void refreshView(HashMap<String, ResponseAllBeen> param) {
@@ -317,7 +316,7 @@ public class WifiBaseSettingFragment extends BaseFragment implements View.OnClic
 
     /**
      * @param isAction 是否立即执行
-     * @return
+     * @return 创建提交数据
      */
     private HashMap<String, RequireAllBeen> createRequireAllBeen(boolean isAction) {
         HashMap<String, RequireAllBeen> info = new HashMap<>();

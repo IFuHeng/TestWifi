@@ -40,16 +40,16 @@ public class RequestBeen<T> implements Config {
         }
     }
 
-    public String getTimeKey() {
+    private String getTimeKey() {
         String millis = System.currentTimeMillis() + "";
         int length = millis.length();
         return millis.substring(3, length);
     }
 
-    public String getRandomString(int length) {
+    private String getRandomString(int length) {
         String base = "0123456789";
         Random random = new Random();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
             int number = random.nextInt(base.length());
             sb.append(base.charAt(number));

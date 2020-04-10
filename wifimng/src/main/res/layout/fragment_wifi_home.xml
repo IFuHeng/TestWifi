@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -18,7 +17,8 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|left"
+            android:layout_gravity="center_vertical|start"
+            android:contentDescription="@string/back_to_previous_step"
             android:src="@drawable/ic_chevron_left_black_24dp" />
 
         <TextView
@@ -36,7 +36,8 @@
             android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="@string/base_setting"
             android:src="@android:drawable/ic_menu_manage"
             android:visibility="invisible" />
     </FrameLayout>
@@ -55,7 +56,6 @@
         android:id="@+id/view_vertical_line"
         android:layout_width="3dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
         android:background="@color/colorLine"
         android:visibility="invisible" />
 

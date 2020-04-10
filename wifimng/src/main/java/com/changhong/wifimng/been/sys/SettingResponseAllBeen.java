@@ -299,10 +299,7 @@ public class SettingResponseAllBeen extends BaseResponseBeen {
     }
 
     public boolean isLinkOn() {
-        if (wan_ip == null || "none_link".equals(wan_ip))
-            return false;
-        else
-            return true;
+        return wan_ip != null && !"none_link".equals(wan_ip);
     }
     @Override
     public String toString() {

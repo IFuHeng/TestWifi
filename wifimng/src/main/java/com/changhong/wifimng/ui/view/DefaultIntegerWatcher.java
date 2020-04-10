@@ -8,8 +8,8 @@ import com.changhong.wifimng.uttils.NumberUtils;
 import java.util.regex.Pattern;
 
 public class DefaultIntegerWatcher implements TextWatcher {
-    protected int mCount;
-    protected int mStart;
+    private int mCount;
+    private int mStart;
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -42,7 +42,7 @@ public class DefaultIntegerWatcher implements TextWatcher {
 
     }
 
-    protected boolean isInteger(CharSequence s) {
+    private boolean isInteger(CharSequence s) {
         return Pattern.matches(NumberUtils.REGEX_INTEGER, s);
     }
 }

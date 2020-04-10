@@ -13,7 +13,7 @@ public class DefaultHttpUtils {
 
 //    private static DefaultHttpClient httpClient;
 
-    //    private static DefaultHttpClient getHttpClient() {
+//    private static DefaultHttpClient getHttpClient() {
 //        if (httpClient == null)
 //            httpClient = new DefaultHttpClient();
 //        return httpClient;

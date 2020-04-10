@@ -36,7 +36,6 @@ public class WifiHomeActivity extends BaseWifiActivtiy {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Preferences.getInstance(getApplicationContext()).remove(KeyConfig.KEY_COOKIE_SSID);
 
         setContentView(R.layout.activity_wizard_setting);
 
@@ -46,8 +45,10 @@ public class WifiHomeActivity extends BaseWifiActivtiy {
             been.setType(DeviceType.getDeviceTypeFromName(mInfoFromApp.getDeviceType()));
             been.setMac(mInfoFromApp.getMac());
             gotoAddMesh(been);
-        } else
+        } else {
+            Preferences.getInstance(getApplicationContext()).remove(KeyConfig.KEY_COOKIE_SSID);
             gotoWifiHome();
+        }
 
         setWifiStateChangeListenerOnOrOff(true);
     }

@@ -4,18 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DeviceItem implements Parcelable {
-    Boolean isUpConnected;
-    String deviceName;
-    String Ip;
-    String mac;
-    DeviceType type;
-    int staNum;
-    String location;
-    boolean isChild;
-    String upNodeName;
-    WanType wan_type;
-    String iconUrl;
-    Integer qlink;
+    private Boolean isUpConnected;
+    private String deviceName;
+    private String Ip;
+    private String mac;
+    private DeviceType type;
+    private int staNum;
+    private String location;
+    private boolean isChild;
+    private String upNodeName;
+    private WanType wan_type;
+    private String iconUrl;
+    private Integer qlink;
 
     public DeviceItem() {
     }
@@ -96,10 +96,7 @@ public class DeviceItem implements Parcelable {
     }
 
     public boolean isLinkOn() {
-        if (Ip == null || "none_link".equals(Ip))
-            return false;
-        else
-            return true;
+        return Ip != null && !"none_link".equals(Ip);
     }
 
     public String getMac() {

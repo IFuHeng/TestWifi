@@ -6,11 +6,11 @@ import android.os.Parcelable;
 import com.changhong.wifimng.been.BaseResponseBeen;
 
 public class PLCDDNSBeen extends BaseResponseBeen implements Parcelable {
-    Integer enable;//1:使能；0:关闭
-    String domain_name;//域名
-    String user_name;//用户名
-    String user_password;//用户密码
-    Integer type;//0:DynDNS; 1:TZO
+    private Integer enable;//1:使能；0:关闭
+    private String domain_name;//域名
+    private String user_name;//用户名
+    private String user_password;//用户密码
+    private Integer type;//0:DynDNS; 1:TZO
 
     public PLCDDNSBeen() {
     }

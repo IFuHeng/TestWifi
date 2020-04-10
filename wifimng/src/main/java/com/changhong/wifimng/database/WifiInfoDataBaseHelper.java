@@ -12,9 +12,9 @@ public class WifiInfoDataBaseHelper extends SQLiteOpenHelper implements KeyConfi
 
     private final static String DB_NAME = "wifi_database.db";
     private final static int VERSION = 1;
-    public final static String ROUTER_TABLE = "router_admin_password";
+    private final static String ROUTER_TABLE = "router_admin_password";
 
-    public WifiInfoDataBaseHelper(Context context) {
+    WifiInfoDataBaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
     }
 

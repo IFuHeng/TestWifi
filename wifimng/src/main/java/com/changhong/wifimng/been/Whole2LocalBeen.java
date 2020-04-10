@@ -9,13 +9,13 @@ import java.io.File;
  * 从app传输到wifimng的必须参数
  */
 public class Whole2LocalBeen implements Parcelable {
-    String user;
-    String token;
-    String userUuid;
-    String devcieUuid;
-    String mac;
-    String deviceType;
-    String deviceName;
+    private String user;
+    private String token;
+    private String userUuid;
+    private String devcieUuid;
+    private String mac;
+    private String deviceType;
+    private String deviceName;
 
     public Whole2LocalBeen() {
 

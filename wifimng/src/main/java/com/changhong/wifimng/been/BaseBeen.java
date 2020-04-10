@@ -1,8 +1,8 @@
 package com.changhong.wifimng.been;
 
 public class BaseBeen<T1, T2> {
-    T1 t1;
-    T2 t2;
+    private T1 t1;
+    private T2 t2;
 
     public BaseBeen(T1 t1, T2 t2) {
         this.t1 = t1;

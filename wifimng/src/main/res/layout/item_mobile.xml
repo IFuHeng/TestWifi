@@ -9,8 +9,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/device_type"
         android:src="@drawable/ic_client_other" />
 
     <TextView
@@ -20,7 +20,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
         android:text="@string/update" />
 
 
@@ -29,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/tv_name"
-        android:layout_alignLeft="@id/tv_name"
         android:layout_alignBottom="@id/icon"
         android:layout_marginTop="10dp"
         android:text="2.4G" />
@@ -40,11 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/tv_245g"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_toStartOf="@id/tv_down_speed"
-        android:layout_toLeftOf="@id/tv_down_speed"
-        android:layout_toEndOf="@id/tv_245g"
-        android:layout_toRightOf="@id/tv_245g" />
+        android:layout_toEndOf="@id/tv_245g" />
 
 
     <TextView
@@ -52,10 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="-10dp"
-        android:drawableLeft="@drawable/ic_download_speed_green_14dp"
+        android:layout_marginStart="-10dp"
+        android:drawableStart="@drawable/ic_download_speed_green_14dp"
         android:drawablePadding="10dp"
         android:text="3"
         android:visibility="gone" />

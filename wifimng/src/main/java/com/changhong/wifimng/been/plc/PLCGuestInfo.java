@@ -6,11 +6,11 @@ import com.changhong.wifimng.been.BaseResponseBeen;
 import java.lang.reflect.Field;
 
 public class PLCGuestInfo extends BaseResponseBeen {
-    Integer enable;//		required	使能访客网络，0-禁用，1-启动
-    String name;//	required	访客网络名称
-    String passwd;//	required	访客网络密码
-    Integer valid_time;//required	访客网络预置可用时间，单位：秒
-    Integer time_left;//	required	访客网络剩余可用时间，单位：秒
+    private Integer enable;//		required	使能访客网络，0-禁用，1-启动
+    private String name;//	required	访客网络名称
+    private String passwd;//	required	访客网络密码
+    private Integer valid_time;//required	访客网络预置可用时间，单位：秒
+    private Integer time_left;//	required	访客网络剩余可用时间，单位：秒
 
     public PLCGuestInfo() {
     }
@@ -27,6 +27,7 @@ public class PLCGuestInfo extends BaseResponseBeen {
             }
         }
     }
+
     public Integer getEnable() {
         return enable;
     }

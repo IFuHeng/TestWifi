@@ -3,11 +3,11 @@ package com.changhong.wifimng.http.been;
 import java.util.List;
 
 public class DeviceListBeen {
-    Integer currentPage;
-    Integer pageSize;
-    Integer totalPage;
-    Integer totalSize;
-    List<DeviceBeen> list;
+    private Integer currentPage;
+    private Integer pageSize;
+    private Integer totalPage;
+    private Integer totalSize;
+    private List<DeviceBeen> list;
 
     public Integer getCurrentPage() {
         return currentPage;

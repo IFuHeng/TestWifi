@@ -3,11 +3,11 @@ package com.changhong.wifimng.been;
 import com.google.gson.Gson;
 
 public class PLCRequestBeen<T> {
-    String jsonrpc = "2.0";
-    int id = 1;
-    String method;
+    private String jsonrpc = "2.0";
+    private int id = 1;
+    private String method;
 
-    T param;
+    private T param;
 
     public PLCRequestBeen(T param) {
         this.param = param;

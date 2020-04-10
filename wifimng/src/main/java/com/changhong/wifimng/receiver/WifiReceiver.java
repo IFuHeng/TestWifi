@@ -1,6 +1,5 @@
 package com.changhong.wifimng.receiver;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +18,7 @@ public class WifiReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
     private NetworkInfo.DetailedState mLastNetworkState;
 
-//    private static final String ACTION_DELAY_WIFI_NETWORK_DISCONNECT = "com.changhong.wifimng.delay_wifi_disconnected_action";
-//    private static final int REQUEST_CODE_WIFI_DISCONNECT = 0x33f3e;
-
-    //    private AlarmManager mAlarmManager;
     private static final long DEFAULT_DELAY_DURATION = 1000;
-//    private PendingIntent mPendingIntent;
 
     public WifiReceiver(WifiReceiverListener listener) {
         mListener = listener;
@@ -34,7 +28,6 @@ public class WifiReceiver extends BroadcastReceiver {
         @Override
         public void handleMessage(Message msg) {
             NetworkInfo networkInfo = (NetworkInfo) msg.obj;
-//            log(" network state change:  networkInfo = " + networkInfo);
             Log.d(getClass().getSimpleName(), "====~ handleMessage :" + networkInfo);
             mListener.onConnectNetInfoChanged(networkInfo);
             super.handleMessage(msg);
@@ -96,10 +89,6 @@ public class WifiReceiver extends BroadcastReceiver {
             mListener.onScanResults(success);
         } else if (action.equals(WifiManager.RSSI_CHANGED_ACTION)) {
             mListener.onRssiChange();
-//        } else if (action.equals(ACTION_DELAY_WIFI_NETWORK_DISCONNECT)) {
-//            NetworkInfo networkInfo = intent.getParcelableExtra(Intent.EXTRA_TEXT);
-//            log(" network state change:  networkInfo = " + networkInfo);
-//            mListener.onConnectNetInfoChanged(networkInfo);
         }
     }
 
@@ -115,13 +104,10 @@ public class WifiReceiver extends BroadcastReceiver {
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
         filter.addAction(WifiManager.ACTION_PICK_WIFI_NETWORK);
-//        filter.addAction(ACTION_DELAY_WIFI_NETWORK_DISCONNECT);
 
         context.registerReceiver(this, filter);
         isRegisted = true;
         Log.d(getClass().getSimpleName(), "====~ registReceiver");
-
-//        mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
     public void unregistReceiver(Context context) {
@@ -161,19 +147,11 @@ public class WifiReceiver extends BroadcastReceiver {
     private void addWifiDisconnected2Delay(Context context, NetworkInfo delayInfo) {
         cancelWifiDisconnectedDelay();
         Log.d(getClass().getSimpleName(), "====~ addWifiDisconnected2Delay");
-//        Intent intent = new Intent(ACTION_DELAY_WIFI_NETWORK_DISCONNECT);
-//        intent.putExtra(Intent.EXTRA_TEXT, delayInfo);
-//        mPendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE_WIFI_DISCONNECT, intent, 0);
-//        mAlarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, DEFAULT_DELAY_DURATION, mPendingIntent);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(0, delayInfo), DEFAULT_DELAY_DURATION);
     }
 
     private void cancelWifiDisconnectedDelay() {
         Log.d(getClass().getSimpleName(), "====~ cancelWifiDisconnectedDelay");
-//        if (mPendingIntent != null) {
-//            mAlarmManager.cancel(mPendingIntent);
-//            mPendingIntent = null;
-//        }
         mHandler.removeMessages(0);
     }
 

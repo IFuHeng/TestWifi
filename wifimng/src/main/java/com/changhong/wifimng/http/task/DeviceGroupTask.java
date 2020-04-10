@@ -18,11 +18,6 @@ import com.changhong.wifimng.task.TaskResult;
  * @since 2020年2月6日15点3分
  */
 public class DeviceGroupTask extends BaseTask {
-    /**
-     * @param userInfo
-     * @param listener
-     * @return
-     */
     public final DeviceGroupTask execute(String groupId, String deviceId, Whole2LocalBeen userInfo, TaskListener listener) {
         TaskParams params = new TaskParams();
         params.put("userInfo", userInfo);

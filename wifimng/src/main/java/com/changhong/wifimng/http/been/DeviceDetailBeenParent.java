@@ -1,7 +1,7 @@
 package com.changhong.wifimng.http.been;
 
 public class DeviceDetailBeenParent {
-    DeviceDetailBeen object;
+    private DeviceDetailBeen object;
 
     public DeviceDetailBeen getObject() {
         return object;

@@ -5,18 +5,18 @@ import com.changhong.wifimng.been.BaseResponseBeen;
 import java.lang.reflect.Field;
 
 public class WifiAdvanceInfo extends BaseResponseBeen {
-    Integer channel_2;//2.4G信道:  max:13  0: auto
-    String country_code;//国家码, 如CN表示中国，IN表示印度
-    Integer bandwidth_2;//频宽 0: 20MHz  1: 40MHz  2: 20/40MHz
-    Integer gi_2;//保护间隔，0: short    1: long
-    Integer trans_power_2;//发射功率0: 20%  1: 40%  2: 60%  3: 80%  4: 100%
-    Integer rf_mode_2;//工作模式2:b  3:g  4:n  9:bg  10:gn  5:bgn
+    private Integer channel_2;//2.4G信道:  max:13  0: auto
+    private String country_code;//国家码, 如CN表示中国，IN表示印度
+    private Integer bandwidth_2;//频宽 0: 20MHz  1: 40MHz  2: 20/40MHz
+    private Integer gi_2;//保护间隔，0: short    1: long
+    private Integer trans_power_2;//发射功率0: 20%  1: 40%  2: 60%  3: 80%  4: 100%
+    private Integer rf_mode_2;//工作模式2:b  3:g  4:n  9:bg  10:gn  5:bgn
 
-    Integer channel_5;//5G信道： max: 254   0:auto
-    Integer bandwidth_5;//频宽 0: 20MHz  1: 40MHz  2: 20/40MHz 3: 80MHz  4: 20/40/80MHz
-    Integer gi_5;//保护间隔：0: short    1: long
-    Integer trans_power_5;//	Integer	required	发射功率0: 20%  1: 40%  2: 60%  3: 80%  4: 100%
-    Integer rf_mode_5;//	Integer	required	工作模式1:a  11:na  6:ac  8: a/n/ac
+    private Integer channel_5;//5G信道： max: 254   0:auto
+    private Integer bandwidth_5;//频宽 0: 20MHz  1: 40MHz  2: 20/40MHz 3: 80MHz  4: 20/40/80MHz
+    private Integer gi_5;//保护间隔：0: short    1: long
+    private Integer trans_power_5;//	Integer	required	发射功率0: 20%  1: 40%  2: 60%  3: 80%  4: 100%
+    private Integer rf_mode_5;//	Integer	required	工作模式1:a  11:na  6:ac  8: a/n/ac
 
     public Integer getChannel_2() {
         return channel_2;

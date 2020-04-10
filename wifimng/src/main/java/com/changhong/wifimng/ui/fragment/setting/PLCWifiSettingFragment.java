@@ -382,7 +382,7 @@ public class PLCWifiSettingFragment extends BaseFragment implements View.OnClick
     /**
      * 切换2G 5G显示
      *
-     * @param is5g
+     * @param is5g 5G
      */
     private void doSwitch2Gor5G(boolean is5g) {
         mBtnSwitch2G_5G.setText(is5g ? R.string.switchTo2g : R.string.switchTo5g);

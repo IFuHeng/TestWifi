@@ -77,7 +77,6 @@ public class WlanAccessFragment extends BaseFragment implements View.OnClickList
     private TextView mTvIntroduce;
     private View mBtnSave;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

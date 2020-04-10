@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class GsonRequest<T> extends Request<T> {
 
-    protected static final String PROTOCOL_CHARSET = "utf-8";
+    private static final String PROTOCOL_CHARSET = "utf-8";
 
     private final Gson gson = new Gson();
     private final Class<T> clazz;

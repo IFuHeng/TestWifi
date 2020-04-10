@@ -3,18 +3,18 @@ package com.changhong.wifimng.been.plc;
 import com.changhong.wifimng.been.BaseResponseBeen;
 
 public class WifiBaseInfo extends BaseResponseBeen {
-    Integer ssid_enable;//		SSID使能 1:使能 0:禁用
-    Integer ssid_hide;//		SSID广播 1:隐藏广播 0:显示广播
-    Integer wmm_enable;//			多媒体开关 1:使能 0:关闭
-    String name;//		SSID 0~27位数字或字母或-
-    Integer auth_mode;//			认证模式  :open 2:wpa-psk 3:wpa2-psk 4:wpa/wp2-psk
-    Integer encryption;//		加密方式 0:NONE 2:TKIP 3:AES 4:TKIP&AES
-    String key;//	 when auth_mode is 2/3/4	8~63个ascii字符
-    Integer update_time;//		WPA密钥更新时间
-    Integer wps;//		0: close  1: push button 2: ap-pin  3: client-pin
-    String local_pin;//	 when wps is 2	8~63个ascii字符
-    String client_pin;//	 when wps is 3	8~63个ascii字符
-    Integer ssid_idx;
+    private Integer ssid_enable;//		SSID使能 1:使能 0:禁用
+    private Integer ssid_hide;//		SSID广播 1:隐藏广播 0:显示广播
+    private Integer wmm_enable;//			多媒体开关 1:使能 0:关闭
+    private String name;//		SSID 0~27位数字或字母或-
+    private Integer auth_mode;//			认证模式  :open 2:wpa-psk 3:wpa2-psk 4:wpa/wp2-psk
+    private Integer encryption;//		加密方式 0:NONE 2:TKIP 3:AES 4:TKIP&AES
+    private String key;//	 when auth_mode is 2/3/4	8~63个ascii字符
+    private Integer update_time;//		WPA密钥更新时间
+    private Integer wps;//		0: close  1: push button 2: ap-pin  3: client-pin
+    private String local_pin;//	 when wps is 2	8~63个ascii字符
+    private String client_pin;//	 when wps is 3	8~63个ascii字符
+    private Integer ssid_idx;
 
     public Integer getSsid_enable() {
         return ssid_enable;

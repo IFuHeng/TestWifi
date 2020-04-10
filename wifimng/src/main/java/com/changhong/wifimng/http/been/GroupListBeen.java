@@ -4,11 +4,11 @@ import java.util.List;
 
 public class GroupListBeen {
 
-    Integer currentPage;
-    Integer pageSize;
-    Integer totalPage;
-    Integer totalSize;
-    List<Group> list;
+    private Integer currentPage;
+    private Integer pageSize;
+    private Integer totalPage;
+    private Integer totalSize;
+    private List<Group> list;
 
     public Integer getCurrentPage() {
         return currentPage;

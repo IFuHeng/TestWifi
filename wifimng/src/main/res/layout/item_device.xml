@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="180dp"
     android:layout_height="wrap_content"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
+        android:contentDescription="@string/device_type"
         android:src="@drawable/ic_distribute_router" />
 
     <TextView
@@ -17,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/icon"
         android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/edit"
+        android:drawableEnd="@drawable/edit"
         android:drawablePadding="10dp"
         android:gravity="center"
         android:text="@string/device_name" />
@@ -28,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
         android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/edit"
+        android:drawableEnd="@drawable/edit"
         android:drawablePadding="10dp"
         android:gravity="center"
         android:text="@string/ip_address" />

@@ -18,11 +18,6 @@ import java.util.HashMap;
  * @since 2020年2月6日15点3分
  */
 public class DeviceUpdateTask extends BaseTask {
-    /**
-     * @param userInfo
-     * @param listener
-     * @return
-     */
     public final DeviceUpdateTask execute(String deviceName, Whole2LocalBeen userInfo, TaskListener listener) {
         TaskParams params = new TaskParams();
         params.put("userInfo", userInfo);

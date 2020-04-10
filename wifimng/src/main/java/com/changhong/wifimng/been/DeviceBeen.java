@@ -20,7 +20,7 @@ public class DeviceBeen implements Parcelable {
     }
 
 
-    protected DeviceBeen(Parcel in) {
+    private DeviceBeen(Parcel in) {
         name = in.readString();
         ip = in.readString();
         mac = in.readString();

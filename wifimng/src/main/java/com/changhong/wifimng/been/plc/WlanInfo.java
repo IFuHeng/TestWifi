@@ -3,13 +3,13 @@ package com.changhong.wifimng.been.plc;
 import com.changhong.wifimng.been.BaseResponseBeen;
 
 public class WlanInfo extends BaseResponseBeen {
-    Integer enable;//		0: disable    1: enable
-    Integer bus_switch_2;//		0:disable 1:enable 2.4G总开关
-    Integer bus_switch_5;//		0:disable 1:enable 5G总开关
-    WifiBaseInfo wifiBase2G;
-    WifiBaseInfo wifiBase5G;
-    WifiAdvanceInfo wifiAdvanceInfo2G;
-    WifiAdvanceInfo wifiAdvanceInfo5G;
+    private Integer enable;//		0: disable    1: enable
+    private Integer bus_switch_2;//		0:disable 1:enable 2.4G总开关
+    private Integer bus_switch_5;//		0:disable 1:enable 5G总开关
+    private WifiBaseInfo wifiBase2G;
+    private WifiBaseInfo wifiBase5G;
+    private WifiAdvanceInfo wifiAdvanceInfo2G;
+    private WifiAdvanceInfo wifiAdvanceInfo5G;
 
     public Integer getEnable() {
         return enable;

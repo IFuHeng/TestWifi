@@ -17,9 +17,8 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center_vertical|left"
+            android:layout_gravity="center_vertical|start"
+            android:contentDescription="@string/back_to_previous_step"
             android:src="@drawable/ic_chevron_left_black_24dp" />
 
         <TextView
@@ -63,6 +62,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
+                android:contentDescription="@string/device_type"
                 android:src="@drawable/ic_mesh" />
 
             <Button
@@ -81,7 +81,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -118,7 +117,7 @@
             <ListView
                 android:id="@+id/list_device"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:choiceMode="multipleChoice" />
 
@@ -145,6 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:contentDescription="@string/failed_to_add_device"
                 android:src="@drawable/ic_add_failed" />
 
             <TextView

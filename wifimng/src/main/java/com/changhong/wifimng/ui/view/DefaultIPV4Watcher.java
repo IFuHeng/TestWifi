@@ -4,7 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 public class DefaultIPV4Watcher implements TextWatcher {
-    static final char[] HEX_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
+    private static final char[] HEX_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
 
     private int mCount;
     private int mStart;
@@ -36,9 +36,6 @@ public class DefaultIPV4Watcher implements TextWatcher {
 
     /**
      * 判断是否是输入中的ipv4
-     *
-     * @param s
-     * @return
      */
     private void checkAndFormat(Editable s) {
         if (s.length() == 0) {
@@ -58,10 +55,8 @@ public class DefaultIPV4Watcher implements TextWatcher {
         int endsymbolNum = getCharCount(s, '.');
         if (endsymbolNum > 3) {
             dealEndsymbolGt3(s);
-            return;
         } else {
             dealEndsymbolLt3(s);
-            return;
         }
 
 
@@ -120,9 +115,6 @@ public class DefaultIPV4Watcher implements TextWatcher {
 
     /**
      * 判断超出的字符
-     *
-     * @param s
-     * @return
      */
     private boolean isRuleCharactor(CharSequence s) {
         for (int i = 0; i < s.length(); ++i) {

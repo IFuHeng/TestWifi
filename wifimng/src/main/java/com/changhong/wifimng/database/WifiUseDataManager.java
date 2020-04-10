@@ -6,7 +6,7 @@ import com.changhong.wifimng.preference.KeyConfig;
 
 public class WifiUseDataManager implements KeyConfig {
 
-    WifiInfoDataBaseHelper mDbHelper;
+    private WifiInfoDataBaseHelper mDbHelper;
 
     public WifiUseDataManager(Context context) {
         this.mDbHelper = new WifiInfoDataBaseHelper(context);

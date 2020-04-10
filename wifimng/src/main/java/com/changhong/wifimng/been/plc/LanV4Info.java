@@ -3,15 +3,15 @@ package com.changhong.wifimng.been.plc;
 import com.changhong.wifimng.been.BaseResponseBeen;
 
 public class LanV4Info extends BaseResponseBeen {
-    Integer addr_sel;//	required	维护地址方式 1: dhcp  2: static
-    String ip_addr;//	required	IP地址，默认维护IP地址，需校验IP有效
-    String mask;//required	掩码，默认维护地址子网掩码
-    String domain_name;//	required	域名，不超过64个字符
-    Integer dhcps_enable;//	required	DHCP服务器使能1: enable    0: disable
-    String dhcp_start;//	required	起始地址    取值范围0-255，不得大于end
-    String dhcp_end;//required	结束地址    取值范围0-255，不得小于start
-    String sub_mask;//	required	子网掩码
-    Integer lease;//	required	租期，单位：秒
+    private Integer addr_sel;//	required	维护地址方式 1: dhcp  2: static
+    private String ip_addr;//	required	IP地址，默认维护IP地址，需校验IP有效
+    private String mask;//required	掩码，默认维护地址子网掩码
+    private String domain_name;//	required	域名，不超过64个字符
+    private Integer dhcps_enable;//	required	DHCP服务器使能1: enable    0: disable
+    private String dhcp_start;//	required	起始地址    取值范围0-255，不得大于end
+    private String dhcp_end;//required	结束地址    取值范围0-255，不得小于start
+    private String sub_mask;//	required	子网掩码
+    private Integer lease;//	required	租期，单位：秒
 
     public Integer getAddr_sel() {
         return addr_sel;

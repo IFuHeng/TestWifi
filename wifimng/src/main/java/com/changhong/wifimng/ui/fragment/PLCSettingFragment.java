@@ -23,8 +23,7 @@ import java.util.Observer;
 public class PLCSettingFragment extends RouterSettingFragment {
 
     protected String[][] getChoices() {
-        String[][] childarr = {getResources().getStringArray(R.array.setting_function_plc), getResources().getStringArray(R.array.setting_common)};
-        return childarr;
+        return new String[][]{getResources().getStringArray(R.array.setting_function_plc), getResources().getStringArray(R.array.setting_common)};
     }
 
     @Override

@@ -4,11 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DDNSBeen implements Parcelable {
-    boolean enable;
-    String domain_name;
-    String user_name;
-    String user_password;
-    int type;
+    private boolean enable;
+    private String domain_name;
+    private String user_name;
+    private String user_password;
+    private int type;
 
     public DDNSBeen() {
     }

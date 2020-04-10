@@ -10,7 +10,7 @@ public class RequireAndResponseBeen extends BaseResponseBeen implements Parcelab
 
 
     /**
-     * @require 1为WEB, 2为APP，3为其他
+     * 1为WEB, 2为APP，3为其他
      */
     private Integer src_type = 1;
 
@@ -45,7 +45,7 @@ public class RequireAndResponseBeen extends BaseResponseBeen implements Parcelab
      */
     private Integer network_time;
 
-    protected RequireAndResponseBeen(Parcel in) {
+    private RequireAndResponseBeen(Parcel in) {
         if (in.readByte() == 0) {
             src_type = null;
         } else {

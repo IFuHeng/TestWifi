@@ -1,19 +1,19 @@
 package com.changhong.wifimng.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.changhong.wifimng.R;
 
 public class BaseDialogFragment<T> extends DialogFragment {
 
-    protected Context mContext;
-    protected OnFragmentLifeListener<T> mFragmentListener;
+    protected FragmentActivity mContext;
+    OnFragmentLifeListener<T> mFragmentListener;
     private Toast mToast;
 
     @Override
@@ -27,7 +27,7 @@ public class BaseDialogFragment<T> extends DialogFragment {
     public void onStart() {
         super.onStart();
         DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        mContext.getWindowManager().getDefaultDisplay().getMetrics(dm);
         getDialog().getWindow().setGravity(Gravity.CENTER);
         getDialog().getWindow().setLayout(dm.widthPixels, -2);
     }
@@ -37,8 +37,10 @@ public class BaseDialogFragment<T> extends DialogFragment {
     }
 
 
-    protected void destroyMyself() {
-        getFragmentManager().beginTransaction().remove(this).commit();
+    void destroyMyself() {
+        if (getFragmentManager() != null) {
+            getFragmentManager().beginTransaction().remove(this).commit();
+        }
     }
 
     protected void showToast(CharSequence charSequence) {

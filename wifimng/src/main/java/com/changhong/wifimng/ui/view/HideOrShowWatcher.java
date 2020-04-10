@@ -9,7 +9,7 @@ import android.view.View;
  */
 public class HideOrShowWatcher implements TextWatcher {
 
-    View aim;
+    private View aim;
 
     public HideOrShowWatcher(View aim) {
         this.aim = aim;

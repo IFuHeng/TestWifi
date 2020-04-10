@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Base64;
 
 import com.changhong.wifimng.BuildConfig;
-import com.changhong.wifimng.been.BaseResponseBeen;
 import com.changhong.wifimng.http.Config;
 import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.task.TaskParams;
@@ -85,7 +84,7 @@ public abstract class BaseTask extends GenericTask implements Config {
     /**
      * DES解密
      *
-     * @return
+     * @return 解密出的字符串
      */
     public static String decrypt(String data, String key) {
         if (data == null) return null;

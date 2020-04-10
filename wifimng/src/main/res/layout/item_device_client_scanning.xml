@@ -9,6 +9,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/device_type"
         android:src="@drawable/ic_flash_on_black_24dp" />
 
     <TextView

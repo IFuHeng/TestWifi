@@ -334,8 +334,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
 
             int longtime = mCbUseTimeLimit.isChecked() ? (mSpinnerTimeLimit.getSelectedItemPosition() + 1) : 0;
             longtime *= 3600;
-            if (mPLCInfo.getValid_time() != longtime)
-                return true;
+            return mPLCInfo.getValid_time() != longtime;
         }
 
         return false;
@@ -381,7 +380,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
     }
 
     /**
-     * @return 创建提交数据对象
+     * 创建提交数据对象
      */
     private void writeInfo2PlcInfo() {
         mPLCInfo.setEnable(mSwitchUse.isChecked() ? 1 : 0);
@@ -418,7 +417,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
                             showToast(R.string.commit_completed);
                             onFragmentLifeListener.onChanged(null);
                         } else {
-                            showTaskError(task,R.string.interaction_failed);
+                            showTaskError(task, R.string.interaction_failed);
                         }
                     }
 
@@ -467,7 +466,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
                             showToast(R.string.commit_completed);
                             onFragmentLifeListener.onChanged(null);
                         } else {
-                            showTaskError(task,R.string.interaction_failed);
+                            showTaskError(task, R.string.interaction_failed);
                         }
                     }
 
@@ -600,10 +599,10 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
         }
     }
 
-    protected void startCountDownTimer(int duration) {
+    private void startCountDownTimer(int duration) {
         hideCountDownTimer();
         if (mDeviceType == DeviceType.PLC)
-            mCountDownTimer = new CountDownTimer(duration * 1000l, 60000) {
+            mCountDownTimer = new CountDownTimer(duration * 1000L, 60000) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -618,7 +617,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
                 }
             };
         else
-            mCountDownTimer = new CountDownTimer(duration * 1000l, 1000) {
+            mCountDownTimer = new CountDownTimer(duration * 1000L, 1000) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -663,9 +662,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
 //        }
 
 
-        SpannableString ss = new SpannableString(String.format("%d:%02d", hour, minute));
-
-        return ss;
+        return new SpannableString(String.format("%d:%02d", hour, minute));
     }
 
     @Override

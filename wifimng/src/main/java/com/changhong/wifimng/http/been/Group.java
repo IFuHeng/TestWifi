@@ -1,9 +1,9 @@
 package com.changhong.wifimng.http.been;
 
 public class Group {
-    String userId;
-    String groupName;
-    String uuid;
+    private String userId;
+    private String groupName;
+    private String uuid;
 
     public void setUserId(String userId) {
         this.userId = userId;
