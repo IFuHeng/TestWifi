@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -476,7 +477,7 @@ public abstract class BaseFragment<T> extends Fragment {
     protected void showAlertMacNotSame(String aimMac, String localMac) {
         int start = 11;
         int end = 11 + localMac.length();
-        SpannableString spannableString = new SpannableString(String.format(_getString(R.string.notice_device_type_not_same), localMac, aimMac));
+        SpannableString spannableString = new SpannableString(String.format(_getString(R.string.notice_mac_not_same), localMac, aimMac));
         spannableString.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         start = end + 6;
         end = start + localMac.length();
@@ -514,5 +515,13 @@ public abstract class BaseFragment<T> extends Fragment {
         int height = mActivity.getWindow().getDecorView().getHeight();
         if (view.getHeight() < height)
             view.setMinimumHeight(height);
+    }
+
+    /**
+     * @param networkInfo
+     * @return 子节点执行后，true让主节点中断后续操作
+     */
+    public boolean onNetworkChange(NetworkInfo networkInfo) {
+        return false;
     }
 }

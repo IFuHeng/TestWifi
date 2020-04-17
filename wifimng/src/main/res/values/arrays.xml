@@ -24,6 +24,7 @@
     <string-array name="setting_common">
         <item>Device name and room</item>
         <item>Administor Password</item>
+        <item>Firmware update</item>
         <item>Reboot</item>
         <item>Recovery</item>
         <item>Delete Device</item>

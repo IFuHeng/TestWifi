@@ -19,7 +19,7 @@ public class ClientIconUtils {
     enum ClientType {
         MI(R.drawable.ic_client_xiaomi, "mi"),
         HUAWEI(R.drawable.ic_client_huawei, "huawei", "honor"),
-        APPLE(R.drawable.ic_client_apple, "apple","mac","iphone"),
+        APPLE(R.drawable.ic_client_apple, "apple","mac","iphone","ipod","ipad"),
         ANDROID(R.drawable.ic_client_android, "android"),
         AMOI(R.drawable.ic_client_amoi, "amoi"),
         BBK(R.drawable.ic_client_bbk, "bbk"),

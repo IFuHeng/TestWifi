@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -162,7 +163,6 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
             mLastDownload = mStaInfo.getUpload();
         }
 
-
         {//信号强度的文字
             String signal_intensity = getString(R.string.signal_intensity);
             ARR_SIGNAL_INTENSITY[0] = signal_intensity + getString(R.string.strong);
@@ -201,6 +201,8 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
         mSwitchNetworkForbid = view.findViewById(R.id.switch_network_forbid);
         mSwitchOnlineNotice.setOnCheckedChangeListener(this);
         mSwitchNetworkForbid.setOnCheckedChangeListener(this);
+
+        mTvStengthForce.setVisibility(View.INVISIBLE);
 
         if (mStaInfo.getRssi() != null) {
             refreshRssi(mStaInfo.getRssi());
@@ -333,7 +335,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                         doSetAccess(2, false);
                     } else if (mCurrentEnabled == 1) {
                         //TODO 移除白名单，并提示从访问控制中恢复
-                        doDelAccess(mStaInfo.getMac(), false);
+                        doDelAccess(mStaInfo.getMac(), true);
                     } else if (mCurrentEnabled == 2) {
                         //TODO 添加到黑名单，并提示从访问控制中恢复
                         doAddAccess(mStaInfo.getName(), mStaInfo.getMac(), false);
@@ -350,7 +352,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                         }, _getString(R.string.cancel), null, true);
                     } else if (mCurrentEnabled == 1) {
                         //TODO 移除白名单，并提示从访问控制中恢复
-                        doDelAccess(mStaInfo.getMac(), false);
+                        doDelAccess(mStaInfo.getMac(), true);
                     } else if (mCurrentEnabled == 2) {
                         //TODO 添加到黑名单，并提示从访问控制中恢复
                         doAddAccess(mStaInfo.getName(), mStaInfo.getMac(), false);
@@ -360,7 +362,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                 if (mCurrentEnabled == 1) {
                     doAddAccess(mStaInfo.getName(), mStaInfo.getMac(), false);
                 } else if (mCurrentEnabled == 2) {
-                    doDelAccess(mStaInfo.getMac(), false);
+                    doDelAccess(mStaInfo.getMac(), true);
                 } else if (mCurrentEnabled == 0) {
                     // 不存在未开启情况
                 }
@@ -484,8 +486,11 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                                         calculationSpeed();
                                         isFromChild = true;
                                         refreshUI();
-                                        if (isCurrentDevice)
+                                        if (isCurrentDevice) {
+                                            mTvStengthForce.setVisibility(View.VISIBLE);
                                             refreshRssi(getWifiManager().getConnectionInfo().getRssi());
+                                        } else
+                                            mTvStengthForce.setVisibility(View.INVISIBLE);
                                         return;
                                     }
                                 }
@@ -563,8 +568,11 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
 
                                     isFromChild = false;
                                     refreshUI();
-                                    if (isCurrentDevice)
+                                    if (isCurrentDevice) {
+                                        mTvStengthForce.setVisibility(View.VISIBLE);
                                         refreshRssi(getWifiManager().getConnectionInfo().getRssi());
+                                    } else
+                                        mTvStengthForce.setVisibility(View.INVISIBLE);
                                     return;
                                 }
                             }
@@ -839,13 +847,20 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                                     continue;
 
                                 if (dev_info.getMac().equals(mStaInfo.getMac())) {
+//                                    一定时间后更新名字和ip
+                                    mStaInfo.setIp(dev_info.getIp_addr());
+                                    if (mStaInfo.getName() == null)
+                                        mStaInfo.setName(dev_info.getDev_name());
+
                                     mUploadSpeed = dev_info.getTx_speed() * 1024;
                                     mDownloadSpeed = dev_info.getRx_speed() * 1024;
                                     refreshUI();
-                                    if (dev_info.getPower_level() != null) {
+                                    if (dev_info.getPower_level() != null && dev_info.getPower_level() != 0// 有信号
+                                            && dev_info.isWirelessType()) { // 设备类型是无线设备
                                         mTvStengthForce.setVisibility(View.VISIBLE);
                                         refreshRssi(dev_info.getPower_level());
-                                    }
+                                    } else
+                                        mTvStengthForce.setVisibility(View.INVISIBLE);
                                     return;
                                 }
                             }
@@ -882,7 +897,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
      */
     private void doSetAccess(final int enable, boolean isEffectImmediately) {
         addTask(
-                new SetWlanAccessTask().execute(getGateway(), mCurrentDeviceType, enable, mStaInfo, isEffectImmediately, getCookie(), new TaskListener<Boolean>() {
+                new SetWlanAccessTask().execute(getGateway(), mCurrentDeviceType, enable, isEffectImmediately, getCookie(), new TaskListener<Boolean>() {
                     @Override
                     public String getName() {
                         return null;
@@ -946,5 +961,13 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
         mLastDownload = mStaInfo.getUpload();
         mDownloadSpeed *= 1000;
         mDownloadSpeed /= costTime;
+    }
+
+    @Override
+    public boolean onNetworkChange(NetworkInfo networkInfo) {
+        if (networkInfo != null && networkInfo.getDetailedState() == NetworkInfo.DetailedState.DISCONNECTED) {
+            stopCountTimer();
+        }
+        return super.onNetworkChange(networkInfo);
     }
 }

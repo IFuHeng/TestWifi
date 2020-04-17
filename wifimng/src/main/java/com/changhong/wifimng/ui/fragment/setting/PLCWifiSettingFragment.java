@@ -491,6 +491,9 @@ public class PLCWifiSettingFragment extends BaseFragment implements View.OnClick
             EnumBandWidth5G bandwidth5 = EnumBandWidth5G.findBandWidthByPlcCode(been.getBandwidth_5());
             mTvBandwidth.setText(bandwidth5.getName());
             mTvBandwidth.setTag(Arrays.binarySearch(EnumBandWidth5G.values(), bandwidth5));
+
+            mTvTxPower.setText(EnumPowerTrans.findBandWidthByPlcCode(been.getTrans_power_5()).getName());
+            mTvTxPower.setTag(been.getTrans_power_5());
         } else {
             mTvTitleAdvance.setText(getString(R.string.title_2_4G) + getString(R.string.advance_setting));
             mBtnSwitch2G_5G_advance.setText(R.string.switchTo5g);
@@ -504,6 +507,9 @@ public class PLCWifiSettingFragment extends BaseFragment implements View.OnClick
             EnumBandWidth bandwidth = EnumBandWidth.findBandWidthByPlcCode(been.getBandwidth_2());
             mTvBandwidth.setText(bandwidth.getName());
             mTvBandwidth.setTag(Arrays.binarySearch(EnumBandWidth.values(), bandwidth));
+
+            mTvTxPower.setText(EnumPowerTrans.findBandWidthByPlcCode(been.getTrans_power_2()).getName());
+            mTvTxPower.setTag(been.getTrans_power_2());
         }
     }
 

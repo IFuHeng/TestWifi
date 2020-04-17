@@ -17,7 +17,6 @@ import com.changhong.wifimng.receiver.WifiReceiver;
 /**
  * Created by Administrator on 2019/11/7.
  */
-
 public class BaseWifiActivtiy extends BaseActivtiy implements WifiReceiver.WifiReceiverListener {
     public static final int REQUEST_CODE_WIZARD = (int) Math.round(Math.random());
     public static final int REQUEST_CODE_WIFI_SETTING = REQUEST_CODE_WIZARD + 1;

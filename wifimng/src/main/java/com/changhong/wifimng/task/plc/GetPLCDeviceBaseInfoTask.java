@@ -28,7 +28,8 @@ public class GetPLCDeviceBaseInfoTask extends GenericTask {
             PLCInfo result;
             final String url = String.format("http://%s:8081/rpc", gateway);
             {//                step1
-                body = "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"plc_show\",\"param\":{\"src_type\":1}}";
+			    // body = "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"plc_show\",\"param\":{\"src_type\":1}}";
+                body = "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"device_basic_show\",\"param\":{\"src_type\":1}}";
                 response = DefaultHttpUtils.httpPostWithText(url, body);
                 result = new Gson().fromJson(response, PLCInfo.class);
                 if (result.getErr_code() != 0) {

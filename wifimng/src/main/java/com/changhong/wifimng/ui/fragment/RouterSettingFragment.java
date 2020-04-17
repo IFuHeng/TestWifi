@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,8 @@ import com.changhong.wifimng.been.BaseBeen3;
 import com.changhong.wifimng.been.DeviceType;
 import com.changhong.wifimng.been.plc.PLCInfo;
 import com.changhong.wifimng.been.sys.SettingResponseAllBeen;
+import com.changhong.wifimng.http.been.UpgradeBeen;
+import com.changhong.wifimng.http.task.CheckUpdateTask;
 import com.changhong.wifimng.http.task.UnbindingTask;
 import com.changhong.wifimng.preference.KeyConfig;
 import com.changhong.wifimng.preference.Preferences;
@@ -43,6 +46,7 @@ import com.changhong.wifimng.ui.activity.BaseWifiActivtiy;
 import com.changhong.wifimng.ui.activity.WifiHomeActivity;
 import com.changhong.wifimng.ui.activity.WizardSettingActivity;
 import com.changhong.wifimng.uttils.CommUtil;
+import com.changhong.wifimng.uttils.WifiMacUtils;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -57,6 +61,10 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
      * 当前已连接路由器类型
      */
     private String mCurrentDeviceType;
+    /**
+     * 当前设备的软件版本
+     */
+    private String mCurrentDeviceSoftwareVersion;
     /**
      * 当前路由mac地址
      */
@@ -74,7 +82,10 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
      */
     private Observer mNextObserver;
 
-    private boolean isLogined;
+    private boolean isLogin;
+
+    private int[][] mListResIdArr;
+    private SettingAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,9 +107,14 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                 mListView.setOnGroupCollapseListener(this);
             }
         });
-        String[] grouptitle = new String[]{getString(R.string.function_setting), getString(R.string.common_setting)};
-        String[][] childarr = getChoices();
-        mListView.setAdapter(new SettingAdapter(mActivity, grouptitle, childarr));
+        String[] groupTitle = new String[]{getString(R.string.function_setting), getString(R.string.common_setting)};
+        String[][] childArr = getChoices();
+        mListResIdArr = new int[childArr.length][];
+        for (int i = 0; i < mListResIdArr.length; i++) {
+            mListResIdArr[i] = new int[childArr[i].length];
+        }
+        mAdapter = new SettingAdapter(mActivity, groupTitle, childArr, mListResIdArr);
+        mListView.setAdapter(mAdapter);
         mListView.setOnChildClickListener(this);
 
         for (int i = 0; i < mListView.getExpandableListAdapter().getGroupCount(); i++) {
@@ -106,11 +122,17 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
         }
 
         super.onViewCreated(view, savedInstanceState);
+
+        doChechUpgrade();
     }
 
     protected String[][] getChoices() {
-        String[][] childarr = {getResources().getStringArray(R.array.setting_function), getResources().getStringArray(R.array.setting_common)};
-        return childarr;
+        return new String[][]{getResources().getStringArray(R.array.setting_function), getResources().getStringArray(R.array.setting_common)};
+    }
+
+    protected void showVersionHasNew() {
+        mListResIdArr[1][2] = R.drawable.ic_verson_new;
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -162,10 +184,10 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                     case 1:
                         gotoNextPage(EnumPage.ADMIN_PASSWORD);
                         break;
-//                    case 2:
-//                        onFragmentLifeListener.onChanged(new BaseBeen3(EnumPage.DEVICE_SHARE, null, null));
-//                        break;
-                    case 2://重启
+                    case 2:
+                        gotoNextPage(EnumPage.DEVICE_UPDATE);
+                        break;
+                    case 3://重启
                         doNextFunction(new Observer() {
                             @Override
                             public void update(Observable observable, Object o) {
@@ -173,7 +195,7 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                             }
                         });
                         break;
-                    case 3:// reset
+                    case 4:// reset
                         doNextFunction(new Observer() {
                             @Override
                             public void update(Observable observable, Object o) {
@@ -181,7 +203,7 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                             }
                         });
                         break;
-                    case 4:
+                    case 5:
                         askDeleteDevice();
                         break;
                     default:
@@ -211,12 +233,12 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
             doGetDeviceType();
         } else if (mGuideState != 1) {
             doCheckGuideState();
-        } else if (!isLogined) {
+        } else if (!isLogin) {
             checkIsLogin(false);
         } else if (mCurrentRouterMac == null) {
             doCheckDeviceMac();
         } else {
-            onFragmentLifeListener.onChanged(new BaseBeen3(page, mCurrentDeviceType, mCurrentDeviceType));
+            onFragmentLifeListener.onChanged(new BaseBeen3(page, mCurrentRouterMac, mCurrentDeviceSoftwareVersion));
             mNextPage = null;
         }
     }
@@ -227,7 +249,7 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
             doGetDeviceType();
         } else if (mGuideState != 1) {
             doCheckGuideState();
-        } else if (!isLogined) {
+        } else if (!isLogin) {
             checkIsLogin(false);
         } else if (mCurrentRouterMac == null) {
             doCheckDeviceMac();
@@ -357,11 +379,13 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
         private Context context;
         private String[] groupTitle;
         private String[][] childArr;
+        private int[][] resIdArr;
 
-        public SettingAdapter(Context context, String[] groupTitle, String[][] childArr) {
+        public SettingAdapter(Context context, String[] groupTitle, String[][] childArr, int[][] resIdArr) {
             this.groupTitle = groupTitle;
             this.childArr = childArr;
             this.context = context;
+            this.resIdArr = resIdArr;
         }
 
         @Override
@@ -433,13 +457,27 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
             if (convertView == null)
-                convertView = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, null, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_group, null, false);
 
-            ((TextView) convertView).setText(childArr[groupPosition][childPosition]);
+            TextView tv_name = convertView.findViewById(R.id.tv_name);
+            tv_name.setText(childArr[groupPosition][childPosition]);
+            tv_name.setTextColor(Color.BLACK);
+
+            ImageView icon1 = convertView.findViewById(R.id.btn_delete);
+            icon1.setImageResource(R.drawable.ic_navigate_next_black_24dp);
+
+            ImageView icon2 = convertView.findViewById(R.id.btn_edit);
+            if (resIdArr == null || resIdArr[groupPosition] == null || resIdArr[groupPosition][childPosition] == 0)
+                icon2.setVisibility(View.INVISIBLE);
+            else {
+                icon2.setVisibility(View.VISIBLE);
+                icon2.setImageResource(resIdArr[groupPosition][childPosition]);
+            }
+//            ((TextView) convertView).setText(childArr[groupPosition][childPosition]);
 //            ((TextView) convertView).setTextColor(context.getResources().getColor(R.color.textColorSecondary));
-            ((TextView) convertView).setTextColor(Color.BLACK);
+//            ((TextView) convertView).setTextColor(Color.BLACK);
 
-            ((TextView) convertView).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_navigate_next_black_24dp, 0);
+//            ((TextView) convertView).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_navigate_next_black_24dp, 0);
 
             return convertView;
         }
@@ -588,17 +626,18 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                     @Override
                     public void onProgressUpdate(GenericTask task, SettingResponseAllBeen param) {
                         if (param != null) {
-                            if (!param.getWan_mac().equalsIgnoreCase(mInfoFromApp.getMac())) {
-                                showAlertMacNotSame(mInfoFromApp.getMac(), param.getWan_mac());
+//                            if (!param.getWan_mac().equalsIgnoreCase(mInfoFromApp.getMac())) {
+                            if (!WifiMacUtils.compareMac(param.getWan_mac(), mInfoFromApp.getMac())) {
+                                showAlertMacNotSame(WifiMacUtils.macNoColon(mInfoFromApp.getMac()), param.getWan_mac());
                             } else {
                                 mCurrentRouterMac = param.getWan_mac();
+                                mCurrentDeviceSoftwareVersion = param.getSoft_ver();
                                 //TODO 前往下一页
                                 if (mNextPage != null) {
                                     gotoNextPage(mNextPage);
                                 } else if (mNextObserver != null) {
                                     doNextFunction(mNextObserver);
                                 }
-
                             }
                         }
                     }
@@ -636,10 +675,11 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                     @Override
                     public void onProgressUpdate(GenericTask task, PLCInfo param) {
                         if (param != null) {
-                            if (!param.getDev_mac().equalsIgnoreCase(mInfoFromApp.getMac())) {
-                                showAlertMacNotSame(mInfoFromApp.getMac(), param.getDev_mac());
+                            if (!WifiMacUtils.compareMac(param.getDev_mac(), mInfoFromApp.getMac())) {
+                                showAlertMacNotSame(WifiMacUtils.macNoColon(mInfoFromApp.getMac()), param.getDev_mac());
                             } else {
                                 mCurrentRouterMac = param.getDev_mac();
+                                mCurrentDeviceSoftwareVersion = param.getSw_ver();
                                 //TODO 前往下一页
                                 if (mNextPage != null) {
                                     gotoNextPage(mNextPage);
@@ -714,7 +754,7 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                         if (result == TaskResult.OK) {
                             doCheckDeviceMac();
                         } else {
-                            isLogined = false;
+                            isLogin = false;
                             showTaskError(task, R.string.login_failed);
                             checkIsLogin(true);
                         }
@@ -725,7 +765,7 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
                         if (param != null) {
                             Preferences.getInstance(mActivity).saveString(KeyConfig.KEY_ROUTER_PASSWORD, param.getT1());
                             Preferences.getInstance(mActivity).saveString(KeyConfig.KEY_COOKIE_SSID, param.getT2());
-                            isLogined = true;
+                            isLogin = true;
                         }
                     }
 
@@ -789,6 +829,55 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
 
                     @Override
                     public void onProgressUpdate(GenericTask task, String param) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(GenericTask task) {
+
+                    }
+                })
+        );
+    }
+
+    private void doChechUpgrade() {
+        addTask(
+                new CheckUpdateTask().execute(mInfoFromApp, new TaskListener<UpgradeBeen>() {
+                    @Override
+                    public String getName() {
+                        return null;
+                    }
+
+                    @Override
+                    public void onPreExecute(GenericTask task) {
+                    }
+
+                    @Override
+                    public void onPostExecute(GenericTask task, TaskResult result) {
+                        if (result != TaskResult.OK) {
+//                            showTaskError(task, R.string.load_update_info_failed);
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onProgressUpdate(GenericTask task, UpgradeBeen param) {
+                        if (param == null || param.getIsUpgrade() == 0) {
+                            return;
+                        }
+
+                        if (param.getIsUpgrade() == 1) {
+                            if (param.getIsForce() == 1) {
+                                showAlert(_getString(R.string.major_update) + '\n' + param.getComments(), _getString(R.string.update), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        gotoNextPage(EnumPage.DEVICE_UPDATE);
+                                    }
+                                }, _getString(R.string.cancel), null, false);
+                            } else
+                                showVersionHasNew();
+                        }
+
 
                     }
 

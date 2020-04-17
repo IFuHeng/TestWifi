@@ -19,6 +19,7 @@
     <string-array name="setting_common">
         <item>设备名称和房间</item>
         <item>管理员密码</item>
+        <item>固件升级</item>
         <item>重启设备</item>
         <item>恢复出厂设置</item>
         <item>删除设备</item>

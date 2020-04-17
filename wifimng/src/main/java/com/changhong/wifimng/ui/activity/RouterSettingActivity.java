@@ -21,6 +21,7 @@ import com.changhong.wifimng.ui.fragment.PLCSettingFragment;
 import com.changhong.wifimng.ui.fragment.RouterSettingFragment;
 import com.changhong.wifimng.ui.fragment.TestInternetTimeLimitFragment;
 import com.changhong.wifimng.ui.fragment.TestLimitSpeedListFragment;
+import com.changhong.wifimng.ui.fragment.UpdateStateFragment;
 import com.changhong.wifimng.ui.fragment.setting.AccessListFragment;
 import com.changhong.wifimng.ui.fragment.setting.AdminPasswordFragment;
 import com.changhong.wifimng.ui.fragment.setting.DDNSFragment;
@@ -88,7 +89,7 @@ public class RouterSettingActivity extends BaseWifiActivtiy implements WifiRecei
         } else if (page == EnumPage.LAN_SETTING) {
             gotoDefaultPage(LanSettingFragment.class);
         } else if (page == EnumPage.ADMIN_PASSWORD) {
-            gotoAdminPassword(params[0]);
+            gotoAdminPassword();
         } else if (page == EnumPage.GUEST_NETWORK) {
             gotoDefaultPage(GuestNetworkFragment.class);
         } else if (page == EnumPage.WLAN_ACCESS) {
@@ -102,18 +103,41 @@ public class RouterSettingActivity extends BaseWifiActivtiy implements WifiRecei
             if (DeviceType.PLC.getName().equals(mInfoFromApp.getDeviceType()))
                 gotoDefaultPage(PlcGroupSettingFragment.class);
             else
-                gotoDefaultPage(StaGroupSettingFragment.class);
+                gotoDefaultPageWithoutWifiListener(StaGroupSettingFragment.class);
         } else if (page == EnumPage.DEVICE_SHARE) {
             gotoDefaultPageWithoutWifiListener(DeviceShareFragment.class);
         } else if (page == EnumPage.DEVICE_NAME_AND_ROOM) {
             gotoDefaultPage(DeviceNameAndRoomFragment.class);
         } else if (page == EnumPage.DDNS_SHOW) {
             gotoDefaultPage(DDNSFragment.class);
+        } else if (page == EnumPage.DEVICE_UPDATE) {
+            gotoUpdatePage(params[1]);
         } else if (page == EnumPage.TEST_INTERNET_TIME_LIMIT_LIST) {
             gotoDefaultPage(TestInternetTimeLimitFragment.class);
         } else if (page == EnumPage.TEST_SPEED_LIMIT_LIST) {
             gotoDefaultPage(TestLimitSpeedListFragment.class);
         }
+    }
+
+    private void gotoUpdatePage(String version) {
+        BaseFragment fragment = new UpdateStateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(KeyConfig.KEY_DEVICE_TYPE, mInfoFromApp.getDeviceType());
+        bundle.putParcelable(KeyConfig.KEY_INFO_FROM_APP, mInfoFromApp);
+        bundle.putString(KeyConfig.KEY_FIRMWARE_VERSION, version);
+        fragment.setArguments(bundle);
+        fragment.setOnFragmentLifeListener(new OnFragmentLifeListener() {
+            @Override
+            public void onChanged(Object been) {
+                if (been == null)
+                    backFragment();
+                else if (been instanceof EnumPage) {
+                    gotoPage((EnumPage) been);
+                }
+            }
+
+        });
+        startFragment(fragment);
     }
 
     private void gotoDefaultPage(Class<? extends BaseFragment> fragmentClass) {
@@ -170,13 +194,10 @@ public class RouterSettingActivity extends BaseWifiActivtiy implements WifiRecei
         }
     }
 
-    /**
-     * @param deviceType 设备类型，主要区分电力猫 和 组网/千兆
-     */
-    private void gotoAdminPassword(String deviceType) {
+    private void gotoAdminPassword() {
         BaseFragment fragment = new AdminPasswordFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KeyConfig.KEY_DEVICE_TYPE, deviceType);
+        bundle.putString(KeyConfig.KEY_DEVICE_TYPE, mInfoFromApp.getDeviceType());
         fragment.setArguments(bundle);
         fragment.setOnFragmentLifeListener(new OnFragmentLifeListener() {
 

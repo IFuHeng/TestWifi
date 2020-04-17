@@ -27,6 +27,7 @@
     <string name="recovery">Recovery</string>
     <string name="_continue">Continue</string>
     <string name="retry">Retry</string>
+    <string name="complete">Complete</string>
 
     <string name="_plc" translatable="false">PLC</string>
 
@@ -413,4 +414,16 @@
     <string name="master_node">Master node:</string>
     <string name="current_link_dev_list">List of currently connected devices</string>
     <string name="back_to_previous_step">Back to previous step.</string>
+
+    <string name="check_update">Check update</string>
+    <string name="checking_update_now">Checking for updates…………</string>
+    <string name="is_last_version">Is the latest version</string>
+    <string name="rom_update">Firmware update</string>
+    <string name="rom_update_waiting">Firmware upgrade in progress…… \nthe upgrade process will take about 3 minutes \n please wait……</string>
+    <string name="notice_update_2">Warm prompt:\nDuring the upgrade process, please power off and keep the router power and network connection normal, otherwise the upgrade of the router may fail.</string>
+    <string name="one_key_update">One click upgrade</string>
+    <string name="update_completed">Upgrade complete! \n Your device has been updated to the latest version.</string>
+    <string name="connect_2_wifi">Please switch to this Wi-Fi</string>
+    <string name="major_update">Major update</string>
+    <string name="load_update_info_failed">Failed to get upgrade information</string>
 </resources>

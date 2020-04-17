@@ -135,7 +135,7 @@ public class WlanAccessFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        doGetWlanAccess();
+        doGetWlanAccess(true);
         if (mDeviceType == DeviceType.BWR) {
             doGetStaInfo(true);
         } else if (mDeviceType == DeviceType.R2s) {
@@ -242,7 +242,7 @@ public class WlanAccessFragment extends BaseFragment implements View.OnClickList
     /**
      * 获取黑名单
      */
-    protected void doGetWlanAccess() {
+    protected void doGetWlanAccess(final boolean isFirst) {
         addTask(
                 new GetWlanAccessTask().execute(getGateway(), mDeviceType.getName(), getCookie(), new TaskListener<ResponseAllBeen>() {
                     @Override
@@ -252,13 +252,16 @@ public class WlanAccessFragment extends BaseFragment implements View.OnClickList
 
                     @Override
                     public void onPreExecute(final GenericTask task) {
-                        showProgressDialog(_getString(R.string.downloading), true, new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                task.cancel(true);
-                                onFragmentLifeListener.onChanged(null);
-                            }
-                        });
+                        if (isFirst)
+                            showProgressDialog(_getString(R.string.downloading), true, new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    task.cancel(true);
+                                    onFragmentLifeListener.onChanged(null);
+                                }
+                            });
+                        else
+                            showProgressDialog(_getString(R.string.downloading), false, null);
                     }
 
                     @Override
@@ -334,7 +337,6 @@ public class WlanAccessFragment extends BaseFragment implements View.OnClickList
                         if (result != TaskResult.OK) {
                             showTaskError(task, R.string.interaction_failed);
                         } else {
-//                            doGetWlanAccess();
                             if (mCurrentLinkDevice == null)
                                 mCurrentLinkDevice = new ArrayList<>();
                             Level2Been stainfo = new Level2Been();
@@ -482,18 +484,8 @@ public class WlanAccessFragment extends BaseFragment implements View.OnClickList
     }
 
     private void doSetAccess(int enable, boolean isEffectImmediately) {
-        StaInfo staInfo = null;
-        if (mDeviceType == DeviceType.PLC) {
-            staInfo = getCurrentDevice(getMyDeviceMac());
-            if (staInfo == null) {
-                staInfo = new StaInfo();
-                staInfo.setMac(getMyDeviceMac());
-                staInfo.setName(Build.MODEL);
-            }
-        }
-
         addTask(
-                new SetWlanAccessTask().execute(getGateway(), mDeviceType.getName(), enable, staInfo, isEffectImmediately, getCookie(), new TaskListener<Boolean>() {
+                new SetWlanAccessTask().execute(getGateway(), mDeviceType.getName(), enable, isEffectImmediately, getCookie(), new TaskListener<Boolean>() {
                     @Override
                     public String getName() {
                         return null;

@@ -29,6 +29,7 @@ import com.changhong.wifimng.ui.fragment.WifiHome1Fragment;
 import com.changhong.wifimng.ui.fragment.WifiHomeFragment;
 import com.changhong.wifimng.ui.fragment.setting.AccessListFragment;
 import com.changhong.wifimng.ui.fragment.setting.WlanAccessFragment;
+import com.changhong.wifimng.uttils.WifiMacUtils;
 
 public class WifiHomeActivity extends BaseWifiActivtiy {
 
@@ -43,7 +44,7 @@ public class WifiHomeActivity extends BaseWifiActivtiy {
             DeviceItem been = new DeviceItem();
             been.setDeviceName(mInfoFromApp.getDevcieUuid());
             been.setType(DeviceType.getDeviceTypeFromName(mInfoFromApp.getDeviceType()));
-            been.setMac(mInfoFromApp.getMac());
+            been.setMac(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()));
             gotoAddMesh(been);
         } else {
             Preferences.getInstance(getApplicationContext()).remove(KeyConfig.KEY_COOKIE_SSID);
@@ -260,10 +261,13 @@ public class WifiHomeActivity extends BaseWifiActivtiy {
 
     @Override
     public void onConnectNetInfoChanged(NetworkInfo networkInfo) {
+        if (mCurFragment != null && mCurFragment.onNetworkChange(networkInfo) || networkInfo == null)
+            return;
         if (!networkInfo.isConnected()) {
             // TODO 断开链接就退出
             if (networkInfo.getDetailedState() == NetworkInfo.DetailedState.DISCONNECTED) {
                 Preferences.getInstance(getApplicationContext()).remove(KeyConfig.KEY_DEVICE_TYPE);
+                mReceiver.unregistReceiver(this);
                 showAlert(getString(R.string.notice_wifi_disconnect_and_exit), getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

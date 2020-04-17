@@ -19,20 +19,16 @@ import com.changhong.wifimng.R;
 import com.changhong.wifimng.been.BaseBeen;
 import com.changhong.wifimng.been.DeviceType;
 import com.changhong.wifimng.preference.KeyConfig;
-import com.changhong.wifimng.receiver.WifiReceiver;
 import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.task.GetDeviceTypeTask;
 import com.changhong.wifimng.task.TaskListener;
 import com.changhong.wifimng.task.TaskResult;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
 
-public class NoticeConnectCHWifiFragment extends BaseFragment<BaseBeen<String, String>> implements View.OnClickListener, WifiReceiver.WifiReceiverListener {
-
-    private WifiReceiver mReceiver;
+public class NoticeConnectCHWifiFragment extends BaseFragment<BaseBeen<String, String>> implements View.OnClickListener {
 
     private CheckBox mCheckboxIcon;
     private Button mBtnConfirm;
-    private View mBtnBack;
 
     /**
      * 当前已连接路由器类型
@@ -43,7 +39,6 @@ public class NoticeConnectCHWifiFragment extends BaseFragment<BaseBeen<String, S
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReceiver = new WifiReceiver(this);
         mCurrentDeviceType = getArguments().getString(KeyConfig.KEY_DEVICE_TYPE);
     }
 
@@ -72,11 +67,7 @@ public class NoticeConnectCHWifiFragment extends BaseFragment<BaseBeen<String, S
         mBtnConfirm = view.findViewById(R.id.btn_confirm);
         mBtnConfirm.setOnClickListener(this);
 
-        mBtnBack = view.findViewById(R.id.btn_confirm);
-        mBtnBack.setOnClickListener(this);
-
         super.onViewCreated(view, savedInstanceState);
-        mReceiver.registReceiver(mActivity);
 
         if (DeviceType.PLC.getName().equalsIgnoreCase(mCurrentDeviceType)) {
             TextView tv_info1 = view.findViewById(R.id.tv_info1);
@@ -96,19 +87,11 @@ public class NoticeConnectCHWifiFragment extends BaseFragment<BaseBeen<String, S
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (hidden) {
-            mReceiver.unregistReceiver(mActivity);
         } else {
-            mReceiver.registReceiver(mActivity);
             if (getWifiManager().isWifiEnabled() && getWifiManager().getConnectionInfo().getNetworkId() != -1)
                 doGetDeviceType();
         }
         super.onHiddenChanged(hidden);
-    }
-
-    @Override
-    public void onDestroy() {
-        mReceiver.unregistReceiver(mActivity);
-        super.onDestroy();
     }
 
     @Override
@@ -131,33 +114,15 @@ public class NoticeConnectCHWifiFragment extends BaseFragment<BaseBeen<String, S
     }
 
     @Override
-    public void onPickWifiNetwork() {
-
-    }
-
-    @Override
-    public void onScanResults(boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onRssiChange() {
-
-    }
-
-    @Override
-    public void onConnectNetInfoChanged(NetworkInfo networkInfo) {
+    public boolean onNetworkChange(NetworkInfo networkInfo) {
+        super.onNetworkChange(networkInfo);
         Log.d(getClass().getSimpleName(), "====~ networkinfo = " + networkInfo.getDetailedState());
         if (networkInfo.getDetailedState() == NetworkInfo.DetailedState.CONNECTED) {
             doGetDeviceType();
         } else if (!networkInfo.isConnected()) {
             refreshViewByState(false);
         }
-    }
-
-    @Override
-    public void onWifiStateChange(WifiReceiver.EnumWifiStatus status) {
-
+        return true;
     }
 
     /**

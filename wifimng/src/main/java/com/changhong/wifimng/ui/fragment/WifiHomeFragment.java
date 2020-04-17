@@ -51,6 +51,7 @@ import com.changhong.wifimng.ui.activity.WifiHomeActivity;
 import com.changhong.wifimng.ui.activity.WizardSettingActivity;
 import com.changhong.wifimng.ui.view.CustomHorizontalScrollView;
 import com.changhong.wifimng.ui.view.VerticalSubordinateEffectView;
+import com.changhong.wifimng.uttils.WifiMacUtils;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -415,11 +416,12 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
 
                     @Override
                     public void onPreExecute(GenericTask task) {
-
+                        showProgressDialog(_getString(R.string.downloading), false, null);
                     }
 
                     @Override
                     public void onPostExecute(GenericTask task, TaskResult result) {
+                        hideProgressDialog();
                         if (result != TaskResult.OK) {
                             showTaskError(task, R.string.interaction_failed);
                         }
@@ -442,7 +444,7 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
 
                     @Override
                     public void onCancelled(GenericTask task) {
-
+                        hideProgressDialog();
                     }
                 })
         );
@@ -614,7 +616,6 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
         mVSubordinateEffect.setVisibility(View.VISIBLE);
         mVSubordinateEffect.setMain(mVMainDevice);
         mHorizontalScrollView.setVisibility(View.VISIBLE);
-
     }
 
     /**
@@ -658,10 +659,11 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                     @Override
                     public void onProgressUpdate(GenericTask task, SettingResponseAllBeen param) {
                         if (param != null) {
-                            if (!param.getWan_mac().equalsIgnoreCase(mInfoFromApp.getMac())) {
+//                            if (!param.getWan_mac().equalsIgnoreCase(mInfoFromApp.getMac())) {
+                            if (!WifiMacUtils.compareMac(param.getWan_mac(), mInfoFromApp.getMac())) {
                                 DeviceItem item = ((DeviceItem) mNextPageItem.getT2());
                                 if (item.getType() == DeviceType.R2s)
-                                    showAlertMacNotSame(mInfoFromApp.getMac(), param.getWan_mac());
+                                    showAlertMacNotSame(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()), param.getWan_mac());
                                 else if (item.getType() == DeviceType.BWR)
                                     doGetMeshNetState();
                                 else if (item.getType() == DeviceType.PLC) {
@@ -713,7 +715,8 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                         if (param != null && !param.isEmpty()) {
                             StringBuilder sb = new StringBuilder();
                             for (ListInfo listInfo : param) {
-                                if (mInfoFromApp.getMac().equals(listInfo.getMac())) {
+//                                if (mInfoFromApp.getMac().equals(listInfo.getMac())) {
+                                if (WifiMacUtils.compareMac(mInfoFromApp.getMac(), listInfo.getMac())) {
                                     onFragmentLifeListener.onChanged(mNextPageItem);//前往下一页
                                     return;
                                 }
@@ -721,7 +724,7 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                             }
                             sb.deleteCharAt(sb.length() - 1);
                             //TODO
-                            showAlertMacNotSame(mInfoFromApp.getMac(), sb.toString());
+                            showAlertMacNotSame(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()), sb.toString());
                         }
                     }
 
@@ -764,14 +767,15 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                             if (param.getPlc_node() != null && !param.getPlc_node().isEmpty()) {
                                 for (PLCInfo.Dev_Info dev_info : param.getDev_info()) {
                                     DeviceItem item = dev_info.turn2DeviceItem();
-                                    if (mInfoFromApp.getMac().equals(item.getMac())) {
+//                                    if (mInfoFromApp.getMac().equals(item.getMac())) {
+                                    if (WifiMacUtils.compareMac(mInfoFromApp.getMac(), item.getMac())) {
                                         onFragmentLifeListener.onChanged(mNextPageItem);//前往下一页
                                         return;
                                     }
                                 }
                             }
                         }
-                        showAlertMacNotSame(mInfoFromApp.getMac(), "");
+                        showAlertMacNotSame(WifiMacUtils.macNoColon(mInfoFromApp.getMac()), "");
                     }
 
                     @Override

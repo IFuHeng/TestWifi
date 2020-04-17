@@ -21,6 +21,7 @@ public interface Config {
     String METHOD_DEVICE_DETAIL = "api/smart_home_app/appDevice/get";
     String METHOD_DEVICE_UPDATE = "api/smart_home_app/appDevice/update";
     String METHOD_DEVICE_LIST= "api/smart_home_app/appDevice/list";
+    String METHOD_UPGRADE_CHECK= "api/smart_home_app/upgrade/checkList";
 
     String METHOD_GROUP_LIST = "api/smart_home_app/group/list";
     String METHOD_CREATE_GROUP = "api/smart_home_app/group/new";

@@ -108,13 +108,13 @@ public class Whole2LocalBeen implements Parcelable {
     }
 
     public String getMac() {
-        if (mac != null && mac.length() == 12) {
-            StringBuilder sb = new StringBuilder(mac);
-            for (int i = 0; i < 5; i++) {
-                sb.insert(3 * i + 2, File.pathSeparatorChar);
-            }
-            return sb.toString();
-        }
+//        if (mac != null && mac.length() == 12) {
+//            StringBuilder sb = new StringBuilder(mac);
+//            for (int i = 0; i < 5; i++) {
+//                sb.insert(3 * i + 2, File.pathSeparatorChar);
+//            }
+//            return sb.toString();
+//        }
         return mac;
     }
 

@@ -42,8 +42,8 @@ public interface KeyConfig {
      */
     String KEY_INFO_FROM_APP = "info_from_app";
 
-
-
     String ACTION_UNBIND_DEVICE = "com.changhong.smarthome.action.ACTION_UNBIND_DEVICE";
     String ACTION_BIND_DEVICE = "com.changhong.smarthome.action.ACTION_BIND_DEVICE";
+
+    String KEY_FIRMWARE_VERSION = "firmwareVersion";
 }

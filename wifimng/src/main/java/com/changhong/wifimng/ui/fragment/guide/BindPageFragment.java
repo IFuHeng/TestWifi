@@ -27,6 +27,7 @@ import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.task.TaskListener;
 import com.changhong.wifimng.task.TaskResult;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
+import com.changhong.wifimng.uttils.WifiMacUtils;
 
 import org.json.JSONException;
 
@@ -76,7 +77,7 @@ public class BindPageFragment extends BaseFragment implements View.OnClickListen
             tv_info.append(":" + getString(R.string.plc));
         }
         tv_info.append(deviceType.getName());
-        tv_info.append("\nMAC:" + mInfoFromApp.getMac());
+        tv_info.append("\nMAC:" + WifiMacUtils.macNoColon(mInfoFromApp.getMac()));
 
         TextView tvtitle = view.findViewById(R.id.tv_title);
         tvtitle.setText(R.string.plc_setting);
@@ -130,7 +131,7 @@ public class BindPageFragment extends BaseFragment implements View.OnClickListen
                     public void onPostExecute(GenericTask task, TaskResult result) {
                         hideProgressDialog();
                         if (result != TaskResult.OK) {
-                            showTaskError(task,R.string.interaction_failed);
+                            showTaskError(task, R.string.interaction_failed);
                         }
                     }
 

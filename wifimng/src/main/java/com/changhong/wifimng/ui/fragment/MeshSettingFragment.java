@@ -64,10 +64,10 @@ public class MeshSettingFragment extends RouterSettingFragment {
                     case 1:
                         gotoNextPage(EnumPage.ADMIN_PASSWORD);
                         break;
-//                    case 2:
-//                        onFragmentLifeListener.onChanged(new BaseBeen3(EnumPage.DEVICE_SHARE, null, null));
-//                        break;
-                    case 2://重启
+                    case 2:
+                        gotoNextPage(EnumPage.DEVICE_UPDATE);
+                        break;
+                    case 3://重启
                         doNextFunction(new Observer() {
                             @Override
                             public void update(Observable observable, Object o) {
@@ -75,7 +75,7 @@ public class MeshSettingFragment extends RouterSettingFragment {
                             }
                         });
                         break;
-                    case 3:// reset
+                    case 4:// reset
                         doNextFunction(new Observer() {
                             @Override
                             public void update(Observable observable, Object o) {
@@ -83,7 +83,7 @@ public class MeshSettingFragment extends RouterSettingFragment {
                             }
                         });
                         break;
-                    case 4:// reset
+                    case 5:// reset
                         askDeleteDevice();
                         break;
                     default:

@@ -2,6 +2,7 @@ package com.changhong.wifimng.task.router;
 
 import android.accounts.AuthenticatorException;
 import android.content.Context;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
@@ -21,6 +22,7 @@ import com.changhong.wifimng.uttils.PskType;
 import com.changhong.wifimng.uttils.WifiUtils;
 import com.google.gson.Gson;
 
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 
@@ -82,7 +84,7 @@ public class WizardSettingCompleteTask extends BaseRouterTask {
         }
 
         // 等待重新连接上
-        sleep(3000);
+        sleep(10000);
         try {
             connectAimWifi(wifiBeen);
         } catch (TimeoutException e) {
@@ -109,23 +111,27 @@ public class WizardSettingCompleteTask extends BaseRouterTask {
         if (been.get_5G_priority() != null && been.get_5G_priority() == 0)
             aimSsid = been.getSsid_2G();
         reconnect(been);
+        sleep(1000);
         long startTime = System.currentTimeMillis();
         while (isRunning) {
             String temp = getCurrentSSID();
-            Log.d(getClass().getSimpleName(), "====~ ssid = " + aimSsid + " , temp = " + temp);
-            if (temp == null)
+            int ip = mWifiManager.getDhcpInfo().ipAddress;
+            Log.d(getClass().getSimpleName(), "====~ ssid = " + aimSsid + " , temp = " + temp + ", ip =" + ip);
+            if (temp == null
+                    || (temp.indexOf('<') == 0 && temp.lastIndexOf('>') == temp.length() - 1))
                 sleep(1000);
             else if (!aimSsid.equals(temp)) {
                 // 重新连接指定ssid
 //                publishProgress(been);
-                reconnect(been);
-                sleep(5000);
+//                connect2aimWifi(aimSsid);
+//                sleep(5000);
+                throw new TimeoutException(String.format(mContext.getString(R.string.reconnect_aim_wifi_timeout), aimSsid));
             } else if (mWifiManager.getDhcpInfo().ipAddress == 0) {
                 sleep(1000);
             } else
                 break;
 
-            if (System.currentTimeMillis() - startTime > 30000) {
+            if (System.currentTimeMillis() - startTime > 20000) {
                 Log.d(getClass().getSimpleName(), "====~ reconnect time out");
                 throw new TimeoutException(String.format(mContext.getString(R.string.reconnect_aim_wifi_timeout), aimSsid));
             }
@@ -247,6 +253,28 @@ public class WizardSettingCompleteTask extends BaseRouterTask {
             return WifiUtils.getWifiSSID(mContext, mWifiManager);
         }
         return null;
+    }
+
+    //检测该SSID是否已存在
+    private WifiConfiguration getExsitsWifiConfiguration(String SSID) {
+        List<WifiConfiguration> existingConfigs = mWifiManager.getConfiguredNetworks();
+        for (WifiConfiguration existingConfig : existingConfigs) {
+            if (existingConfig.SSID.equals("\"" + SSID + "\"")) {
+                return existingConfig;
+            }
+        }
+        return null;
+    }
+
+    private boolean connect2aimWifi(String ssid) {
+        WifiConfiguration wifiConfig = getExsitsWifiConfiguration(ssid);
+        if (wifiConfig != null) {
+            boolean result = mWifiManager.enableNetwork(wifiConfig.networkId, true);
+            result = result && mWifiManager.reconnect();
+            return true;
+        }
+
+        return false;
     }
 
 }

@@ -18,6 +18,7 @@
     <string name="unbind">解绑</string>
     <string name="_continue">继续</string>
     <string name="retry">重试</string>
+    <string name="complete">完成</string>
 
     <string name="offline">离线</string>
     <string name="online">在线</string>
@@ -389,6 +390,17 @@
     <string name="service">服务</string>
     <string name="master_node">主节点:</string>
     <string name="current_link_dev_list">当前连接设备列表</string>
-
     <string name="back_to_previous_step">返回上一步</string>
+
+    <string name="check_update">检查更新</string>
+    <string name="checking_update_now">正在检查更新…………</string>
+    <string name="is_last_version">已是最新版本</string>
+    <string name="rom_update">固件升级</string>
+    <string name="rom_update_waiting">固件升级中……\n升级过程大概需要3分钟\n请稍候……</string>
+    <string name="notice_update_2">温馨提示：\n升级过程中，请务断电并保持路由器电源和网络连接正常，否则可能会造成路由器升级失败。</string>
+    <string name="one_key_update">一键升级</string>
+    <string name="update_completed">升级完成！\n您的设备已经更新到最新版本</string>
+    <string name="connect_2_wifi">请切换手机到该Wi-Fi</string>
+    <string name="major_update">重大更新</string>
+    <string name="load_update_info_failed">获取升级信息失败</string>
 </resources>

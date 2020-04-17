@@ -486,7 +486,7 @@ public class PLCInfo extends BaseResponseBeen {
         private String mac;// String  required  设备 mac 地址
         private Integer status;// Integer  required  在线状态，0-offline 1-online
         private String ip_addr;// String  required  ip 地址
-        private Integer access_port;// Integer  required  接入端口（LAN口，2.4G wifi 或 5G）
+        private Integer access_port;// Integer  required  接入端口（LAN口，2.4G wifi或5G）0 – 未知，1 – 有线， 2 – 2.4G，3 – 5G , 4 - PLC
         private Integer online_time;// 设备介入时间，单位s
         private Integer power_level;// 设备信号强度，单位db
         private String plc_node;//  String  required  接入 plc 节点
@@ -544,6 +544,13 @@ public class PLCInfo extends BaseResponseBeen {
 
         public Integer getDev_type() {
             return dev_type;
+        }
+
+        /**
+         * @return 是否无线设备类型
+         */
+        public boolean isWirelessType() {
+            return access_port != null && (access_port == 2 || access_port == 3);
         }
 
         public String getMac() {

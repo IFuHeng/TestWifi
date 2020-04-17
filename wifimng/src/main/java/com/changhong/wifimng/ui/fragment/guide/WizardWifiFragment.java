@@ -17,7 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.changhong.wifimng.R;
+import com.changhong.wifimng.been.DeviceType;
 import com.changhong.wifimng.been.guide.RequireAllBeen;
+import com.changhong.wifimng.preference.KeyConfig;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
 import com.changhong.wifimng.uttils.CommUtil;
 
@@ -46,6 +48,14 @@ public class WizardWifiFragment extends BaseFragment<RequireAllBeen> implements 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        String deviceType = getArguments().getString(KeyConfig.KEY_DEVICE_TYPE);
+        CheckBox mCheckboxIcon = view.findViewById(R.id.cb_icon);
+        if (DeviceType.BWR.getName().equalsIgnoreCase(deviceType))
+            mCheckboxIcon.setButtonDrawable(R.drawable.shape_mesh_cycle);
+        else if (DeviceType.R2s.getName().equalsIgnoreCase(deviceType))
+            mCheckboxIcon.setButtonDrawable(R.drawable.shape_router_cycle);
+        else if (DeviceType.PLC.getName().equalsIgnoreCase(deviceType))
+            mCheckboxIcon.setButtonDrawable(R.drawable.shape_plc_cycle);
 
         //2.4G
         mTvAccount = view.findViewById(R.id.tab_ssid);

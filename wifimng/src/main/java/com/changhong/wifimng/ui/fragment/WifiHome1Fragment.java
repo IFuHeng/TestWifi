@@ -768,7 +768,10 @@ public class WifiHome1Fragment extends BaseFragment<BaseBeen<EnumPage, Object>> 
         showAlert(string, _getString(R.string._exit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onFragmentLifeListener.onChanged(null);
+                if (onFragmentLifeListener != null)
+                    onFragmentLifeListener.onChanged(null);
+                else
+                    mActivity.finish();
             }
         });
     }

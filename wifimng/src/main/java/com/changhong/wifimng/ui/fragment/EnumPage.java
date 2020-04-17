@@ -15,6 +15,7 @@ public enum EnumPage {
     SPEED_LIMIT,
     DDNS_SHOW,
     DDNS_ADDED,
+    DEVICE_UPDATE,
     ACCESS_LIST,
     GROUP_SETTING,
     DEVICE_SHARE,

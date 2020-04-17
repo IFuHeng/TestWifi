@@ -209,8 +209,10 @@ public class BaseActivtiy extends AppCompatActivity {
         } else
             alertDilaog = new AlertDialog.Builder(this).setMessage(charSequence).setPositiveButton(txBtn, listener).setCancelable(cancelEnable).create();
         alertDilaog.setCanceledOnTouchOutside(cancelEnable);
-        if (!alertDilaog.isShowing())
-            alertDilaog.show();
+        if (alertDilaog.isShowing())
+            alertDilaog.dismiss();
+        alertDilaog.show();
+
     }
 
 

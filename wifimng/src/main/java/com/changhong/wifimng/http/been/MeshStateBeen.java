@@ -41,6 +41,7 @@ public class MeshStateBeen {
         private String ssid;
         private Integer link_time;
         private String version;
+        private String firmwareVersion;
         private Rate rate;
         private List<DeviceItem> device_list;
 
@@ -65,6 +66,8 @@ public class MeshStateBeen {
         }
 
         public String getVersion() {
+            if (firmwareVersion != null)
+                return firmwareVersion;
             return version;
         }
 

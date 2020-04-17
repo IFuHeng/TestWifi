@@ -11,7 +11,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.changhong.wifimng.R;
 import com.changhong.wifimng.been.BaseBeen;
@@ -37,6 +36,7 @@ import com.changhong.wifimng.ui.fragment.InputDialog;
 import com.changhong.wifimng.ui.fragment.OnFragmentLifeListener;
 import com.changhong.wifimng.ui.fragment.guide.NoticeConnectCHWifiFragment;
 import com.changhong.wifimng.ui.fragment.guide.RouterPasswordFragment;
+import com.changhong.wifimng.ui.fragment.guide.WizardCompleteFragment;
 import com.changhong.wifimng.ui.fragment.guide.WizardNetworkFragment;
 import com.changhong.wifimng.ui.fragment.guide.WizardWifiFragment;
 import com.changhong.wifimng.ui.fragment.setting.CustomGroupAndNameFragment;
@@ -50,7 +50,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
     private RequireAllBeen mBeenLan;
     private RequireAllBeen mBeenWifi;
 
-    private boolean isLogined = false;
+    private boolean isLogin = false;
 
     /**
      * 当前设备类型
@@ -120,6 +120,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
     private void gotoWifiFragment(RequireAllBeen param) {
         WizardWifiFragment fragment = new WizardWifiFragment();
         Bundle bundle = new Bundle();
+        bundle.putString(KeyConfig.KEY_DEVICE_TYPE, mCurrentDeviceType);
         if (param != null) {
             bundle.putParcelable(Intent.EXTRA_TEXT, param);
         }
@@ -144,7 +145,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
     private void gotoNoticeConnectFragment() {
         if (mCurFragment != null && mCurFragment instanceof NoticeConnectCHWifiFragment)
             return;
-        setWifiStateChangeListenerOnOrOff(false);
+        setWifiStateChangeListenerOnOrOff(true);
         NoticeConnectCHWifiFragment fragment = new NoticeConnectCHWifiFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KeyConfig.KEY_DEVICE_TYPE, mCurrentDeviceType);
@@ -157,7 +158,6 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
 //                    backFragment();
                     finish();
                 } else {
-                    setWifiStateChangeListenerOnOrOff(true);
                     mCurrentDeviceType = been.getT2();
                     doCheckWizardGuideTask();
                 }
@@ -168,6 +168,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
     }
 
     private void gotoPasswordFragment() {
+        setWifiStateChangeListenerOnOrOff(true);
         RouterPasswordFragment fragment = new RouterPasswordFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KeyConfig.KEY_DEVICE_TYPE, mCurrentDeviceType);
@@ -214,6 +215,38 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
         startFragment(fragment);
     }
 
+    private void gotoWizardCompleteFragment(String ssid, String password) {
+        backToConnectNoticePage(true);
+        //此页面可以关闭wifi监听了。
+        BaseFragment fragment = new WizardCompleteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KeyConfig.KEY_INFO_FROM_APP, mInfoFromApp);
+        bundle.putString(KeyConfig.KEY_DEVICE_TYPE, mCurrentDeviceType);
+        bundle.putString(KeyConfig.KEY_SSID, ssid);
+        bundle.putString(KeyConfig.KEY_PASSWORD, password);
+        fragment.setArguments(bundle);
+        fragment.setOnFragmentLifeListener(new OnFragmentLifeListener<Boolean>() {
+
+            @Override
+            public void onChanged(Boolean been) {
+                if (been == null || !been) {
+                    finish();
+                } else {
+                    if (!isBinded) {
+                        doGetRouterInfo();
+                    } else {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                }
+            }
+
+        });
+        startFragment(fragment);
+
+        setWifiStateChangeListenerOnOrOff(true);
+    }
+
     private void gotoSharePage(String deviceName) {
         setWifiStateChangeListenerOnOrOff(false);
         BaseFragment fragment = new DeviceShareFragment();
@@ -249,7 +282,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
                         //先停止监听网络变化
                         setWifiStateChangeListenerOnOrOff(false);
 
-                        showProgressDialog(getString(R.string.notice_commit_succeed), true, new DialogInterface.OnCancelListener() {
+                        showProgressDialog(getString(R.string.notice_commit_succeed), false, new DialogInterface.OnCancelListener() {
                             @Override
                             public void onCancel(DialogInterface dialog) {
                                 dialog.dismiss();
@@ -260,12 +293,11 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
 
                     @Override
                     public void onPostExecute(GenericTask task, TaskResult result) {
-                        //恢复监听网络
-                        setWifiStateChangeListenerOnOrOff(true);
-
                         hideProgressDialog();
 
                         if (result != TaskResult.OK) {
+                            //恢复监听网络
+                            setWifiStateChangeListenerOnOrOff(true);
                             showTaskError(task, R.string.commit_failed);
                         } else {
                             mGuideState = 1;
@@ -282,19 +314,19 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
                                     }
                                 }, false);
                             } else {
-                                if (!isBinded)
-                                    doGetRouterInfo();
-                                else {
-                                    setResult(RESULT_OK);
-                                    finish();
+                                String ssid = mBeenWifi.getSsid();
+                                if (mBeenWifi.get_5G_priority() != null && mBeenWifi.get_5G_priority() == 0) {
+                                    ssid = mBeenWifi.getSsid_2G();
                                 }
+                                gotoWizardCompleteFragment(ssid, mBeenWifi.getKey());
                             }
                         }
                     }
 
                     @Override
                     public void onProgressUpdate(GenericTask task, CharSequence param) {
-                        showAlert(param, getString(R.string.confirm), null, true);
+//                        showAlert(param, getString(R.string.confirm), null, true);
+                        showToast(param);
                     }
 
                     @Override
@@ -311,13 +343,23 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
 
     @Override
     public void onConnectNetInfoChanged(NetworkInfo networkInfo) {
+        if (networkInfo == null)
+            return;
+
+        Log.d(getClass().getSimpleName(), "====~ onConnectNetInfoChanged:" + networkInfo);
+        if (mCurFragment != null && mCurFragment.onNetworkChange(networkInfo)) {
+            return;
+        }
+
+
         if (networkInfo.getDetailedState() == NetworkInfo.DetailedState.CONNECTED) {
 
         } else if (!networkInfo.isConnected()) {
             // TODO 清空回退并进入提示
             if (networkInfo.getDetailedState() == NetworkInfo.DetailedState.DISCONNECTED) {
                 mGuideState = -1;
-                backToConnectNoticePage();
+                if (mCurFragment == null || !(mCurFragment instanceof NoticeConnectCHWifiFragment))
+                    backToConnectNoticePage();
                 Preferences.getInstance(getApplicationContext()).remove(KeyConfig.KEY_DEVICE_TYPE);
 
                 mCurrentDeviceType = null;
@@ -328,7 +370,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
     /**
      * 退出到提示连接对话框
      */
-    private void backToConnectNoticePage() {
+    private void backToConnectNoticePage(boolean... clearAll) {
         do {
             List<Fragment> list = getSupportFragmentManager().getFragments();
             if (list == null || list.isEmpty()) {
@@ -336,11 +378,12 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
                 break;
             }
             mCurFragment = (BaseFragment) list.get(list.size() - 1);
-            if (mCurFragment instanceof NoticeConnectCHWifiFragment) {
-                if (mCurFragment.isHidden())
-                    getSupportFragmentManager().beginTransaction().show(mCurFragment).commit();
-                return;
-            }
+            if (clearAll == null || clearAll.length == 0 || clearAll[0] == false)
+                if (mCurFragment instanceof NoticeConnectCHWifiFragment) {
+                    if (mCurFragment.isHidden())
+                        getSupportFragmentManager().beginTransaction().show(mCurFragment).commit();
+                    return;
+                }
         } while (getSupportFragmentManager().popBackStackImmediate());
         gotoNoticeConnectFragment();
     }
@@ -405,10 +448,10 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
             gotoPasswordFragment();
         } else if (mStateWizard == 2) {//已完成管理密码设置
             gotoNoticeConnectFragment();
-            if (!isLogined)
+            if (!isLogin)
                 doCheckIsLogin(false);
         } else if (mStateWizard == 1) {
-            if (!isLogined)
+            if (!isLogin)
                 doCheckIsLogin(false);
             else
                 doGetRouterInfo();
@@ -466,7 +509,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
                     @Override
                     public void onPreExecute(GenericTask task) {
                         showProgressDialog(getString(R.string.logining), false, null);
-                        isLogined = false;
+                        isLogin = false;
                     }
 
                     @Override
@@ -488,7 +531,7 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
                     public void onProgressUpdate(GenericTask task, BaseBeen<String, String> param) {
                         Preferences.getInstance(getApplicationContext()).saveString(KeyConfig.KEY_ROUTER_PASSWORD, param.getT1());
                         Preferences.getInstance(getApplicationContext()).saveString(KeyConfig.KEY_COOKIE_SSID, param.getT2());
-                        isLogined = true;
+                        isLogin = true;
                     }
 
                     @Override

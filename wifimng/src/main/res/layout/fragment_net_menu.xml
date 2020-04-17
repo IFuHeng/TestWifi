@@ -39,7 +39,7 @@
             android:layout_gravity="end|center_vertical"
             android:clickable="true"
             android:text="@string/save"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/textColorPrimary"
             android:visibility="invisible" />
     </FrameLayout>
 

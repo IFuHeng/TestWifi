@@ -23,12 +23,11 @@ import java.util.Map;
  * 提交访问控制权限
  */
 public class SetWlanAccessTask extends BaseRouterTask {
-    public final SetWlanAccessTask execute(String gateway, String deviceType, int enabled, StaInfo staInfo, boolean isEffectImmediately, String cookies, TaskListener<Boolean> listener) {
+    public final SetWlanAccessTask execute(String gateway, String deviceType, int enabled, boolean isEffectImmediately, String cookies, TaskListener<Boolean> listener) {
         TaskParams params = new TaskParams();
         params.put("gateway", gateway);
         params.put(KeyConfig.KEY_COOKIE_SSID, cookies);
         params.put("enabled", enabled);
-        params.put("staInfo", staInfo);
         params.put("deviceType", deviceType);
         params.put("isEffectImmediately", isEffectImmediately);
         setListener(listener);
@@ -41,7 +40,6 @@ public class SetWlanAccessTask extends BaseRouterTask {
 
         String gateway = params[0].getString("gateway");
         String deviceType = params[0].getString("deviceType");
-        StaInfo staInfo = params[0].get("staInfo");
         String cookies = params[0].get(KeyConfig.KEY_COOKIE_SSID);
         int enabled = params[0].get("enabled");
         boolean isEffectImmediately = params[0].get("isEffectImmediately");

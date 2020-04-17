@@ -15,10 +15,12 @@ public class WifiReceiver extends BroadcastReceiver {
     private static final String TAG = "WifiReceiver";
     private WifiReceiverListener mListener;
     private boolean isRegisted;
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private NetworkInfo.DetailedState mLastNetworkState;
+    private String mLastSsid;
 
     private static final long DEFAULT_DELAY_DURATION = 1000;
+//    private NetworkInfo mLastDisconnectNetworkInfo;
 
     public WifiReceiver(WifiReceiverListener listener) {
         mListener = listener;
@@ -27,9 +29,13 @@ public class WifiReceiver extends BroadcastReceiver {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            NetworkInfo networkInfo = (NetworkInfo) msg.obj;
-            Log.d(getClass().getSimpleName(), "====~ handleMessage :" + networkInfo);
-            mListener.onConnectNetInfoChanged(networkInfo);
+            if (msg.obj == null)
+                Log.d(getClass().getSimpleName(), "====~ mLastDisconnectNetworkInfo is null");
+            else
+                Log.d(getClass().getSimpleName(), "====~ mLastDisconnectNetworkInfo is " + msg.obj);
+
+//            mListener.onConnectNetInfoChanged(mLastDisconnectNetworkInfo);
+            mListener.onConnectNetInfoChanged((NetworkInfo) msg.obj);
             super.handleMessage(msg);
         }
     };
@@ -67,11 +73,21 @@ public class WifiReceiver extends BroadcastReceiver {
                     mListener.onWifiStateChange(EnumWifiStatus.WIFI_STATE_UNKNOWN);
                     break;
             }
-        } else if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+        } else if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) { // 网络状态变更
             NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             log(" network state change:  networkInfo = " + networkInfo);
+            if (networkInfo.getExtraInfo() != null
+                    && (networkInfo.getExtraInfo().charAt(0) == '\"' && networkInfo.getExtraInfo().charAt(networkInfo.getExtraInfo().length() - 1) == '\"')) {
+                if (mLastSsid != null && !mLastSsid.equals(networkInfo.getExtraInfo())) {//当ssid变更时，只更新上次状态。
+                    cancelWifiDisconnectedDelay();
+                    mHandler.sendEmptyMessage(0);
+                    mLastNetworkState = networkInfo.getDetailedState();
+                    mLastSsid = networkInfo.getExtraInfo();
+                    return;
+                }
+                mLastSsid = networkInfo.getExtraInfo();
+            }
             if (mLastNetworkState != networkInfo.getDetailedState()) {
-                mLastNetworkState = networkInfo.getDetailedState();
                 if (networkInfo.getDetailedState() == NetworkInfo.DetailedState.DISCONNECTED)
                     addWifiDisconnected2Delay(context, networkInfo);
                 else {
@@ -79,6 +95,7 @@ public class WifiReceiver extends BroadcastReceiver {
                     mListener.onConnectNetInfoChanged(networkInfo);
                 }
             }
+            mLastNetworkState = networkInfo.getDetailedState();
         } else if (action.equals(WifiManager.NETWORK_IDS_CHANGED_ACTION)) {
 
         } else if (action.equals(WifiManager.ACTION_PICK_WIFI_NETWORK)) {
@@ -107,13 +124,13 @@ public class WifiReceiver extends BroadcastReceiver {
 
         context.registerReceiver(this, filter);
         isRegisted = true;
-        Log.d(getClass().getSimpleName(), "====~ registReceiver");
+        log("registReceiver");
     }
 
     public void unregistReceiver(Context context) {
         try {
             if (isRegisted) {
-                Log.d(getClass().getSimpleName(), "====~ unregistReceiver");
+                log("unregistReceiver");
                 context.unregisterReceiver(this);
                 isRegisted = false;
             }
@@ -146,12 +163,14 @@ public class WifiReceiver extends BroadcastReceiver {
 
     private void addWifiDisconnected2Delay(Context context, NetworkInfo delayInfo) {
         cancelWifiDisconnectedDelay();
-        Log.d(getClass().getSimpleName(), "====~ addWifiDisconnected2Delay");
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(0, delayInfo), DEFAULT_DELAY_DURATION);
+        log("addWifiDisconnected2Delay");
+//        mLastDisconnectNetworkInfo = delayInfo;
+//        mHandler.sendEmptyMessageDelayed(0, DEFAULT_DELAY_DURATION);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(0, 0, 0, delayInfo), DEFAULT_DELAY_DURATION);
     }
 
     private void cancelWifiDisconnectedDelay() {
-        Log.d(getClass().getSimpleName(), "====~ cancelWifiDisconnectedDelay");
+        log("cancelWifiDisconnectedDelay");
         mHandler.removeMessages(0);
     }
 

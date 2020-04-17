@@ -14,6 +14,10 @@ public class DeviceManagerBeen {
      */
     private String mac;
     /**
+     * 设备mac地址 多个mac之间用英文逗号,隔开
+     */
+    private String macs;
+    /**
      * 设备唯一标识
      */
     private String uuid;
@@ -188,11 +192,16 @@ public class DeviceManagerBeen {
         this.operation = operation;
     }
 
+    public void setMacs(String macs) {
+        this.macs = macs;
+    }
+
     @Override
     public String toString() {
         return "DeviceManagerBeen{" +
                 "userId='" + userId + '\'' +
                 ", mac='" + mac + '\'' +
+                ", macs='" + macs + '\'' +
                 ", uuid='" + uuid + '\'' +
                 ", token='" + token + '\'' +
                 ", devList=" + devList +
