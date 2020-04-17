@@ -332,9 +332,12 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
                     && !mPLCInfo.getPasswd().equals(mEtPassword.getText().toString()))
                 return true;
 
-            int longtime = mCbUseTimeLimit.isChecked() ? (mSpinnerTimeLimit.getSelectedItemPosition() + 1) : 0;
-            longtime *= 3600;
-            return mPLCInfo.getValid_time() != longtime;
+            if (mSwitchUse.isChecked()) {
+                int longtime = mCbUseTimeLimit.isChecked() ? (mSpinnerTimeLimit.getSelectedItemPosition() + 1) : 0;
+                longtime *= 3600;
+                return mPLCInfo.getValid_time() != longtime;
+            }
+            return false;
         }
 
         return false;
@@ -509,7 +512,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
                     public void onPostExecute(GenericTask task, TaskResult result) {
                         hideProgressDialog();
                         if (result != TaskResult.OK) {
-                            showTaskError(task,R.string.interaction_failed);
+                            showTaskError(task, R.string.interaction_failed);
                             onFragmentLifeListener.onChanged(null);
                         }
 
@@ -557,7 +560,7 @@ public class GuestNetworkFragment extends BaseFragment<Boolean> implements View.
                     public void onPostExecute(GenericTask task, TaskResult result) {
                         hideProgressDialog();
                         if (result != TaskResult.OK) {
-                            showTaskError(task,R.string.interaction_failed);
+                            showTaskError(task, R.string.interaction_failed);
                             onFragmentLifeListener.onChanged(null);
                         }
 

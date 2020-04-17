@@ -841,6 +841,8 @@ public class RouterSettingFragment extends BaseFragment implements View.OnClickL
     }
 
     private void doChechUpgrade() {
+        if (TextUtils.isEmpty(mInfoFromApp.getMac()))
+            return;
         addTask(
                 new CheckUpdateTask().execute(mInfoFromApp, new TaskListener<UpgradeBeen>() {
                     @Override
