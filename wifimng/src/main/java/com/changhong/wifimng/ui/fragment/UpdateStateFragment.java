@@ -21,17 +21,14 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.changhong.wifimng.R;
-import com.changhong.wifimng.been.BaseBeen;
-import com.changhong.wifimng.been.DeviceItem;
 import com.changhong.wifimng.been.DeviceType;
 import com.changhong.wifimng.http.been.DeviceDetailBeen;
-import com.changhong.wifimng.http.been.Group;
 import com.changhong.wifimng.http.been.MeshStateBeen;
 import com.changhong.wifimng.http.been.PLCModemStateBeen;
 import com.changhong.wifimng.http.been.UpgradeBeen;
 import com.changhong.wifimng.http.task.CheckUpdateTask;
-import com.changhong.wifimng.http.task.DeviceDetailAndGroupTask;
 import com.changhong.wifimng.http.task.DeviceDetailTask;
+import com.changhong.wifimng.http.task.PushUpdateTask;
 import com.changhong.wifimng.preference.KeyConfig;
 import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.task.TaskListener;
@@ -59,15 +56,12 @@ public class UpdateStateFragment extends BaseFragment<Boolean> implements View.O
     private TextView mTvUpdateInfo;
     private Button mBtnNext;
 
-    private String mFrameworkVersion;//版本号
-
     private int mState;
     private ViewSwitcher mViewSwitcher;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFrameworkVersion = getArguments().getString(KeyConfig.KEY_FIRMWARE_VERSION);
     }
 
     @Override
@@ -97,6 +91,8 @@ public class UpdateStateFragment extends BaseFragment<Boolean> implements View.O
         mBtnNext.setOnClickListener(this);
 
         super.onViewCreated(view, savedInstanceState);
+
+        ((TextView) mViewOldVersion.findViewById(R.id.tv_version)).setText(getArguments().getString(KeyConfig.KEY_FIRMWARE_VERSION));//版本号
 
         doGetDeviceDetailInfoFromCloud();
     }
@@ -204,8 +200,7 @@ public class UpdateStateFragment extends BaseFragment<Boolean> implements View.O
         } else if (v.getId() == R.id.btn_next) {
             switch (mState) {
                 case STATE_UPDATE_CHOICE:
-                    mState = STATE_UPDATING;
-                    refreshUI();
+                    doPushUpdateInfo();
                     break;
                 case STATE_UPDATE_COMPLETED:
                     onFragmentLifeListener.onChanged(null);
@@ -243,8 +238,11 @@ public class UpdateStateFragment extends BaseFragment<Boolean> implements View.O
                             return;
                         }
 
+                        mState = STATE_UPDATE_CHOICE;
                         TextView tv_version = mViewNewVersion.findViewById(R.id.tv_version);
                         tv_version.setText(param.getUpgradeVersion());
+                        mTvUpdateInfo.setTag(param.getComments());
+                        refreshUI();
                     }
 
                     @Override
@@ -302,6 +300,42 @@ public class UpdateStateFragment extends BaseFragment<Boolean> implements View.O
                                 }
                             }
                         }
+                    }
+
+                    @Override
+                    public void onCancelled(GenericTask task) {
+                        hideProgressDialog();
+                    }
+                })
+        );
+    }
+
+    private void doPushUpdateInfo() {
+        addTask(
+                new PushUpdateTask().execute(mInfoFromApp, new TaskListener() {
+                    @Override
+                    public String getName() {
+                        return null;
+                    }
+
+                    @Override
+                    public void onPreExecute(GenericTask task) {
+                        showProgressDialog(_getString(R.string.commiting), true, null);
+                    }
+
+                    @Override
+                    public void onPostExecute(GenericTask task, TaskResult result) {
+                        hideProgressDialog();
+                        if (result != TaskResult.OK) {
+                            showTaskError(task, R.string.interaction_failed);
+                        } else {
+                            mState = STATE_UPDATING;
+                            refreshUI();
+                        }
+                    }
+
+                    @Override
+                    public void onProgressUpdate(GenericTask task, Object param) {
                     }
 
                     @Override

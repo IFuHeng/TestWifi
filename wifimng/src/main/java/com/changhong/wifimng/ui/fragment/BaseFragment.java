@@ -2,7 +2,6 @@ package com.changhong.wifimng.ui.fragment;
 
 import android.accounts.AuthenticatorException;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +47,8 @@ import com.changhong.wifimng.preference.Preferences;
 import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.ui.activity.BaseWifiActivtiy;
 import com.changhong.wifimng.ui.activity.WifiHomeActivity;
+import com.changhong.wifimng.ui.view.DefaultDialog;
+import com.changhong.wifimng.ui.view.DefaultProgressDialog;
 import com.changhong.wifimng.uttils.CommUtil;
 import com.changhong.wifimng.uttils.WifiUtils;
 
@@ -66,10 +67,10 @@ public abstract class BaseFragment<T> extends Fragment {
     protected FragmentActivity mActivity;
     private SimpleDateFormat mSimDateFormat;
     protected OnFragmentLifeListener<T> onFragmentLifeListener;
-    private ProgressDialog mProgressDialog;
+    private DefaultProgressDialog mProgressDialog;
     private WifiManager mWifiManager;
 
-    private AlertDialog alertDilaog;
+    private DefaultDialog alertDilaog;
 
     private HashMap<String, GenericTask> mHashTask;
     /**
@@ -171,15 +172,15 @@ public abstract class BaseFragment<T> extends Fragment {
     protected void showProgressDialog(CharSequence cs, boolean cancelable, DialogInterface.OnCancelListener listener) {
         if (mProgressDialog == null) {
 //            mProgressDialog = ProgressDialog.show(this, null, cs, true, cancelable, listener);
-            mProgressDialog = new ProgressDialog(mActivity);
-        }
-        mProgressDialog.setMessage(cs);
+            mProgressDialog = new DefaultProgressDialog(mActivity, cs);
+        } else
+            mProgressDialog.setMessage(cs);
         mProgressDialog.setCancelable(cancelable);
         mProgressDialog.setOnCancelListener(listener);
         mProgressDialog.setCanceledOnTouchOutside(cancelable);
+
         if (!mProgressDialog.isShowing())
             mProgressDialog.show();
-
     }
 
     protected void hideProgressDialog() {
@@ -296,14 +297,24 @@ public abstract class BaseFragment<T> extends Fragment {
 //            alertDilaog.setButton(AlertDialog.BUTTON_NEGATIVE, txBtn2, listener2);
 //            alertDilaog.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
 //        } else
-        alertDilaog = new AlertDialog.Builder(mActivity).setMessage(charSequence)
-                .setPositiveButton(txBtn1, listener1).
-                        setNegativeButton(txBtn2, listener2)
-                .setCancelable(cancelEnable)
-                .setCancelable(cancelListener != null)
-                .setOnCancelListener(cancelListener).create();
-        alertDilaog.setCanceledOnTouchOutside(cancelEnable);
-        alertDilaog.show();
+//        alertDilaog = new AlertDialog.Builder(mActivity).setMessage(charSequence)
+//                .setPositiveButton(txBtn1, listener1).
+//                        setNegativeButton(txBtn2, listener2)
+//                .setCancelable(cancelEnable)
+//                .setCancelable(cancelListener != null)
+//                .setOnCancelListener(cancelListener).create();
+//        alertDilaog.setCanceledOnTouchOutside(cancelEnable);
+//        alertDilaog.show();
+        if (alertDilaog != null) {
+            alertDilaog.setMessage(charSequence);
+            alertDilaog.setButton(AlertDialog.BUTTON_POSITIVE, txBtn1, listener1);
+            alertDilaog.setButton(AlertDialog.BUTTON_NEGATIVE, txBtn2, listener2);
+        } else
+            alertDilaog = new DefaultDialog(mActivity, getString(R.string.warning), android.R.drawable.ic_dialog_alert, charSequence, txBtn1, listener1, txBtn2, listener2);
+        alertDilaog.setCancelable(cancelEnable);
+        alertDilaog.setOnCancelListener(cancelListener);
+        if (!alertDilaog.isShowing())
+            alertDilaog.show();
     }
 
     protected void showAlert(CharSequence charSequence, CharSequence txBtn,
@@ -314,11 +325,21 @@ public abstract class BaseFragment<T> extends Fragment {
 //            alertDilaog.setButton(AlertDialog.BUTTON_POSITIVE, txBtn, listener);
 //            alertDilaog.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
 //        } else
-        alertDilaog = new AlertDialog.Builder(mActivity).setMessage(charSequence).setPositiveButton(txBtn, listener)
-                .setCancelable(cancelEnable)
-                .setOnCancelListener(cancelListener).create();
-        alertDilaog.setCanceledOnTouchOutside(cancelEnable);
-        alertDilaog.show();
+//        alertDilaog = new AlertDialog.Builder(mActivity).setMessage(charSequence).setPositiveButton(txBtn, listener)
+//                .setCancelable(cancelEnable)
+//                .setOnCancelListener(cancelListener).create();
+//        alertDilaog.setCanceledOnTouchOutside(cancelEnable);
+//        alertDilaog.show();
+        if (alertDilaog != null) {
+            alertDilaog.setMessage(charSequence);
+            alertDilaog.setButton(AlertDialog.BUTTON_POSITIVE, txBtn, listener);
+            alertDilaog.setButton(AlertDialog.BUTTON_NEGATIVE, null, null);
+        } else
+            alertDilaog = new DefaultDialog(mActivity, getString(R.string.warning), android.R.drawable.ic_dialog_alert, charSequence, txBtn, listener, null, null);
+        alertDilaog.setCancelable(cancelEnable);
+        alertDilaog.setOnCancelListener(cancelListener);
+        if (!alertDilaog.isShowing())
+            alertDilaog.show();
     }
 
     protected void showAlert(CharSequence charSequence, CharSequence txBtn, DialogInterface.OnClickListener listener) {

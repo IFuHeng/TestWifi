@@ -31,7 +31,11 @@ import androidx.annotation.Nullable;
 
 import com.changhong.testwifi.R;
 import com.changhong.testwifi.receiver.WifiReceiver;
+import com.changhong.testwifi.task.ConnectToOtherSSid;
 import com.changhong.testwifi.utils.WifiUtils;
+import com.changhong.wifimng.task.GenericTask;
+import com.changhong.wifimng.task.TaskListener;
+import com.changhong.wifimng.task.TaskResult;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
 
 import java.io.IOException;
@@ -60,7 +64,7 @@ public class RecycleConnectFragment extends BaseFragment implements WifiReceiver
         mWifiReceiver = new WifiReceiver(this);
 
         mWifiManager = (WifiManager) mActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        mWifiReceiver.registReceiver(mActivity.getApplicationContext());
+//        mWifiReceiver.registReceiver(mActivity.getApplicationContext());
 
         Log.d(getClass().getSimpleName(), "====~ scanresult = " + mWifiManager.getScanResults());
         mWifiManager.startScan();
@@ -72,7 +76,7 @@ public class RecycleConnectFragment extends BaseFragment implements WifiReceiver
         if (mTask != null) {
             mTask.interrupt();
         }
-        mWifiReceiver.unregistReceiver(mActivity.getApplicationContext());
+//        mWifiReceiver.unregistReceiver(mActivity.getApplicationContext());
         super.onDestroy();
     }
 
@@ -228,14 +232,41 @@ public class RecycleConnectFragment extends BaseFragment implements WifiReceiver
     }
 
     private boolean connect2aimWifi() {
-        WifiConfiguration wifiConfig = getExsitsWifiConfiguration(mAimSsid);
-        if (wifiConfig != null) {
-//            return new WifiAdmin(this).addNetwork(wifiConfig);
-            boolean result = mWifiManager.enableNetwork(wifiConfig.networkId, true);
-            result = result && mWifiManager.reconnect();
-            return true;
-        }
+//        WifiConfiguration wifiConfig = getExsitsWifiConfiguration(mAimSsid);
+//        if (wifiConfig != null) {
+////            return new WifiAdmin(this).addNetwork(wifiConfig);
+//            boolean result = mWifiManager.enableNetwork(wifiConfig.networkId, true);
+//            result = result && mWifiManager.reconnect();
+//            return true;
+//        }
+addTask(
+        new ConnectToOtherSSid().execute(mActivity, mAimSsid, new TaskListener<CharSequence>() {
+            @Override
+            public String getName() {
+                return null;
+            }
 
+            @Override
+            public void onPreExecute(GenericTask task) {
+
+            }
+
+            @Override
+            public void onPostExecute(GenericTask task, TaskResult result) {
+
+            }
+
+            @Override
+            public void onProgressUpdate(GenericTask task, CharSequence param) {
+
+            }
+
+            @Override
+            public void onCancelled(GenericTask task) {
+
+            }
+        })
+);
         return false;
     }
 

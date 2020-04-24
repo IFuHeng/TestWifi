@@ -8,6 +8,7 @@ import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.task.TaskListener;
 import com.changhong.wifimng.task.TaskParams;
 import com.changhong.wifimng.task.TaskResult;
+import com.changhong.wifimng.uttils.WifiMacUtils;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -37,6 +38,7 @@ public class UpdateCustomerInfoTask extends GenericTask {
 
         String gateway = params[0].getString("gateway");
         String mac = params[0].getString("mac");
+        mac = WifiMacUtils.macShownFormat(mac);
         String dev_name = params[0].getString("dev_name");
 //        if (dev_name != null)
 //            try {

@@ -1,7 +1,7 @@
 package com.changhong.wifimng.http.been;
 
 public class UpgradeBeen {
-    private Long upgradePackageId;
+    private String upgradePackageId;
     private Integer isUpgrade;
     private String mac;
     private Integer isForce;
@@ -11,11 +11,11 @@ public class UpgradeBeen {
     private String md5;
     private String comments;
 
-    public Long getUpgradePackageId() {
+    public String getUpgradePackageId() {
         return upgradePackageId;
     }
 
-    public void setUpgradePackageId(Long upgradePackageId) {
+    public void setUpgradePackageId(String upgradePackageId) {
         this.upgradePackageId = upgradePackageId;
     }
 

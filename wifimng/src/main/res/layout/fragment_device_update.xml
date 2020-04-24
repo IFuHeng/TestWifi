@@ -137,7 +137,6 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="?android:attr/listPreferredItemPaddingEnd"
                 android:minHeight="120dp"
-                android:text="@string/delete"
                 android:textColor="@color/colorPrimary" />
 
             <Button

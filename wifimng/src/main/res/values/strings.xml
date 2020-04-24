@@ -28,6 +28,7 @@
     <string name="_continue">Continue</string>
     <string name="retry">Retry</string>
     <string name="complete">Complete</string>
+    <string name="warning">Warning</string>
 
     <string name="_plc" translatable="false">PLC</string>
 
@@ -322,6 +323,8 @@
 
     <string name="notice_device_type_not_same"><![CDATA[The current WiFi type is %s, not %s. please connect to the correct WiFi and try again.]]></string>
     <string name="notice_mac_not_same"><![CDATA[The current WiFi MAC is %s, not %s. please connect to the correct WiFi and try again.]]></string>
+    <string name="notice_current_router_has_no_child_node">The currently connected network device does not contain child nodes. Please check the network device state and try again.</string>
+    <string name="notice_current_child_offline">The current child node [%s] is not online. Please check the network device state and try again.</string>
 
     <string name="strong">strong</string>
     <string name="medium">medium</string>

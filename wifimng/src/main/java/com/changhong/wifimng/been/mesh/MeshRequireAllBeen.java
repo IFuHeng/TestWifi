@@ -66,6 +66,8 @@ public class MeshRequireAllBeen {
     private Integer op;
     private List<ListInfo> dev;
 
+    private List<CustomerInfo> dev_list;
+
     public void setSrc_type(Integer src_type) {
         this.src_type = src_type;
     }
@@ -146,6 +148,10 @@ public class MeshRequireAllBeen {
         this.dev = dev;
     }
 
+    public void setDev_list(List<CustomerInfo> dev_list) {
+        this.dev_list = dev_list;
+    }
+
     @Override
     public String toString() {
         return "MeshRequireAllBeen{" +
@@ -169,6 +175,7 @@ public class MeshRequireAllBeen {
                 ", pre_key='" + pre_key + '\'' +
                 ", op=" + op +
                 ", dev=" + dev +
+                ", dev_list=" + dev_list +
                 '}';
     }
 }

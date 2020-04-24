@@ -1,6 +1,7 @@
 package com.changhong.testwifi;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -40,7 +41,7 @@ import com.changhong.testwifi.utils.CommUtil;
 import com.changhong.testwifi.utils.FileSizeUtils;
 import com.changhong.wifimng.ui.activity.WifiHomeActivity;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
-import com.changhong.wifimng.ui.fragment.guide.NoticeConnectCHWifiFragment;
+import com.changhong.wifimng.ui.view.DefaultDialog;
 
 import java.util.Arrays;
 import java.util.List;
@@ -162,10 +163,20 @@ public class MainActivity extends BaseActivtiy implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (i) {
             case 0:
-                startFragment(RecycleConnectFragment.class);
+                new DefaultDialog(this, "警告", 0, "厨房水浸检测到漏水，请排查", "我知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startFragment(RecycleConnectFragment.class);
+                    }
+                }, null, null).show();
                 break;
             case 1:
-                startFragment(HttpConnectFragment.class);
+                new DefaultDialog(this, "警告", 0, "厨房水浸检测到漏水，请排查", "我知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startFragment(HttpConnectFragment.class);
+                    }
+                }, "我不知道了", null).show();
                 break;
             case 2:
                 startFragment(TestWifiFragment.class);

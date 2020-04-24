@@ -307,8 +307,12 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
         } else if (v.getId() == R.id.btn_speed_limite) {
             onFragmentLifeListener.onChanged(new BaseBeen3(EnumPage.SPEED_LIMIT, mStaInfo.getMac(), mCurrentDeviceType));
         } else if (v.getId() == R.id.panel_group) {
-            showToast(R.string.wait_for_develop);
+            showGroup(v);
         }
+    }
+
+    protected void showGroup(View v){
+        showToast(R.string.wait_for_develop);
     }
 
     /**
@@ -335,7 +339,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                         doSetAccess(2, false);
                     } else if (mCurrentEnabled == 1) {
                         //TODO 移除白名单，并提示从访问控制中恢复
-                        doDelAccess(mStaInfo.getMac(), true);
+                        doDelAccess(mStaInfo.getMac(), false);
                     } else if (mCurrentEnabled == 2) {
                         //TODO 添加到黑名单，并提示从访问控制中恢复
                         doAddAccess(mStaInfo.getName(), mStaInfo.getMac(), false);
@@ -352,7 +356,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                         }, _getString(R.string.cancel), null, true);
                     } else if (mCurrentEnabled == 1) {
                         //TODO 移除白名单，并提示从访问控制中恢复
-                        doDelAccess(mStaInfo.getMac(), true);
+                        doDelAccess(mStaInfo.getMac(), false);
                     } else if (mCurrentEnabled == 2) {
                         //TODO 添加到黑名单，并提示从访问控制中恢复
                         doAddAccess(mStaInfo.getName(), mStaInfo.getMac(), false);
@@ -362,7 +366,7 @@ public class ClientDetailFragment extends BaseFragment<BaseBeen3<EnumPage, Strin
                 if (mCurrentEnabled == 1) {
                     doAddAccess(mStaInfo.getName(), mStaInfo.getMac(), false);
                 } else if (mCurrentEnabled == 2) {
-                    doDelAccess(mStaInfo.getMac(), true);
+                    doDelAccess(mStaInfo.getMac(), false);
                 } else if (mCurrentEnabled == 0) {
                     // 不存在未开启情况
                 }

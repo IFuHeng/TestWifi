@@ -34,70 +34,27 @@ public class PLCSettingFragment extends RouterSettingFragment {
     }
 
     @Override
-    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        if (onFragmentLifeListener == null)
-            return false;
-
-        switch (groupPosition) {
-            case 0:
-                switch (childPosition) {
-                    case 0://wifi setting
-                        gotoNextPage(EnumPage.NET_MENU);
-                        break;
-                    case 1:
-//                        onFragmentLifeListener.onChanged(new BaseBeen3(EnumPage.GROUP_SETTING, null, null));
-                        gotoNextPage(EnumPage.GROUP_SETTING);
-                        break;
-                    case 2:
-                        gotoNextPage(EnumPage.GUEST_NETWORK);
-                        break;
-                    case 3:
-                        gotoNextPage(EnumPage.WLAN_ACCESS);
-                        break;
-                    case 4:
-                        gotoNextPage(EnumPage.LAN_SETTING);
-                        break;
-                    default:
-                        showToast(R.string.wait_for_develop);
-                }
+    protected void onClickFunctionSetting(int childPosition) {
+        switch (childPosition) {
+            case 0://wifi setting
+                gotoNextPage(EnumPage.NET_MENU);
                 break;
-
+//                    case 1:
+////                        onFragmentLifeListener.onChanged(new BaseBeen3(EnumPage.GROUP_SETTING, null, null));
+//                        gotoNextPage(EnumPage.GROUP_SETTING);
+//                        break;
             case 1:
-                switch (childPosition) {
-                    case 0:
-                        gotoNextPage(EnumPage.DEVICE_NAME_AND_ROOM);
-                        break;
-                    case 1:
-                        gotoNextPage(EnumPage.ADMIN_PASSWORD);
-                        break;
-                    case 2:
-                        gotoNextPage(EnumPage.DEVICE_UPDATE);
-                        break;
-                    case 3://重启
-                        doNextFunction(new Observer() {
-                            @Override
-                            public void update(Observable observable, Object o) {
-                                askReboot();
-                            }
-                        });
-                        break;
-                    case 4:// reset
-                        doNextFunction(new Observer() {
-                            @Override
-                            public void update(Observable observable, Object o) {
-                                askRecovery();
-                            }
-                        });
-                        break;
-                    case 5:// reset
-                        askDeleteDevice();
-                        break;
-                    default:
-                        showToast(R.string.wait_for_develop);
-                }
+                gotoNextPage(EnumPage.GUEST_NETWORK);
                 break;
+            case 2:
+                gotoNextPage(EnumPage.WLAN_ACCESS);
+                break;
+            case 3:
+                gotoNextPage(EnumPage.LAN_SETTING);
+                break;
+            default:
+                showToast(R.string.wait_for_develop);
         }
-
-        return false;
     }
+
 }

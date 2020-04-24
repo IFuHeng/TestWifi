@@ -1,7 +1,5 @@
 package com.changhong.wifimng.http.been;
 
-import com.changhong.wifimng.been.DeviceType;
-
 import java.util.List;
 
 /**
@@ -128,6 +126,10 @@ public class MeshStateBeen {
          */
         private String up_node;
         /**
+         * 位置
+         */
+        private String location;
+        /**
          * 组网设备状态, connected:已连接,..
          */
         private String state;
@@ -164,6 +166,7 @@ public class MeshStateBeen {
             item.setMac(mac);
             item.setUpNodeName(up_node);
             item.setDeviceName(name);
+            item.setLocation(location);
             item.setUpConnected("connected".equalsIgnoreCase(state));
             item.setStaNum(device_list != null ? device_list.size() : 0);
             return item;

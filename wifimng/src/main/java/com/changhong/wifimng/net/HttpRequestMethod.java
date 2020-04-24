@@ -268,4 +268,12 @@ public interface HttpRequestMethod {
      * 10.4.1   描述：添加设备到组网网络接口
      */
     String METHOD_NETWORK_ADD = "network_add";
+    /**
+     * 10.5.1	 设置设备基本信息，主要用于为设备重新命名，添加位置信息
+     */
+    String METHOD_DEVICE_CUSTOMER_INFO_MODIFY = "device_customer_info_modify";
+    /**
+     * 10.5.2	 获取用户自定义个性化数据
+     */
+    String METHOD_DEVICE_CUSTOMER_INFO_SHOW = "device_customer_info_show";
 }

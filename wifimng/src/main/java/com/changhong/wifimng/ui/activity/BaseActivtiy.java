@@ -2,7 +2,6 @@ package com.changhong.wifimng.ui.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -28,6 +26,8 @@ import com.changhong.wifimng.preference.KeyConfig;
 import com.changhong.wifimng.preference.Preferences;
 import com.changhong.wifimng.task.GenericTask;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
+import com.changhong.wifimng.ui.view.DefaultDialog;
+import com.changhong.wifimng.ui.view.DefaultProgressDialog;
 import com.changhong.wifimng.uttils.CommUtil;
 import com.changhong.wifimng.uttils.WifiUtils;
 
@@ -47,9 +47,9 @@ import java.util.regex.Pattern;
 
 public class BaseActivtiy extends AppCompatActivity {
     private static final int REQUEST_CODE_WIFI = 9527;
-    private AlertDialog alertDilaog;
+    private DefaultDialog alertDilaog;
     private Toast mToast;
-    protected ProgressDialog mProgressDialog;
+    protected DefaultProgressDialog mProgressDialog;
 
     protected BaseFragment mCurFragment;
 
@@ -95,17 +95,16 @@ public class BaseActivtiy extends AppCompatActivity {
     protected void showProgressDialog(CharSequence cs, boolean cancelable, DialogInterface.OnCancelListener listener) {
         if (mProgressDialog == null) {
 //            mProgressDialog = ProgressDialog.show(this, null, cs, true, cancelable, listener);
-            mProgressDialog = new ProgressDialog(this);
-        }
-        if (mProgressDialog.isShowing())
-            mProgressDialog.dismiss();
+            mProgressDialog = new DefaultProgressDialog(this, cs);
+        } else
+            mProgressDialog.setMessage(cs);
 
-        mProgressDialog.setMessage(cs);
         mProgressDialog.setCancelable(cancelable);
         mProgressDialog.setCanceledOnTouchOutside(cancelable);
         mProgressDialog.setOnCancelListener(listener);
-        mProgressDialog.show();
 
+        if (!mProgressDialog.isShowing())
+            mProgressDialog.show();
     }
 
     protected void hideProgressDialog() {
@@ -207,12 +206,13 @@ public class BaseActivtiy extends AppCompatActivity {
             alertDilaog.setMessage(charSequence);
             alertDilaog.setButton(AlertDialog.BUTTON_POSITIVE, txBtn, listener);
         } else
-            alertDilaog = new AlertDialog.Builder(this).setMessage(charSequence).setPositiveButton(txBtn, listener).setCancelable(cancelEnable).create();
-        alertDilaog.setCanceledOnTouchOutside(cancelEnable);
-        if (alertDilaog.isShowing())
-            alertDilaog.dismiss();
-        alertDilaog.show();
-
+//            alertDilaog = new AlertDialog.Builder(this).setMessage(charSequence).setPositiveButton(txBtn, listener).setCancelable(cancelEnable).create();
+            alertDilaog = new DefaultDialog(this, getString(R.string.warning), android.R.drawable.ic_dialog_alert, charSequence, txBtn, listener, null, null);
+        alertDilaog.setCancelable(cancelEnable);
+//        if (alertDilaog.isShowing())
+//            alertDilaog.dismiss();
+        if (!alertDilaog.isShowing())
+            alertDilaog.show();
     }
 
 

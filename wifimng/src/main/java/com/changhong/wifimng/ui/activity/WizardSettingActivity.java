@@ -39,7 +39,7 @@ import com.changhong.wifimng.ui.fragment.guide.RouterPasswordFragment;
 import com.changhong.wifimng.ui.fragment.guide.WizardCompleteFragment;
 import com.changhong.wifimng.ui.fragment.guide.WizardNetworkFragment;
 import com.changhong.wifimng.ui.fragment.guide.WizardWifiFragment;
-import com.changhong.wifimng.ui.fragment.setting.CustomGroupAndNameFragment;
+import com.changhong.wifimng.ui.fragment.guide.CustomGroupAndNameFragment;
 import com.changhong.wifimng.ui.fragment.setting.DeviceShareFragment;
 
 import java.util.List;
@@ -190,7 +190,8 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
 
     private void gotoBindPageFragment(String mac) {
         //此页面可以关闭wifi监听了。
-        setWifiStateChangeListenerOnOrOff(false);
+        backToConnectNoticePage();
+        setWifiStateChangeListenerOnOrOff(true);
 
         mInfoFromApp.setMac(mac);
         BaseFragment fragment = new CustomGroupAndNameFragment();
@@ -203,6 +204,8 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
             public void onChanged(BaseBeen<EnumPage, String> been) {
                 if (been == null) {
                     finish();
+                } else if (been.getT1() == EnumPage.WIZARD_FIRST) {
+                    backFragment();
                 } else if (been.getT1() == EnumPage.DEVICE_SHARE) {
                     gotoSharePage(been.getT2());
                 } else {
@@ -314,11 +317,17 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
                                     }
                                 }, false);
                             } else {
-                                String ssid = mBeenWifi.getSsid();
-                                if (mBeenWifi.get_5G_priority() != null && mBeenWifi.get_5G_priority() == 0) {
-                                    ssid = mBeenWifi.getSsid_2G();
+                                if (!isBinded) {
+//                                    doGetRouterInfo();
+                                    String ssid = mBeenWifi.getSsid();
+                                    if (mBeenWifi.get_5G_priority() != null && mBeenWifi.get_5G_priority() == 0) {
+                                        ssid = mBeenWifi.getSsid_2G();
+                                    }
+                                    gotoWizardCompleteFragment(ssid, mBeenWifi.getKey());
+                                } else {
+                                    setResult(RESULT_OK);
+                                    finish();
                                 }
-                                gotoWizardCompleteFragment(ssid, mBeenWifi.getKey());
                             }
                         }
                     }
@@ -441,24 +450,27 @@ public class WizardSettingActivity extends BaseWifiActivtiy {
     /**
      * 根据路由配置状态进入不同页面的判断
      *
-     * @param mStateWizard
+     * @param stateWizard
      */
-    private void doSwitchPageByStateWizard(int mStateWizard) {
-        if (mStateWizard == 0) {//如果当前设备类型是长虹的设备
-            gotoPasswordFragment();
-        } else if (mStateWizard == 2) {//已完成管理密码设置
-            gotoNoticeConnectFragment();
-            if (!isLogin)
-                doCheckIsLogin(false);
-        } else if (mStateWizard == 1) {
-            if (!isLogin)
-                doCheckIsLogin(false);
-            else
-                doGetRouterInfo();
-        } else if (mStateWizard == -1) {
-            gotoNoticeConnectFragment();
-        } else
-            gotoNoticeConnectFragment();
+    private void doSwitchPageByStateWizard(int stateWizard) {
+        switch (stateWizard) {
+            case 0://如果当前设备类型是长虹的设备
+                gotoPasswordFragment();
+                break;
+            case 1:
+                if (!isLogin)
+                    doCheckIsLogin(false);
+                else
+                    doGetRouterInfo();
+                break;
+            case 2://已完成管理密码设置
+                gotoNoticeConnectFragment();
+                if (!isLogin)
+                    doCheckIsLogin(false);
+                break;
+            default:
+                gotoNoticeConnectFragment();
+        }
     }
 
     /**

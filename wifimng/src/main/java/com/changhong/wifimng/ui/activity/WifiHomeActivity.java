@@ -261,7 +261,9 @@ public class WifiHomeActivity extends BaseWifiActivtiy {
 
     @Override
     public void onConnectNetInfoChanged(NetworkInfo networkInfo) {
-        if (mCurFragment != null && mCurFragment.onNetworkChange(networkInfo) || networkInfo == null)
+		if(networkInfo == null)
+			return;
+        if (mCurFragment != null && mCurFragment.onNetworkChange(networkInfo))
             return;
         if (!networkInfo.isConnected()) {
             // TODO 断开链接就退出

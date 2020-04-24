@@ -27,6 +27,7 @@ import com.changhong.wifimng.R;
 import com.changhong.wifimng.been.BaseBeen;
 import com.changhong.wifimng.been.DeviceItem;
 import com.changhong.wifimng.been.DeviceType;
+import com.changhong.wifimng.been.mesh.CustomerInfo;
 import com.changhong.wifimng.been.plc.DeviceCustormInfoBeen;
 import com.changhong.wifimng.http.been.DeviceDetailBeen;
 import com.changhong.wifimng.http.been.Group;
@@ -43,6 +44,8 @@ import com.changhong.wifimng.task.TaskListener;
 import com.changhong.wifimng.task.TaskResult;
 import com.changhong.wifimng.task.plc.DevcieCustomerInfoShowTask;
 import com.changhong.wifimng.task.plc.UpdateCustomerInfoTask;
+import com.changhong.wifimng.task.router.GetDeviceCustomerInfoTask;
+import com.changhong.wifimng.task.router.SetDeviceCustomerInfoTask;
 import com.changhong.wifimng.ui.activity.BaseWifiActivtiy;
 import com.changhong.wifimng.ui.fragment.BaseFragment;
 import com.changhong.wifimng.ui.fragment.EnumPage;
@@ -50,6 +53,7 @@ import com.changhong.wifimng.ui.fragment.InputDialog;
 import com.changhong.wifimng.ui.fragment.OnFragmentLifeListener;
 import com.changhong.wifimng.ui.view.CustomHorizontalScrollView;
 import com.changhong.wifimng.ui.view.VerticalSubordinateEffectView;
+import com.changhong.wifimng.uttils.WifiMacUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -91,7 +95,8 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
     /**
      * 在电力猫中自定义的信息列表
      */
-    private List<DeviceCustormInfoBeen.CuntomerInfo> mCustomerInfo;
+    private List<DeviceCustormInfoBeen.CuntomerInfo> mPLCCustomerInfo;
+    private List<CustomerInfo> mMeshCustomerInfo;
     /**
      * 新增分组
      */
@@ -136,12 +141,10 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
         mVSubordinateEffect.setMain(mVMainDevice);
         mVSubordinateEffect.setArrChild(mPanelChilds);
 
-
         view.findViewById(R.id.btn_back).setOnClickListener(this);
 
         super.onViewCreated(view, savedInstanceState);
     }
-
 
     @Override
     public void onStart() {
@@ -292,9 +295,15 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                     }
                 } else {
                     if (isLocation) {
-                        doUpdatePlcDeviceCustomerInfo(deviceItem.getMac(), deviceItem.getDeviceName(), o);
+                        if (mDeviceType == DeviceType.PLC)
+                            doUpdatePlcDeviceCustomerInfoInPLC(deviceItem.getMac(), deviceItem.getDeviceName(), o);
+                        else if (mDeviceType == DeviceType.BWR)
+                            dealMeshCustomInfo(o, isLocation, deviceItem.getMac());
                     } else {
-                        doUpdatePlcDeviceCustomerInfo(deviceItem.getMac(), o, deviceItem.getLocation());
+                        if (mDeviceType == DeviceType.PLC)
+                            doUpdatePlcDeviceCustomerInfoInPLC(deviceItem.getMac(), o, deviceItem.getLocation());
+                        else if (mDeviceType == DeviceType.BWR)
+                            dealMeshCustomInfo(o, isLocation, deviceItem.getMac());
                     }
 
                 }
@@ -304,6 +313,31 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
         if (getFragmentManager() != null) {
             dialog.show(getFragmentManager(), "enter_new_name");
         }
+    }
+
+    private void dealMeshCustomInfo(String str, boolean isLocation, String mac) {
+        for (CustomerInfo customerInfo : mMeshCustomerInfo) {
+            if (WifiMacUtils.compareMac(mac, customerInfo.getMac())) {
+                if (isLocation)
+                    customerInfo.setDev_location(str);
+                else
+                    customerInfo.setDev_name(str);
+                doModifyCustomerInfoInMesh(mMeshCustomerInfo);
+                return;
+            }
+        }
+
+        CustomerInfo customerInfo = new CustomerInfo();
+        customerInfo.setMac(mac);
+        if (isLocation) {
+            customerInfo.setDev_name("");
+            customerInfo.setDev_location(str);
+        } else {
+            customerInfo.setDev_name(str);
+            customerInfo.setDev_location("");
+        }
+        mMeshCustomerInfo.add(customerInfo);
+        doModifyCustomerInfoInMesh(mMeshCustomerInfo);
     }
 
     private void showGroupDilaog(final DeviceItem deviceItem) {
@@ -338,8 +372,10 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                         }
                     },
                     _getString(R.string.cancel), null, true);
-        else
-            doUpdatePlcDeviceCustomerInfo(deviceItem.getMac(), deviceItem.getDeviceName(), group.getGroupName());
+        else if (mDeviceType == DeviceType.PLC)
+            doUpdatePlcDeviceCustomerInfoInPLC(deviceItem.getMac(), deviceItem.getDeviceName(), group.getGroupName());
+        else if (mDeviceType == DeviceType.BWR)
+            dealMeshCustomInfo(group.getGroupName(), true, deviceItem.getMac());
     }
 
     private CharSequence getAddGroupCharSequence() {
@@ -377,6 +413,8 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                         } else {
                             if (mDeviceType == DeviceType.PLC)
                                 doGetPlcDeviceCustomerInfo();
+                            else if (mDeviceType == DeviceType.BWR)
+                                doGetMeshDeviceCustomerInfo();
                             else
                                 doLoadGroup(true, 1, 10);
                         }
@@ -446,7 +484,7 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
             netItemDeviceItem.setUpNodeName(been.getMac());
             @SuppressLint("InflateParams") View view = LayoutInflater.from(mActivity).inflate(R.layout.item_device, null, false);
             view.setTag(netItemDeviceItem);
-            refreshDeviceEditDisabled(view, netItemDeviceItem);
+            refreshDevice(view, netItemDeviceItem);
             mPanelChilds.addView(view, mPanelChilds.getChildCount() - 1);
         }
         mVSubordinateEffect.setVisibility(View.VISIBLE);
@@ -566,12 +604,12 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                     @Override
                     public void onProgressUpdate(GenericTask task, DeviceCustormInfoBeen param) {
                         if (param != null && param.getCustomer_info() != null && !param.getCustomer_info().isEmpty()) {
-                            mCustomerInfo = param.getCustomer_info();
-                            for (int i = 0; i < mPanelChilds.getChildCount(); i++) {
+                            mPLCCustomerInfo = param.getCustomer_info();
+                            for (int i = 0; i < mPanelChilds.getChildCount(); i++) {//匹配子节点
                                 DeviceItem item = (DeviceItem) mPanelChilds.getChildAt(i).getTag();
                                 String mac = item.getMac();
                                 for (DeviceCustormInfoBeen.CuntomerInfo cuntomerInfo : param.getCustomer_info()) {
-                                    if (mac.equalsIgnoreCase(cuntomerInfo.getMac())) {
+                                    if (WifiMacUtils.compareMac(mac, cuntomerInfo.getMac())) {
                                         item.setDeviceName(cuntomerInfo.getDev_name());
                                         item.setLocation(cuntomerInfo.getDev_location());
                                         refreshDevice(mPanelChilds.getChildAt(i), item);
@@ -579,7 +617,73 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                                     }
                                 }
                             }
+                            //匹配主节点信息
+//                            for (DeviceCustormInfoBeen.CuntomerInfo cuntomerInfo : param.getCustomer_info()) {
+//                                if (WifiMacUtils.compareMac(mMainDeviceInfo.getMac(), cuntomerInfo.getMac())) {//匹配到数据，返回
+//                                    if (cuntomerInfo.getDev_name() == null
+//                                            || !mPLCCustomerInfo.equals(mMainDeviceInfo.getDeviceName())
+//                                            || cuntomerInfo.getDev_location() == null
+//                                            || !cuntomerInfo.getDev_location().equals(mMainDeviceInfo.getLocation())) {
+//                                        //匹配到数据，却不同步，重新同步一下
+//                                        doUpdatePlcDeviceCustomerInfoInPLC(mMainDeviceInfo.getMac(), mMainDeviceInfo.getDeviceName(), mMainDeviceInfo.getLocation());
+//                                    }
+//                                    return;
+//                                }
+//                            }
+//                            doUpdatePlcDeviceCustomerInfoInPLC(mMainDeviceInfo.getMac(), mMainDeviceInfo.getDeviceName(), mMainDeviceInfo.getLocation());//未匹配到数据，同步一下
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(GenericTask task) {
+                        hideProgressDialog();
+                    }
+                })
+        );
+    }
+
+    /**
+     * 获取Mesh子节点名称信息
+     */
+    private void doGetMeshDeviceCustomerInfo() {
+        addTask(
+                new GetDeviceCustomerInfoTask().execute(getGateway(), getCookie(), new TaskListener<List<CustomerInfo>>() {
+                    @Override
+                    public String getName() {
+                        return null;
+                    }
+
+                    @Override
+                    public void onPreExecute(GenericTask task) {
+                        showProgressDialog(_getString(R.string.downloading), false, null);
+                    }
+
+                    @Override
+                    public void onPostExecute(GenericTask task, TaskResult result) {
+                        hideProgressDialog();
+                        if (result != TaskResult.OK) {
+                            showTaskError(task, R.string.interaction_failed);
+//                            onFragmentLifeListener.onChanged(null);
+                        } else if (mArrayGroup == null || mArrayGroup.isEmpty())
+                            doLoadGroup(true, 1, 10);
+                    }
+
+                    @Override
+                    public void onProgressUpdate(GenericTask task, List<CustomerInfo> param) {
+                        mMeshCustomerInfo = param;
+                        if (!param.isEmpty()) {
+                            for (int i = 0; i < mPanelChilds.getChildCount(); i++) {//匹配子节点
+                                DeviceItem item = (DeviceItem) mPanelChilds.getChildAt(i).getTag();
+                                String mac = item.getMac();
+                                for (CustomerInfo cuntomerInfo : param) {
+                                    if (WifiMacUtils.compareMac(mac, cuntomerInfo.getMac())) {
+                                        item.setDeviceName(cuntomerInfo.getDev_name());
+                                        item.setLocation(cuntomerInfo.getDev_location());
+                                        refreshDevice(mPanelChilds.getChildAt(i), item);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -594,11 +698,11 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
     /**
      * 更新电力猫子节点信息
      */
-    private void doUpdatePlcDeviceCustomerInfo(String mac, String deviceName, String deviceLocation) {
+    private void doUpdatePlcDeviceCustomerInfoInPLC(String mac, String deviceName, String deviceLocation) {
         Integer index = null;
-        if (mCustomerInfo != null)
-            for (DeviceCustormInfoBeen.CuntomerInfo cuntomerInfo : mCustomerInfo) {
-                if (cuntomerInfo.getMac().equalsIgnoreCase(mac)) {
+        if (mPLCCustomerInfo != null)
+            for (DeviceCustormInfoBeen.CuntomerInfo cuntomerInfo : mPLCCustomerInfo) {
+                if (WifiMacUtils.compareMac(cuntomerInfo.getMac(), mac)) {
                     index = cuntomerInfo.getIndex();
                     break;
                 }
@@ -613,7 +717,7 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
 
                     @Override
                     public void onPreExecute(GenericTask task) {
-                        showProgressDialog(_getString(R.string.commit), false, null);
+                        showProgressDialog(_getString(R.string.commiting), false, null);
                     }
 
                     @Override
@@ -627,22 +731,43 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
 
                     @Override
                     public void onProgressUpdate(GenericTask task, DeviceCustormInfoBeen param) {
-                        if (param != null && param.getCustomer_info() != null && !param.getCustomer_info().isEmpty()) {
-                            mCustomerInfo = param.getCustomer_info();
-                            for (int i = 0; i < mPanelChilds.getChildCount(); i++) {
-                                DeviceItem item = (DeviceItem) mPanelChilds.getChildAt(i).getTag();
-                                String mac = item.getMac();
-                                for (DeviceCustormInfoBeen.CuntomerInfo cuntomerInfo : param.getCustomer_info()) {
-                                    if (mac.equalsIgnoreCase(cuntomerInfo.getMac())) {
-                                        item.setDeviceName(cuntomerInfo.getDev_name());
-                                        item.setLocation(cuntomerInfo.getDev_location());
-                                        refreshDevice(mPanelChilds.getChildAt(i), item);
-                                        break;
-                                    }
-                                }
-                            }
+                    }
 
-                        }
+                    @Override
+                    public void onCancelled(GenericTask task) {
+                        hideProgressDialog();
+                    }
+                })
+        );
+    }
+
+    /**
+     * 更新分布式子节点信息
+     */
+    private void doModifyCustomerInfoInMesh(List<CustomerInfo> list) {
+        addTask(
+                new SetDeviceCustomerInfoTask().execute(getGateway(), list, getCookie(), new TaskListener() {
+                    @Override
+                    public String getName() {
+                        return null;
+                    }
+
+                    @Override
+                    public void onPreExecute(GenericTask task) {
+                        showProgressDialog(_getString(R.string.commiting), false, null);
+                    }
+
+                    @Override
+                    public void onPostExecute(GenericTask task, TaskResult result) {
+                        hideProgressDialog();
+                        if (result != TaskResult.OK) {
+                            showTaskError(task, R.string.interaction_failed);
+                        } else
+                            doGetMeshDeviceCustomerInfo();
+                    }
+
+                    @Override
+                    public void onProgressUpdate(GenericTask task, Object param) {
                     }
 
                     @Override
@@ -678,6 +803,8 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                             mMainDeviceInfo.setDeviceName(deviceName);
                             ((TextView) mVMainDevice.findViewById(R.id.tv_name)).setText(deviceName);
                             showTaskError(task, R.string.commit_completed);
+                            if (mDeviceType == DeviceType.PLC)//电力猫同步下本地
+                                doUpdatePlcDeviceCustomerInfoInPLC(mMainDeviceInfo.getMac(), deviceName, mMainDeviceInfo.getLocation());
                         }
                     }
 
@@ -769,7 +896,7 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                             if (deviceItem == mMainDeviceInfo)//完成添加后进行绑定操作
                                 doAdd2Group(mArrayGroup.get(0));
                             else //子节点手动添加
-                                doUpdatePlcDeviceCustomerInfo(deviceItem.getMac(), deviceItem.getDeviceName(), mArrayGroup.get(0).getGroupName());
+                                doUpdatePlcDeviceCustomerInfoInPLC(deviceItem.getMac(), deviceItem.getDeviceName(), mArrayGroup.get(0).getGroupName());
                         }
                     }
 
@@ -809,6 +936,10 @@ public class DeviceNameAndRoomFragment2 extends BaseFragment<BaseBeen<EnumPage, 
                             showToast(R.string.commit_completed);
                             mMainDeviceInfo.setLocation(group.getGroupName());
                             ((TextView) mVMainDevice.findViewById(R.id.tv_location)).setText(group.getGroupName());
+                            if (mDeviceType == DeviceType.PLC)//电力猫同步下本地
+                                doUpdatePlcDeviceCustomerInfoInPLC(mMainDeviceInfo.getMac(), mMainDeviceInfo.getDeviceName(), mMainDeviceInfo.getLocation());
+                            else if (mDeviceType == DeviceType.BWR)
+                                dealMeshCustomInfo(group.getGroupName(), true, mMainDeviceInfo.getMac());
                         }
                     }
 

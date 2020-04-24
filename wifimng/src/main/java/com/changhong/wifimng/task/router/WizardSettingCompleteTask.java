@@ -84,7 +84,7 @@ public class WizardSettingCompleteTask extends BaseRouterTask {
         }
 
         // 等待重新连接上
-        sleep(10000);
+        sleep(5000);
         try {
             connectAimWifi(wifiBeen);
         } catch (TimeoutException e) {

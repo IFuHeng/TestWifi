@@ -81,6 +81,13 @@ public class DeviceItem implements Parcelable {
         return deviceName;
     }
 
+    public String getDeviceNameOrMac() {
+        if (deviceName != null && deviceName.trim().length() > 0)
+            return deviceName;
+        else
+            return mac;
+    }
+
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }

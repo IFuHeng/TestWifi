@@ -19,6 +19,7 @@
     <string name="_continue">继续</string>
     <string name="retry">重试</string>
     <string name="complete">完成</string>
+    <string name="warning">警告</string>
 
     <string name="offline">离线</string>
     <string name="online">在线</string>
@@ -303,6 +304,8 @@
 
     <string name="notice_device_type_not_same"><![CDATA[当前wifi类型是%s, 不是 %s, 请连接正确WiFi后重试.]]></string>
     <string name="notice_mac_not_same"><![CDATA[当前wifi MAC是%s , 不是%s, 请连接正确WiFi后重试.]]></string>
+    <string name="notice_current_router_has_no_child_node">当前已连接网络设备不含子节点，请检查网络状况后重试。</string>
+    <string name="notice_current_child_offline">当前子节点[%s]不在线，请检查网络状况后重试。</string>
 
     <string name="strong">强</string>
     <string name="medium">中</string>

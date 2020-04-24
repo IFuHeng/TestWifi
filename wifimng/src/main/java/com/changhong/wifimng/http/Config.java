@@ -5,7 +5,7 @@ public interface Config {
     int NoData = 2003;
     int CodeUpdateNotExisted = 1401;
 
-//    String HOST_TEST = "http://test.chwliot.com";
+    //    String HOST_TEST = "http://test.chwliot.com";
     String HOST_TEST = "http://dev.chwliot.com";
     String HOST = "https://home1.chwliot.com";
 
@@ -20,8 +20,10 @@ public interface Config {
     String METHOD_UNBINDING = "api/smart_home_app/appDevice/unbinding";
     String METHOD_DEVICE_DETAIL = "api/smart_home_app/appDevice/get";
     String METHOD_DEVICE_UPDATE = "api/smart_home_app/appDevice/update";
-    String METHOD_DEVICE_LIST= "api/smart_home_app/appDevice/list";
-    String METHOD_UPGRADE_CHECK= "api/smart_home_app/upgrade/checkList";
+    String METHOD_DEVICE_LIST = "api/smart_home_app/appDevice/list";
+    String METHOD_UPGRADE_CHECK = "api/smart_home_app/upgrade/checkList";
+    String METHOD_UPGRADE_PUSH = "api/smart_home_app/upgrade/push";
+    String METHOD_DEVICE_GET_CONFIG = "api/smart_home_app/device/getConfiguration";
 
     String METHOD_GROUP_LIST = "api/smart_home_app/group/list";
     String METHOD_CREATE_GROUP = "api/smart_home_app/group/new";

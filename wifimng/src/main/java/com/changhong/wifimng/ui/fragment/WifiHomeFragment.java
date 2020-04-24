@@ -58,7 +58,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> implements View.OnClickListener {
+public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, DeviceItem>> implements View.OnClickListener {
 
     private View mBtnSetting;
     /**
@@ -92,7 +92,7 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
     private LinearLayout mPanelChilds;
     private CustomHorizontalScrollView mHorizontalScrollView;
 
-    private BaseBeen<EnumPage, Object> mNextPageItem;
+    private BaseBeen<EnumPage, DeviceItem> mNextPageItem;
 
     private boolean isFirst = true;
 
@@ -271,7 +271,13 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
             } else if (!isLogined) {
                 checkIsLogin(false);
             } else if (mCurrentRouterMac == null) {
-                doGetRouterInfo();
+                if (item.isChild()) {
+                    if (item.getType() == DeviceType.PLC) {
+                        doGetPlcInfo();
+                    } else if (item.getType() == DeviceType.BWR)
+                        doGetMeshNetState();
+                } else
+                    doGetRouterInfo();
             } else
                 onFragmentLifeListener.onChanged(mNextPageItem);
         }
@@ -312,7 +318,14 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                     public void onPostExecute(GenericTask task, TaskResult result) {
                         hideProgressDialog();
                         if (result == TaskResult.OK) {
-                            doGetRouterInfo();
+                            DeviceItem item = mNextPageItem.getT2();
+                            if (mNextPageItem.getT2().isChild()) {
+                                if (item.getType() == DeviceType.PLC) {
+                                    doGetPlcInfo();
+                                } else if (item.getType() == DeviceType.BWR)
+                                    doGetMeshNetState();
+                            } else
+                                doGetRouterInfo();
                         } else {
                             showTaskError(task, R.string.login_failed);
                             isLogined = false;
@@ -662,13 +675,13 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
 //                            if (!param.getWan_mac().equalsIgnoreCase(mInfoFromApp.getMac())) {
                             if (!WifiMacUtils.compareMac(param.getWan_mac(), mInfoFromApp.getMac())) {
                                 DeviceItem item = ((DeviceItem) mNextPageItem.getT2());
-                                if (item.getType() == DeviceType.R2s)
-                                    showAlertMacNotSame(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()), param.getWan_mac());
-                                else if (item.getType() == DeviceType.BWR)
-                                    doGetMeshNetState();
-                                else if (item.getType() == DeviceType.PLC) {
-                                    doGetPlcInfo();
-                                }
+//                                if (item.getType() == DeviceType.R2s)
+                                showAlertMacNotSame(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()), param.getWan_mac());
+//                                else if (item.getType() == DeviceType.BWR)
+//                                    doGetMeshNetState();
+//                                else if (item.getType() == DeviceType.PLC) {
+//                                    doGetPlcInfo();
+//                                }
                             } else {
                                 mCurrentRouterMac = param.getWan_mac();
                                 if (!mMainDeviceInfo.isLinkOn() && param.getWan_ip() != null)
@@ -687,7 +700,7 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
     }
 
     /**
-     * 获取组网设备列表
+     * 获取组网设备列表,用于检测子节点是否含有下一步的mac设备
      */
     private void doGetMeshNetState() {
         addTask(
@@ -712,20 +725,30 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
 
                     @Override
                     public void onProgressUpdate(GenericTask task, List<ListInfo> param) {
-                        if (param != null && !param.isEmpty()) {
-                            StringBuilder sb = new StringBuilder();
+                        if (param != null) {
+                            if (param.isEmpty()) {
+                                showAlert(_getString(R.string.notice_current_router_has_no_child_node), _getString(R.string.confirm), null);
+                                return;
+                            }
+
                             for (ListInfo listInfo : param) {
-//                                if (mInfoFromApp.getMac().equals(listInfo.getMac())) {
-                                if (WifiMacUtils.compareMac(mInfoFromApp.getMac(), listInfo.getMac())) {
+                                if (WifiMacUtils.compareMac(mNextPageItem.getT2().getMac(), listInfo.getMac())) {
                                     onFragmentLifeListener.onChanged(mNextPageItem);//前往下一页
                                     return;
                                 }
-                                sb.append(listInfo.getMac()).append(" / ");
                             }
-                            sb.deleteCharAt(sb.length() - 1);
-                            //TODO
-                            showAlertMacNotSame(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()), sb.toString());
+                            showAlert(getCurrentChildOfflineCharSequence(mNextPageItem.getT2().getDeviceNameOrMac()), _getString(R.string.confirm), null);
+                            return;
                         }
+
+                        //没有数据，提示数据错误并可点击重试
+                        showAlert(_getString(R.string.data_error), _getString(R.string.retry), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doGetPlcInfo();
+                            }
+                        }, _getString(R.string.cancel), null, true);
+
                     }
 
                     @Override
@@ -764,18 +787,36 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                     @Override
                     public void onProgressUpdate(GenericTask task, PLCInfo param) {
                         if (param != null) {
-                            if (param.getPlc_node() != null && !param.getPlc_node().isEmpty()) {
-                                for (PLCInfo.Dev_Info dev_info : param.getDev_info()) {
-                                    DeviceItem item = dev_info.turn2DeviceItem();
-//                                    if (mInfoFromApp.getMac().equals(item.getMac())) {
-                                    if (WifiMacUtils.compareMac(mInfoFromApp.getMac(), item.getMac())) {
-                                        onFragmentLifeListener.onChanged(mNextPageItem);//前往下一页
-                                        return;
+                            if (WifiMacUtils.compareMac(param.getDev_mac(), mInfoFromApp.getMac())) {
+                                //子节点，需要判断当前本地信息中含有此子节点
+                                boolean hasChild = false;
+                                if (param.getPlc_node() == null || param.getPlc_node().isEmpty()) {//提示当前不含有子节点
+                                    showAlert(_getString(R.string.notice_current_router_has_no_child_node), _getString(R.string.confirm), null);
+                                } else {
+                                    for (PLCInfo.PlcNode plcNode : param.getPlc_node()) {
+                                        if (WifiMacUtils.compareMac(mNextPageItem.getT2().getMac(), plcNode.getMac())) {
+                                            hasChild = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
+
+                                if (hasChild)
+                                    onFragmentLifeListener.onChanged(mNextPageItem);//前往下一页
+                                else
+                                    showAlert(getCurrentChildOfflineCharSequence(mNextPageItem.getT2().getDeviceNameOrMac()), _getString(R.string.confirm), null);
+                            } else
+                                showAlertMacNotSame(WifiMacUtils.macShownFormat(mInfoFromApp.getMac()), param.getDev_mac());
+                            return;
                         }
-                        showAlertMacNotSame(WifiMacUtils.macNoColon(mInfoFromApp.getMac()), "");
+
+                        //没有数据，提示数据错误并可点击重试
+                        showAlert(_getString(R.string.data_error), _getString(R.string.retry), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doGetPlcInfo();
+                            }
+                        }, _getString(R.string.cancel), null, true);
                     }
 
                     @Override
@@ -784,5 +825,14 @@ public class WifiHomeFragment extends BaseFragment<BaseBeen<EnumPage, Object>> i
                     }
                 })
         );
+    }
+
+    private CharSequence getCurrentChildOfflineCharSequence(String mac) {
+        String content = String.format(_getString(R.string.notice_current_child_offline), mac);
+        SpannableString ss = new SpannableString(content);
+        int start = content.indexOf('[');
+        int end = content.indexOf(']');
+        ss.setSpan(new ForegroundColorSpan(_getResources().getColor(R.color.colorPrimary)), start, end, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        return ss;
     }
 }

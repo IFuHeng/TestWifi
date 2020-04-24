@@ -65,6 +65,8 @@ public class MeshResponseAllBeen extends BaseResponseBeen {
      */
     private Integer quick_status;
 
+    private List<CustomerInfo> dev_list;
+
     public List<ListInfo> getMesh_clients() {
         return mesh_clients;
     }
@@ -141,6 +143,11 @@ public class MeshResponseAllBeen extends BaseResponseBeen {
         return quick_status;
     }
 
+
+    public List<CustomerInfo> getDev_list() {
+        return dev_list;
+    }
+
     @Override
     public String toString() {
         return "MeshResponseAllBeen{" +
@@ -163,9 +170,7 @@ public class MeshResponseAllBeen extends BaseResponseBeen {
                 ", pre_key_format=" + pre_key_format +
                 ", pre_key='" + pre_key + '\'' +
                 ", quick_status=" + quick_status +
-                ", err_code=" + err_code +
-                ", message='" + message + '\'' +
-                ", waite_time=" + waite_time +
+                ", dev_list=" + dev_list +
                 '}';
     }
 }
